@@ -1,10 +1,10 @@
 import pandas as pd
 
 input_files = {
-    "austin": "data/clean/austin_2021_2025_clean.csv",
-    "dallas": "data/clean/dallas_2021_2025_clean.csv",
-    "houston": "data/clean/houston_2021_2025_clean.csv",
-    "sanantonio": "data/clean/sanantonio_2021_2025_clean.csv",
+    "austin": "data/interim/austin_merge.csv",
+    "dallas": "data/interim/dallas_merge.csv",
+    "houston": "data/interim/houston_merge.csv",
+    "sanantonio": "data/interim/sanantonio_merge.csv",
 }
 
 dfs = []
@@ -95,7 +95,7 @@ statewide = statewide.round({
     "rain_flag": 0
 })
 
-output_path = "data/clean/texas_merge.csv"
+output_path = "data/interim/texas_merge.csv"
 statewide.to_csv(output_path, index=False)
 
 print(f"Saved statewide weather file: {output_path}")
