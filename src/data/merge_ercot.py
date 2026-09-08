@@ -2,7 +2,7 @@ import pandas as pd
 import glob
 import os
 
-files = sorted(glob.glob("data/ercot/*.xlsx"))
+files = sorted(glob.glob("data/raw/ercot/*.xlsx"))
 dfs = []
 
 for f in files:
@@ -25,6 +25,6 @@ merged["dayofweek"] = merged["Hour Ending"].dt.dayofweek
 merged["month"] = merged["Hour Ending"].dt.month
 merged["year"] = merged["Hour Ending"].dt.year
 
-os.makedirs("data/clean", exist_ok=True)
-merged.to_csv("data/clean/ercot_merge.csv", index=False)
+os.makedirs("data/interim", exist_ok=True)
+merged.to_csv("data/interim/ercot_merge.csv", index=False)
 print("Done! Final shape:", merged.shape)

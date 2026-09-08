@@ -20,9 +20,9 @@ keep_cols = [
     "HourlyPresentWeatherType"
 ]
 
-RAW_DIR ='data/noaa'
-CLEAN_DIR = 'data/clean'
-os.makedirs(CLEAN_DIR, exist_ok=True)
+RAW_DIR ='data/raw/noaa'
+INTERIM_DIR = 'data/interim'
+os.makedirs(INTERIM_DIR, exist_ok=True)
 
 num_cols = [
     "HourlyDryBulbTemperature",
@@ -62,7 +62,7 @@ for station, city in station_map.items():
     merged["HourlyPrecipitation"] = merged["HourlyPrecipitation"].fillna(0)
     merged["HourlyPresentWeatherType"] = merged["HourlyPresentWeatherType"].fillna("None")
 
-    out_path = f"{CLEAN_DIR}/{city}_2021_2025_clean.csv"
+    out_path = f"{INTERIM_DIR}/{city}_merge.csv"
     merged.to_csv(out_path, index=False)
 
     print(f"  → Saved: {out_path}")
