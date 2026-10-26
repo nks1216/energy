@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 input_files = {
     "austin": "data/interim/austin_merge.csv",
@@ -68,23 +69,44 @@ resampled_rain = (
 # merge back
 all_cities_resampled = pd.concat([resampled_numeric, resampled_rain], axis=1).reset_index()
 
-# Compute statewide averages across the four cities
+# Define population weight dictionary for the 4 major cities
+population_weights = {
+    "dallas": 0.3891,       # 0.389066
+    "houston": 0.3621,      # 0.362130
+    "sanantonio": 0.1296,   # 0.129629
+    "austin": 0.1192,       # 0.119176
+}
+
+# Map the weight column to the DataFrame
+all_cities_resampled["weight"] = all_cities_resampled["city"].map(population_weights)
+
+# Define function to compute weighted average grouped by DATE
+def weighted_mean(group):
+    w = group["weight"]
+    res = {}
+    for col in numeric_cols:
+        # Compute weighted average (excluding NaN values)
+        valid_idx = group[col].notna() & w.notna()
+        if valid_idx.sum() > 0:
+            res[col] = np.average(group.loc[valid_idx, col], weights=w[valid_idx])
+        else:
+            res[col] = np.nan
+            
+    # Compute population-weighted average for rain_flag (0 to 1 proportion)
+    valid_rain_idx = group["rain_flag"].notna() & w.notna()
+    if valid_rain_idx.sum() > 0:
+        res["rain_flag"] = np.average(group.loc[valid_rain_idx, "rain_flag"], weights=w[valid_rain_idx])
+    else:
+        res["rain_flag"] = 0.0
+        
+    return pd.Series(res)
+
+print("Computing population-weighted statewide weather averages...")
 statewide = (
-    all_cities_resampled
-    .groupby("DATE")
-    .agg({
-        "HourlyDryBulbTemperature": "mean",
-        "HourlyDewPointTemperature": "mean",
-        "HourlyRelativeHumidity": "mean",
-        "HourlyWindSpeed": "mean",
-        "HourlyWindDirection": "mean",
-        "HourlyPrecipitation": "mean",
-        "rain_flag": "max", # If any city reports precipitation, statewide = 1
-    })
-    .reset_index()
+    all_cities_resampled.groupby("DATE").apply(weighted_mean).reset_index()
 )
 
-# rounding for cleaner output
+# rounding for cleaner output (rain_flag is now a weighted proportion, so round to 3 decimals)
 statewide = statewide.round({
     "HourlyDryBulbTemperature": 2,
     "HourlyDewPointTemperature": 2,
@@ -92,7 +114,7 @@ statewide = statewide.round({
     "HourlyWindSpeed": 2,
     "HourlyWindDirection": 1,
     "HourlyPrecipitation": 3,
-    "rain_flag": 0
+    "rain_flag": 3
 })
 
 output_path = "data/interim/texas_merge.csv"
