@@ -12,3 +12,6 @@ Local Climatological Data V2
 | **Dallas**      | DFW     | DAL FTW WSCMO AIRPORT                  | **USW00003927** |
 | **Houston**     | IAH     | HOUSTON INTERCONTINENTAL AIRPORT       | **USW00012960** |
 | **San Antonio** | SAT     | SAN ANTONIO INTERNATIONAL AIRPORT      | **USW00012921** |
+
+
+should revise texas merge file by reflecting population weight!
