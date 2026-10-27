@@ -1,15 +1,18 @@
-# energy
+**Evaluating Temperature Sensitivity and Structural Growth in ERCOT Electricity Demand (2021–2025)**
 
+
+$$
+\ln(\text{Load}_t) = \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \gamma \cdot \text{Trend}_t + \text{Month/Day/Hour FE} + \varepsilon_t
+$$
 
 
 To capture the weather-driven component of the system-wide load, we construct a population-weighted temperature index based on the four major metropolitan statistical areas (MSAs)—Dallas, Houston, San Antonio, and Austin—which account for the vast majority of Texas's population and aggregated electricity consumption.
 
 Population weights are derived from the U.S. Census Bureau Annual Metropolitan Area Resident Population Estimates for Dallas-Fort Worth, Houston, San Antonio, and Austin MSAs, retrieved via FRED (Federal Reserve Economic Data). A fixed average share across the 2021–2025 sample period is applied to construct the population-weighted statewide weather indices.
 
-
 **< Data >**
 
-**ERCOT** 
+**ERCOT**
 
 Home > Grid Information > Load > Hourly Load Data Archives
 
