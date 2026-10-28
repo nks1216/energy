@@ -1,123 +1,148 @@
+from pathlib import Path
 import pandas as pd
-import numpy as np
 
-input_files = {
-    "austin": "data/interim/austin_merge.csv",
-    "dallas": "data/interim/dallas_merge.csv",
-    "houston": "data/interim/houston_merge.csv",
-    "sanantonio": "data/interim/sanantonio_merge.csv",
+
+# Script location: energy/src/data/merge_noaa_texas.py
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CITY_DIR = PROJECT_ROOT / "data" / "interim" / "city"
+OUTPUT_PATH = PROJECT_ROOT / "data" / "interim" / "texas_merge.csv"
+
+# These weights describe the four-city index, not all of Texas
+POPULATION_WEIGHTS = {
+    "dallas": 0.3891,
+    "houston": 0.3621,
+    "sanantonio": 0.1296,
+    "austin": 0.1192,
 }
 
-dfs = []
-
-for city, path in input_files.items():
-    print(f"Loading {city}: {path}")
-    df = pd.read_csv(path)
-
-    # Convert DATE column to datetime
-    df["DATE"] = pd.to_datetime(df["DATE"])
-
-    # Add city label for later grouping
-    df["city"] = city
-
-    dfs.append(df)
-
-all_cities = pd.concat(dfs, ignore_index=True)
-
-# Convert NOAA weather-type strings into a binary precipitation flag
-def rain_flag(x):
-    if pd.isna(x):
-        return 0
-
-    s = str(x).lower()
-
-    # Weather event keywords indicating precipitation or related conditions
-    rain_keywords = ["ra", "dz", "sn", "ts", "fg", "br", "up"]
-
-    # Return 1 if any keyword appears in the string
-    return 1 if any(k in s for k in rain_keywords) else 0
-
-all_cities["rain_flag"] = all_cities["HourlyPresentWeatherType"].apply(rain_flag)
-all_cities = all_cities.set_index("DATE")
-
-# numeric columns only (exclude rain_flag)
-numeric_cols = [
+NUMERIC_COLS = [
     "HourlyDryBulbTemperature",
     "HourlyDewPointTemperature",
     "HourlyRelativeHumidity",
     "HourlyWindSpeed",
-    "HourlyWindDirection",
-    "HourlyPrecipitation",
 ]
 
-# resample numeric columns to hourly intervals (fixes SPECI irregular timestamps)
-resampled_numeric = (
-    all_cities
-    .groupby("city")[numeric_cols]
-    .resample("1h")
-    .mean()
+# Preserve the source clock for now; this is not a UTC index
+HOURS = pd.date_range(
+    "2021-01-01",
+    "2025-12-31 23:00",
+    freq="h",
 )
 
-# resample rain_flag separately using max
-resampled_rain = (
-    all_cities
-    .groupby("city")["rain_flag"]
-    .resample("1h")
-    .max()
-)
 
-# merge back
-all_cities_resampled = pd.concat([resampled_numeric, resampled_rain], axis=1).reset_index()
+def read_hourly(path):
+    df = pd.read_csv(
+        path,
+        usecols=["DATE", "REPORT_TYPE"] + NUMERIC_COLS,
+    )
 
-# Define population weight dictionary for the 4 major cities
-population_weights = {
-    "dallas": 0.3891,       # 0.389066
-    "houston": 0.3621,      # 0.362130
-    "sanantonio": 0.1296,   # 0.129629
-    "austin": 0.1192,       # 0.119176
-}
+    df["DATE"] = pd.to_datetime(df["DATE"], errors="raise")
 
-# Map the weight column to the DataFrame
-all_cities_resampled["weight"] = all_cities_resampled["city"].map(population_weights)
+    if df["DATE"].isna().any():
+        raise ValueError(f"{path.name}: Missing timestamps")
 
-# Define function to compute weighted average grouped by DATE
-def weighted_mean(group):
-    w = group["weight"]
-    res = {}
-    for col in numeric_cols:
-        # Compute weighted average (excluding NaN values)
-        valid_idx = group[col].notna() & w.notna()
-        if valid_idx.sum() > 0:
-            res[col] = np.average(group.loc[valid_idx, col], weights=w[valid_idx])
-        else:
-            res[col] = np.nan
-            
-    # Compute population-weighted average for rain_flag (0 to 1 proportion)
-    valid_rain_idx = group["rain_flag"].notna() & w.notna()
-    if valid_rain_idx.sum() > 0:
-        res["rain_flag"] = np.average(group.loc[valid_rain_idx, "rain_flag"], weights=w[valid_rain_idx])
-    else:
-        res["rain_flag"] = 0.0
-        
-    return pd.Series(res)
+    if df["DATE"].dt.tz is not None:
+        raise ValueError(
+            f"{path.name}: Expected timestamps "
+            "in the original source clock"
+        )
 
-print("Computing population-weighted statewide weather averages...")
-statewide = (
-    all_cities_resampled.groupby("DATE").apply(weighted_mean).reset_index()
-)
+    # Use routine METAR observations for consistent hourly sampling
+    # Other report types remain available in the city files
+    report_type = df["REPORT_TYPE"].astype("string").str.strip()
 
-# rounding for cleaner output (rain_flag is now a weighted proportion, so round to 3 decimals)
-statewide = statewide.round({
-    "HourlyDryBulbTemperature": 2,
-    "HourlyDewPointTemperature": 2,
-    "HourlyRelativeHumidity": 2,
-    "HourlyWindSpeed": 2,
-    "HourlyWindDirection": 1,
-    "HourlyPrecipitation": 3,
-    "rain_flag": 3
-})
+    df = df.loc[
+        report_type.eq("FM-15").fillna(False)
+    ].copy()
 
-output_path = "data/interim/texas_merge.csv"
-statewide.to_csv(output_path, index=False)
+    if df.empty:
+        raise ValueError(
+            f"{path.name}: No FM-15 observations found"
+        )
 
-print(f"Saved statewide weather file: {output_path}")
+    for col in NUMERIC_COLS:
+        df[col] = pd.to_numeric(df[col], errors="raise")
+
+    # Average multiple routine reports at the same timestamp, if present
+    observations = (
+        df.groupby("DATE")[NUMERIC_COLS]
+        .mean()
+        .sort_index()
+    )
+
+    # A timestamp such as 00:53 belongs to [00:00, 01:00)
+    hourly = observations.resample(
+        "h",
+        closed="left",
+        label="left",
+    ).mean()
+
+    # Include entirely unobserved hours without filling their values
+    return hourly.reindex(HOURS)
+
+
+def combine_cities(city_hourly):
+    if abs(sum(POPULATION_WEIGHTS.values()) - 1.0) > 1e-8:
+        raise ValueError("Population weights must sum to one")
+
+    result = pd.DataFrame(index=HOURS)
+    result.index.name = "DATE"
+
+    for col in NUMERIC_COLS:
+        values = pd.DataFrame({
+            city: city_hourly[city][col]
+            for city in POPULATION_WEIGHTS
+        })
+
+        weights = pd.Series(POPULATION_WEIGHTS)
+
+        # Require all four cities; do not redistribute missing-city weights
+        result[col] = (
+            values.mul(weights, axis="columns")
+            .sum(axis=1, min_count=4)
+        )
+
+        # Record the number of cities with valid measurements
+        result[f"{col}_n_cities"] = values.notna().sum(axis=1)
+
+    return result
+
+
+def main():
+    city_hourly = {}
+
+    for city in POPULATION_WEIGHTS:
+        path = CITY_DIR / f"{city}_merge.csv"
+
+        print(f"Loading: {path}", flush=True)
+
+        city_hourly[city] = read_hourly(path)
+
+        print("Missing hourly values:")
+        print(
+            city_hourly[city].isna().sum().to_string()
+        )
+
+    result = combine_cities(city_hourly)
+
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    result.to_csv(
+        OUTPUT_PATH,
+        encoding="utf-8-sig",
+        date_format="%Y-%m-%d %H:%M:%S",
+        float_format="%.4f",
+    )
+
+    print(
+        f"\nSaved: {OUTPUT_PATH} "
+        f"({len(result):,} rows)"
+    )
+    print("Missing values in the four-city index:")
+    print(
+        result[NUMERIC_COLS].isna().sum().to_string()
+    )
+
+
+if __name__ == "__main__":
+    main()
