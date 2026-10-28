@@ -1,18 +1,20 @@
 **Evaluating Temperature Sensitivity and Structural Growth in ERCOT Electricity Demand (2021–2025)**
 
-
 $$
 \ln(\text{Load}_t) = \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \gamma \cdot \text{Trend}_t + \text{Month/Day/Hour FE} + \varepsilon_t
 $$
 
+**Extreme Temperatures, Electricity Demand, and Wholesale Prices in ERCOT, 2021–2025
+**
 
-To capture the weather-driven component of the system-wide load, we construct a population-weighted temperature index based on the four major metropolitan statistical areas (MSAs)—Dallas, Houston, San Antonio, and Austin—which account for the vast majority of Texas's population and aggregated electricity consumption.
+```math
+\ln(\text{P}_t) = \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \gamma \cdot \text{Trend}_t + \text{Month/Day/Hour FE} + \varepsilon_t
+```
 
-Population weights are derived from the U.S. Census Bureau Annual Metropolitan Area Resident Population Estimates for Dallas-Fort Worth, Houston, San Antonio, and Austin MSAs, retrieved via FRED (Federal Reserve Economic Data). A fixed average share across the 2021–2025 sample period is applied to construct the population-weighted statewide weather indices.
 
-**< Data >**
+**< Raw Data >**
 
-**ERCOT**
+**1. Electricity demand: ERCOT**
 
 Home > Grid Information > Load > Hourly Load Data Archives
 
@@ -20,7 +22,17 @@ Home > Grid Information > Load > Hourly Load Data Archives
 
 [2021 ERCOT Hourly Load Data](https://www.ercot.com/files/docs/2021/11/12/Native_Load_2021.zip "2021 ERCOT Hourly Load Data") ~ [2025 ERCOT Hourly Load Data](https://www.ercot.com/files/docs/2025/02/11/Native_Load_2025.zip "2025 ERCOT Hourly Load Data")
 
-**NOAA**
+
+**2. Electricity price: ERCOT**
+
+Home > Market Participants > EMIL > Data Product Details
+
+[www.ercot.com/mp/data-products/data-product-details?id=NP6-785-ER](https://www.ercot.com/mp/data-products/data-product-details?id=NP6-785-ER)
+
+RTMLZHBSPP_2021 ~ RTMLZHBSPP_2025
+
+
+**3. Temperature: NOAA**
 
 Local Climatological Data V2
 
@@ -33,7 +45,8 @@ Local Climatological Data V2
 | **Houston**     | IAH     | HOUSTON INTERCONTINENTAL AIRPORT       | **USW00012960** |
 | **San Antonio** | SAT     | SAN ANTONIO INTERNATIONAL AIRPORT      | **USW00012921** |
 
-**Population**
+
+**4. Population: FRED**
 
 FRED (Federal Reserve Economic Data)
 
@@ -45,3 +58,7 @@ FRED (Federal Reserve Economic Data)
 * **Houston MSA** :`HTNPOP`
 * **San Antonio MSA** :`SATPOP`
 * **Austin MSA** :`AUSPOP`
+
+To capture the weather-driven component of the system-wide load, we construct a population-weighted temperature index based on the four major metropolitan statistical areas (MSAs)—Dallas, Houston, San Antonio, and Austin—which account for the vast majority of Texas's population and aggregated electricity consumption.
+
+Population weights are derived from the U.S. Census Bureau Annual Metropolitan Area Resident Population Estimates for Dallas-Fort Worth, Houston, San Antonio, and Austin MSAs, retrieved via FRED (Federal Reserve Economic Data). A fixed average share across the 2021–2025 sample period is applied to construct the population-weighted statewide weather indices.
