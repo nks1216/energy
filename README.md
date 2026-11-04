@@ -90,4 +90,8 @@ Population weights are derived from the U.S. Census Bureau Annual Metropolitan A
 
 ERCOT
 
-DST 문제 발생
+DST 데이터가 있어서, 일단 DST 가 변하는 지점의 데이터 두 개 모두 살림
+
+Price
+
+The hourly real-time electricity price is calculated as the arithmetic average of four 15-minute settlement prices at the HB_HUBAVG settlement point.
