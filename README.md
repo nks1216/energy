@@ -1,3 +1,40 @@
+
+
+**How do weather conditions affect electricity demand and real-time electricity prices in ERCOT?**
+
+Introduction (3/4)
+
+Background and Literature Review (3/4)
+
+Theoretical Framework (1/2)
+
+Data and Methodology (3/4)
+
+Results and Analysis (1 1/4)
+
+
+| Variable         | Mean     | Std      | Min      | Max      | N     |
+| ---------------- | -------- | -------- | -------- | -------- | ----- |
+| ERCOT Load (MW)  | 50585.51 | 11118.26 | 27800.15 | 85464.12 | 43824 |
+| RT Price ($/MWh) | 63.61    | 449.19   | -34.83   | 9024.06  | 43824 |
+| Temperature (C)  | 21.16    | 8.78     | -13.78   | 41.46    | 43495 |
+| Humidity (%)     | 65.73    | 18.26    | 9.85     | 150.24   | 43493 |
+| Wind Speed       | 3.96     | 1.9      | 0.0      | 13.11    | 43443 |
+
+
+
+Policy Implications or Discussion (1/2)
+
+Conclusion (1/3)
+
+References (Seperate)
+
+
+
+
+
+
+
 **더운 날의 전력수요와 도매가격: ERCOT의 2021–2025년 자료 분석
 
 질문								사용할 자료
