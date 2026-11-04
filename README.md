@@ -1,6 +1,4 @@
-
 **더운 날의 전력수요와 도매가격: ERCOT의 2021–2025년 자료 분석
-
 
 질문								사용할 자료
 
@@ -8,19 +6,15 @@
 
 더운 날에는 전력가격이 얼마나 더 높은가? / 일평균 기온 + 일평균 도매가격
 
-
 **여름철 자료만 사용해서** , 비교적 덜 더운 날과 매우 더운 날을 비교
 
 기온 구간은 자료 분포를 확인한 뒤 정하고, 이후 간단한 회귀분석으로 연도·월·요일 차이를 고려
-
 
 예시:
 
 > 같은 여름철에도 매우 더운 날은 비교적 덜 더운 날보다 전력수요가 10% 높았고, 도매가격은 MWh당 20달러 높았다.
 
 **전력 사용량의 증가와 가격 부담의 증가를 함께 보여주므로 경제 분석이 분명해짐 / ** 다만 두 결과만으로 수요 증가가 가격 상승을 일으켰다고 확정하지는 않습니다.
-
-
 
 정책 논의는 결과에 맞추어 연결
 
@@ -31,7 +25,6 @@
  겨울 한파, 최고 가격, 습도·이슬점까지 한꺼번에 다루지 않기
 
  이슬점은 기본 분석이 끝난 뒤 결과가 유지되는지 확인하는 추가 변수로 두기
-
 
 **Evaluating Temperature Sensitivity and Structural Growth in ERCOT Electricity Demand (2021–2025)**
 
@@ -45,8 +38,6 @@ $$
 ```math
 \ln(\text{P}_t) = \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \gamma \cdot \text{Trend}_t + \text{Month/Day/Hour FE} + \varepsilon_t
 ```
-
-
 
 **< Raw Data >**
 
@@ -97,75 +88,6 @@ To capture the weather-driven component of the system-wide load, we construct a 
 Population weights are derived from the U.S. Census Bureau Annual Metropolitan Area Resident Population Estimates for Dallas-Fort Worth, Houston, San Antonio, and Austin MSAs, retrieved via FRED (Federal Reserve Economic Data). A fixed average share across the 2021–2025 sample period is applied to construct the population-weighted statewide weather indices.
 
 
+ERCOT
 
-
-
-
-ERCOT / price / NOAA cleaning
-Copy src/clean into your existing energy project. Keep all five .py files together: four are executable scripts and _common.py is their shared helper. Existing raw and interim files are read without modification.
-
-From the project root, with the existing virtual environment activated:
-python3 src/clean/clean_ercot.py
-python3 src/clean/clean_price.py
-python3 src/clean/clean_noaa.py
-python3 src/clean/merge_clean.py
-
-Dependencies: pandas >= 2.0, numpy, and the system IANA time-zone database.
-Inputs
-
-- data/interim/ercot_merge.csv
-- data/interim/price_merge.csv
-- data/interim/texas_merge.csv
-- data/interim/city/{austin,dallas,houston,sanantonio}_merge.csv
-  City files are needed only to verify the NOAA source clock from DATE and REM.
-  Outputs
-- data/clean/ercot_clean.csv
-- data/clean/price_clean.csv
-- data/clean/noaa_clean.csv
-- data/clean/energy_hourly.csv
-  The final file covers local delivery dates 2021-01-01 through 2025-12-31: 43,824 hours, with interval-start UTC timestamps as unique merge keys.
-
-The source NOAA file may cover a different UTC boundary; unmatched hours are reported and retained. No weather interpolation or complete-case deletion occurs.
-Time conventions
-
-- The first delivery hour is the interval starting at local 00:00.
-- HE24 is the interval starting at local 23:00 on the original delivery date.
-- UTC is used for joins; America/Chicago is used for calendar columns.
-- Spring and fall transition days have 23 and 25 rows respectively.
-- Price N/Y flags distinguish the first and second occurrence of nominal HE02.
-- Load rows within each original delivery date must remain in chronological source order. This is preserved by the supplied merge_ercot.py. The cleaner validates the full label sequence against nominal HE or actual end-clock labels. It does not guess the order of two identically labeled rows. Retain the original workbook order; do not sort repeated rows by a DST flag.
-- A missing, duplicate, unexpected, or differently labeled electricity hour causes an error before that cleaning output is saved. Annual counts alone are not used to assign timestamps.
-- NOAA hourly labels were already created as interval starts by the supplied merge_noaa_texas.py. The cleaner verifies a consistent source-to-UTC offset against METAR DDHHMMZ remarks across sampled months and all four cities. It accepts either an unshifted UTC clock or a fixed UTC-6 clock. If evidence is absent, inconsistent, or indicates another clock, it stops for inspection. This is a sampled empirical check, not a substitute for source metadata.
-- NOAA labels are never blindly localized to America/Chicago.
-  Units and interpretation
-  The expected weather inputs are standard LCDv2 bulk CSV files, consistent with the supplied LCD_USW... filenames and values: temperature and dew point in C, relative humidity in %, wind speed in m/s. No unit conversion is performed.
-
-If custom-order files were downloaded, confirm their selected units first. Do not use this assumption for legacy LCDv1 files in US customary units.
-
-price_mwh is the HB_HUBAVG hourly real-time price in dollars per MWh, not a retail rate. Negative and extreme prices remain unchanged.
-
-load_mw is system load in MW.
-
-Weather is a fixed population-weighted four-city index, not comprehensive ERCOT-territory weather. A weather value requires all four cities, as in the supplied merge_noaa_texas.py. Counts are retained separately for every variable.
-Quality flags
-
-- ercot_matched / price_matched / noaa_matched: timestamp matched a source row. A matched NOAA row can still contain missing measurements.
-- core_complete: load, price, and temperature are all nonmissing.
-- is_summer: June, July, or August; no rows are filtered based on this flag.
-- *_n_cities: number of valid contributing cities.
-- n_intervals: number of 15-minute price intervals; required to equal four.
-  Do not apply the earlier 20-observation daily rule here. Apply daily coverage rules when aggregating the final hourly file, using its local date column.
-
-Do not require 24 hours on daylight-saving transition days.
-
-Rebuild daily plots from this final file to align all three datasets.
-Validation performed before delivery
-Synthetic 2021-2025 calendar checks covered all ten transition days, HE24, negative prices, retained missing weather, and rejection of duplicate/missing price keys.
-
-A synthetic end-to-end run checked all four scripts, NOAA UTC/LST clock detection, and unique merged timestamps.
-
-The user's complete source CSVs were not available, so this is not a claim of successful processing of those files.
-References
-
-- NOAA LCDv2 documentation
-- ERCOT hour-label / time mapping examples
+DST 문제 발생
