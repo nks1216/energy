@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 import pandas as pd
 
 
@@ -27,6 +28,73 @@ WEATHER_COLS = [
 NUM_COLS = WEATHER_COLS[:-1]
 KEEP_COLS = ["DATE", "REPORT_TYPE", "REM"] + WEATHER_COLS
 
+# METAR observation time format: DDHHMMZ
+METAR_TIME_PATTERN = re.compile(r"(?<!\d)(\d{2})(\d{2})(\d{2})Z")
+
+
+def extract_utc_timestamp(date_value, remarks):
+    """
+    Extract the METAR UTC timestamp from REM.
+
+    DATE is retained as the original NOAA local timestamp.
+    The UTC timestamp is reconstructed using the METAR DDHHMMZ
+    information and the year/month inferred from DATE.
+
+    Returns NaT if no reliable candidate can be identified.
+    """
+
+    if pd.isna(remarks) or pd.isna(date_value):
+        return pd.NaT
+
+    matches = METAR_TIME_PATTERN.findall(str(remarks))
+
+    if not matches:
+        return pd.NaT
+
+    local_date = pd.Timestamp(date_value)
+    candidates = []
+
+    # Check the previous, current, and next month.
+    # This handles observations close to month boundaries.
+    for month_offset in [-1, 0, 1]:
+        month_date = local_date + pd.DateOffset(months=month_offset)
+
+        for day_str, hour_str, minute_str in matches:
+            day = int(day_str)
+            hour = int(hour_str)
+            minute = int(minute_str)
+
+            try:
+                candidate = pd.Timestamp(
+                    year=month_date.year,
+                    month=month_date.month,
+                    day=day,
+                    hour=hour,
+                    minute=minute,
+                )
+            except ValueError:
+                continue
+
+            # Texas local time is normally 5 or 6 hours
+            # behind UTC. Allow a wider 4–8 hour window.
+            difference = candidate - local_date
+
+            if pd.Timedelta(hours=4) <= difference <= pd.Timedelta(hours=8):
+                candidates.append(candidate)
+
+    if not candidates:
+        return pd.NaT
+
+    # Choose the candidate closest to the expected UTC offset.
+    best_candidate = min(
+        candidates,
+        key=lambda x: abs(
+            (x - local_date) - pd.Timedelta(hours=5.5)
+        ),
+    )
+
+    return best_candidate.tz_localize("UTC")
+
 
 def clean_file(path):
     # Read selected columns and keep precipitation markers as text
@@ -45,11 +113,12 @@ def clean_file(path):
             f"{path.name}: Missing required columns: {missing}"
         )
 
-    # Remarks are useful for checking observation times, but may be absent
+    # Remarks are useful for extracting observation times
     if "REM" not in df.columns:
         df["REM"] = pd.NA
 
     df = df[KEEP_COLS].copy()
+
     df["REPORT_TYPE"] = (
         df["REPORT_TYPE"].astype("string").str.strip()
     )
@@ -86,6 +155,12 @@ def clean_file(path):
         df["HourlyWindDirection"].between(0, 360)
     )
 
+    # Extract UTC timestamp from METAR remarks
+    df["utc_timestamp"] = [
+        extract_utc_timestamp(date_value, remarks)
+        for date_value, remarks in zip(df["DATE"], df["REM"])
+    ]
+
     return df
 
 
@@ -108,7 +183,7 @@ def main():
     INTERIM_DIR.mkdir(parents=True, exist_ok=True)
 
     for city, files in city_files.items():
-        print(f"Processing {city}...")
+        print(f"\nProcessing {city}...")
         frames = []
 
         for path in files:
@@ -128,17 +203,40 @@ def main():
         removed = before - len(merged)
 
         merged = (
-            merged.sort_values("DATE", kind="stable")
+            merged.sort_values(
+                ["DATE", "utc_timestamp"],
+                kind="stable",
+                na_position="last",
+            )
             .reset_index(drop=True)
         )
 
-        # Preserve different reports sharing the same timestamp
+        # Diagnostics
         same_time = merged["DATE"].duplicated(
             keep=False
         ).sum()
 
+        utc_success = merged["utc_timestamp"].notna().sum()
+        utc_missing = merged["utc_timestamp"].isna().sum()
+
         print(f"  Identical rows removed: {removed:,}")
-        print(f"  Rows sharing a timestamp: {same_time:,}")
+        print(f"  Rows sharing a local timestamp: {same_time:,}")
+        print(f"  UTC timestamps extracted: {utc_success:,}")
+        print(f"  UTC timestamps missing: {utc_missing:,}")
+
+        # Check whether different UTC timestamps are preserved
+        duplicated_local = merged[
+            merged["DATE"].duplicated(keep=False)
+        ]
+
+        if not duplicated_local.empty:
+            print("  Sample duplicated local timestamps:")
+            print(
+                duplicated_local[
+                    ["DATE", "utc_timestamp",
+                     "HourlyDryBulbTemperature"]
+                ].head(10).to_string(index=False)
+            )
 
         out_path = INTERIM_DIR / f"{city}_merge.csv"
 
@@ -152,7 +250,7 @@ def main():
         print("  Missing numeric values:")
         print(merged[NUM_COLS].isna().sum().to_string())
 
-    print("All cities processed successfully.")
+    print("\nAll cities processed successfully.")
 
 
 if __name__ == "__main__":
