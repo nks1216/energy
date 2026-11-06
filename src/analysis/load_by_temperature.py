@@ -12,18 +12,24 @@ df["temp_bin"] = (
 )
 
 # Calculate average load by temperature bin
-avg_load = (
-    df.groupby("temp_bin")["ERCOT"]
-      .mean()
+temp_stats = (
+    df.groupby("temp_bin")
+      .agg(
+          avg_load=("ERCOT", "mean"),
+          count=("ERCOT", "size")
+      )
       .reset_index()
 )
+
+# Remove bins with fewer than 50 observations
+temp_stats = temp_stats[temp_stats["count"] >= 50]
 
 # Plot
 plt.figure(figsize=(8, 6))
 
 plt.plot(
-    avg_load["temp_bin"],
-    avg_load["ERCOT"],
+    temp_stats["temp_bin"],
+    temp_stats["avg_load"],
     linewidth=2.5,
     color="steelblue"
 )
