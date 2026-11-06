@@ -1,6 +1,4 @@
-
-
-**How do weather conditions affect electricity demand and real-time electricity prices in ERCOT?**
+**How does weather affect ERCOT electricity demand and wholesale electricity prices?**
 
 Introduction (3/4)
 
@@ -12,7 +10,6 @@ Data and Methodology (3/4)
 
 Results and Analysis (1 1/4)
 
-
 | Variable         | Mean     | Std      | Min      | Max      | N     |
 | ---------------- | -------- | -------- | -------- | -------- | ----- |
 | ERCOT Load (MW)  | 50585.51 | 11118.26 | 27800.15 | 85464.12 | 43824 |
@@ -23,17 +20,19 @@ Results and Analysis (1 1/4)
 
 
 
+![1794003137004](image/README/1794003137004.png)
+
+Figure 1 shows the relationship between temperature and ERCOT electricity demand. Electricity demand is lowest at approximately 15-18°C and increases as temperatures become either colder or hotter. This creates a clear U-shaped relationship between temperature and electricity demand.
+
+![1794004029591](image/README/1794004029591.png)
+
+Figure 2 confirms the U-shaped relationship observed in Figure 1. Average electricity demand is lowest around 15-17°C and rises as temperatures move away from this range. The increase in demand is larger during very hot weather than during very cold weather, suggesting that air-conditioning demand plays an important role in ERCOT electricity consumption.
+
 Policy Implications or Discussion (1/2)
 
 Conclusion (1/3)
 
 References (Seperate)
-
-
-
-
-
-
 
 **더운 날의 전력수요와 도매가격: ERCOT의 2021–2025년 자료 분석
 
@@ -123,7 +122,6 @@ FRED (Federal Reserve Economic Data)
 To capture the weather-driven component of the system-wide load, we construct a population-weighted temperature index based on the four major metropolitan statistical areas (MSAs)—Dallas, Houston, San Antonio, and Austin—which account for the vast majority of Texas's population and aggregated electricity consumption.
 
 Population weights are derived from the U.S. Census Bureau Annual Metropolitan Area Resident Population Estimates for Dallas-Fort Worth, Houston, San Antonio, and Austin MSAs, retrieved via FRED (Federal Reserve Economic Data). A fixed average share across the 2021–2025 sample period is applied to construct the population-weighted statewide weather indices.
-
 
 ERCOT
 
