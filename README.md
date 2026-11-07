@@ -8,7 +8,6 @@
 
 #### Data and Methodology (3/4)
 
-#### Results and Analysis (1 1/4)
 
 | Variable         | Mean     | Std      | Min      | Max      | N     |
 | ---------------- | -------- | -------- | -------- | -------- | ----- |
@@ -17,6 +16,10 @@
 | Temperature (C)  | 21.16    | 8.78     | -13.78   | 41.46    | 43495 |
 | Humidity (%)     | 65.73    | 18.26    | 9.85     | 150.24   | 43493 |
 | Wind Speed       | 3.96     | 1.9      | 0.0      | 13.11    | 43443 |
+
+Weather observations were obtained from NOAA and merged with ERCOT hourly load and price data. Relative humidity values outside the physically plausible range of 0-100% were identified as data errors and excluded from the regression sample. The number of affected observations was very small and did not materially affect the empirical results.
+
+#### Results and Analysis (1 1/4)
 
 ![1794004824051](image/README/1794004824051.png)
 
