@@ -35,24 +35,34 @@ Heating and cooling degree variables are constructed using a base temperature of
 * CDD = Cooling Degree Days
 * HDD = Heating Degree Days
 
-
 Bins with fewer than 50 observations were excluded, and only observations with positive Heating Degree Days (HDD > 0) were retained. Since HDD values were rounded to the nearest integer for plotting, the HDD = 0 bin corresponds to observations with small positive HDD values rather than observations with zero heating demand.
 
 Average ERCOT load increases monotonically with both cooling and heating degree days. However, the relationship is considerably steeper for CDD than for HDD, suggesting that electricity demand in Texas is more sensitive to cooling needs than to heating needs. The pattern is consistent with the state's heavy reliance on air conditioning during hot weather.
 
+ERCOT Load and Electricity Prices by Cooling Degree Days (CDD)
 
 ![1794017587019](image/README/1794017587019.png)
 
-![1794017596423](image/README/1794017596423.png)
-
-ERCOT Load and Electricity Prices by Cooling Degree Days (CDD)
-
 Bins with fewer than 50 observations were excluded. CDD values were rounded to the nearest integer for visualization, and only observations with positive CDD values were retained.
 
-Average ERCOT load increases steadily with CDD, indicating higher electricity demand during hotter weather. Both average and median real-time (RT) prices also increase with CDD. However, average RT prices rise much more sharply than median RT prices at high CDD levels, suggesting that extreme heat is associated with occasional scarcity-pricing events and price spikes in the ERCOT market.
+Figure 4 shows a strong positive relationship between cooling degree days (CDD), electricity demand, and real-time electricity prices. Average ERCOT load increases steadily with CDD, indicating higher electricity demand during hotter weather. Both average and median RT prices also rise with CDD. However, average RT prices increase much more sharply than median RT prices at high CDD levels, suggesting that extreme heat is associated with occasional scarcity-pricing events and price spikes in the ERCOT market.
+
+
+ERCOT Load and Electricity Prices by Heating Degree Days (HDD)
+
+![1794021768921](image/README/1794021768921.png)
+
+Bins with fewer than 50 observations were excluded. HDD values were rounded to the nearest integer for visualization, and only observations with positive HDD values were retained.
+
+Figure 5 shows that both ERCOT electricity demand and median real-time prices increase with heating degree days (HDD). Average ERCOT load rises from approximately 41 GW at low HDD levels to more than 63 GW at high HDD levels, reflecting higher electricity demand during colder weather. Median RT prices also increase from about $20/MWh to nearly $80/MWh as HDD rises. These results suggest that cold-weather conditions place upward pressure on both electricity demand and wholesale electricity prices in ERCOT.
+
 
 
 Policy Implications or Discussion (1/2)
+
+While median prices increase gradually with both CDD and HDD, average prices rise much more sharply during extreme weather conditions, indicating the presence of occasional but substantial price spikes. This finding highlights the importance of adequate reserve capacity, demand response programs, and grid resilience measures to mitigate the risk of extreme market outcomes
+
+While this study focuses on ERCOT, future research could compare these relationships with electricity markets in other countries such as South Korea, where market design, fuel mix, and weather patterns differ substantially.
 
 Conclusion (1/3)
 
@@ -154,3 +164,10 @@ DST 데이터가 있어서, 일단 DST 가 변하는 지점의 데이터 두 개
 Price
 
 The hourly real-time electricity price is calculated as the arithmetic average of four 15-minute settlement prices at the HB_HUBAVG settlement point.
+
+
+##### Appendix
+
+![1794021885560](image/README/1794021885560.png)![1794021899552](image/README/1794021899552.png)
+
+Appendix Figures A1 and A2 show that mean prices increase substantially more than median prices at high HDD and CDD values, indicating the presence of extreme price spikes during severe weather events.
