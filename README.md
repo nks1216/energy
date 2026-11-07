@@ -8,6 +8,7 @@
 
 #### Data and Methodology (3/4)
 
+	
 
 | Variable         | Mean     | Std      | Min      | Max      | N     |
 | ---------------- | -------- | -------- | -------- | -------- | ----- |
@@ -60,9 +61,10 @@ Figure 5 shows that both ERCOT electricity demand and median real-time prices in
 
 
 
+Loadt=β0+β1CDDt****+β2HDDt****+β3Humidityt****+β4Windt****+HourFE+MonthFE+εt
 
 
-### Table 1. Determinants of ERCOT Electricity Demand
+Table 2. Determinants of ERCOT Electricity Demand
 
 | Variable   | Coefficient | Std. Error | p-value |
 | ---------- | ----------- | ---------- | ------- |
@@ -75,8 +77,26 @@ Figure 5 shows that both ERCOT electricity demand and median real-time prices in
 | R²        | 0.829       |            |         |
 | N          | 43,426      |            |         |
 
-Table 1 reports the regression results. Both CDD and HDD have positive and statistically significant effects on electricity demand. The coefficient on CDD (1,696.6) is larger than that on HDD (946.6), suggesting that demand is more sensitive to hot weather than cold weather.
+Table reports the regression results. Both CDD and HDD have positive and statistically significant effects on electricity demand. The coefficient on CDD (1,696.6) is larger than that on HDD (946.6), suggesting that demand is more sensitive to hot weather than cold weather.
 
+
+Pricet=β0+β1CDDt****+β2HDDt****+β3Humidityt****+β4Windt****+HourFE**+MonthFE+εt
+
+Table 3. Determinants of Real-time Log Electricity Prices
+
+| Variable     | Coefficient | Std. Error |
+| ------------ | ----------- | ---------- |
+| CDD          | 0.0359***   | 0.0024     |
+| HDD          | 0.0500***   | 0.0074     |
+| Humidity     | 0.0023***   | 0.0007     |
+| Wind Speed   | -0.0203***  | 0.0044     |
+| Hour FE      | Yes         |            |
+| Month FE     | Yes         |            |
+| HAC SE       | Yes         |            |
+| Observations | 43,426      |            |
+| R²          | 0.245       |            |
+
+The regression results indicate that both cooling and heating demand significantly increase ERCOT real-time electricity prices. While higher temperatures raise prices through increased air-conditioning demand, cold-weather conditions exert an even stronger impact on prices, with the HDD coefficient exceeding that of CDD. Electricity prices also display pronounced evening peaks and decline with higher wind speeds, highlighting the importance of renewable energy availability in the Texas electricity market.
 
 
 #### Policy Implications or Discussion (1/2)

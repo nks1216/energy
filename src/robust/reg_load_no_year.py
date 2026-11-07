@@ -37,15 +37,13 @@ cols = [
     "month",
 ]
 
-df = df[cols].dropna()
-
-print(f"\nRegression sample size: {len(df):,}")
-
 print("Before dropna:", len(df))
 
 df = df[cols].dropna()
 
 print("After dropna:", len(df))
+
+print(f"\nRegression sample size: {len(df):,}")
 
 # --------------------------------------------------
 # Model 4
@@ -112,3 +110,5 @@ print("report/table/reg_load_summary.txt")
 print("report/table/reg_load_coef.csv")
 print("report/table/reg_load_stats.txt")
 
+print("\nERCOT Load Summary:")
+print(df["ERCOT"].describe())
