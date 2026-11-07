@@ -13,3 +13,11 @@ count_by_temp = (
 )
 
 print(count_by_temp)
+
+temp_count = (
+    df.groupby("temp_bin")
+      .size()
+      .reset_index(name="count")
+)
+
+print(temp_count)
