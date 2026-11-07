@@ -1,17 +1,17 @@
+from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
-from pathlib import Path
 
 # Load dataset
 df = pd.read_csv("data/final/final_data.csv")
 
-# Create temperature bins (1°C intervals)
+# Create temperature bins (1°F intervals)
 df["temp_bin"] = (
     df["HourlyDryBulbTemperature"]
     .round(0)
 )
 
-# Calculate average load by temperature bin
+# Calculate average load and count by temperature bin
 temp_stats = (
     df.groupby("temp_bin")
       .agg(
@@ -22,7 +22,9 @@ temp_stats = (
 )
 
 # Remove bins with fewer than 50 observations
-temp_stats = temp_stats[temp_stats["count"] >= 50]
+temp_stats = temp_stats[
+    temp_stats["count"] >= 50
+]
 
 # Plot
 plt.figure(figsize=(8, 6))
@@ -30,8 +32,7 @@ plt.figure(figsize=(8, 6))
 plt.plot(
     temp_stats["temp_bin"],
     temp_stats["avg_load"],
-    linewidth=2.5,
-    color="steelblue"
+    linewidth=2
 )
 
 plt.xlabel("Temperature (°C)")
@@ -44,7 +45,7 @@ plt.grid(alpha=0.3)
 output_dir = Path("report/graph")
 output_dir.mkdir(parents=True, exist_ok=True)
 
-output_file = output_dir / "load_by_temperature.png"
+output_file = output_dir / "load_by_temp.png"
 
 plt.savefig(
     output_file,

@@ -20,13 +20,16 @@ Results and Analysis (1 1/4)
 
 
 
-![1794003137004](image/README/1794003137004.png)
+![1794004824051](image/README/1794004824051.png)
 
 Figure 1 shows the relationship between temperature and ERCOT electricity demand. Electricity demand is lowest at approximately 15-18°C and increases as temperatures become either colder or hotter. This creates a clear U-shaped relationship between temperature and electricity demand.
 
-![1794004029591](image/README/1794004029591.png)
+![1794007482405](image/README/1794007482405.png)
 
 Figure 2 confirms the U-shaped relationship observed in Figure 1. Average electricity demand is lowest around 15-17°C and rises as temperatures move away from this range. The increase in demand is larger during very hot weather than during very cold weather, suggesting that air-conditioning demand plays an important role in ERCOT electricity consumption.
+
+![1794007648261](image/README/1794007648261.png)Figure 3. Median ERCOT real-time electricity price by temperature. Temperature bins with fewer than 50 observations were excluded. Prices are based on ERCOT RTMLZHBSPP settlement point prices for 2021-2025
+
 
 Policy Implications or Discussion (1/2)
 
