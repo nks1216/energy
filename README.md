@@ -18,8 +18,6 @@ Results and Analysis (1 1/4)
 | Humidity (%)     | 65.73    | 18.26    | 9.85     | 150.24   | 43493 |
 | Wind Speed       | 3.96     | 1.9      | 0.0      | 13.11    | 43443 |
 
-
-
 ![1794004824051](image/README/1794004824051.png)
 
 Figure 1 shows the relationship between temperature and ERCOT electricity demand. Electricity demand is lowest at approximately 15-18°C and increases as temperatures become either colder or hotter. This creates a clear U-shaped relationship between temperature and electricity demand.
@@ -32,21 +30,26 @@ Figure 2 confirms the U-shaped relationship observed in Figure 1. Average electr
 
 Figure 3. Median ERCOT real-time electricity price by temperature. Temperature bins with fewer than 50 observations were excluded. Prices are based on ERCOT RTMLZHBSPP settlement point prices for 2021-2025
 
-Heating and cooling degree variables are constructed using a base temperature of 18°C.  
+Heating and cooling degree variables are constructed using a base temperature of 18°C.
 
 * CDD = Cooling Degree Days
 * HDD = Heating Degree Days
 
-![1794015167697](image/README/1794015167697.png)
-
-![1794015185007](image/README/1794015185007.png)
-
-
-To improve the reliability of the averages, bins with fewer than 50 observations were excluded. In addition, only observations with positive Cooling Degree Days (CDD > 0) were retained. Because CDD values were rounded to the nearest integer for visualization, the CDD = 0 bin represents observations with small but positive CDD values rather than observations with zero cooling demand.
 
 Bins with fewer than 50 observations were excluded, and only observations with positive Heating Degree Days (HDD > 0) were retained. Since HDD values were rounded to the nearest integer for plotting, the HDD = 0 bin corresponds to observations with small positive HDD values rather than observations with zero heating demand.
 
 Average ERCOT load increases monotonically with both cooling and heating degree days. However, the relationship is considerably steeper for CDD than for HDD, suggesting that electricity demand in Texas is more sensitive to cooling needs than to heating needs. The pattern is consistent with the state's heavy reliance on air conditioning during hot weather.
+
+
+![1794017587019](image/README/1794017587019.png)
+
+![1794017596423](image/README/1794017596423.png)
+
+ERCOT Load and Electricity Prices by Cooling Degree Days (CDD)
+
+Bins with fewer than 50 observations were excluded. CDD values were rounded to the nearest integer for visualization, and only observations with positive CDD values were retained.
+
+Average ERCOT load increases steadily with CDD, indicating higher electricity demand during hotter weather. Both average and median real-time (RT) prices also increase with CDD. However, average RT prices rise much more sharply than median RT prices at high CDD levels, suggesting that extreme heat is associated with occasional scarcity-pricing events and price spikes in the ERCOT market.
 
 
 Policy Implications or Discussion (1/2)
