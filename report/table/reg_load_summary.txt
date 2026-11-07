@@ -4,7 +4,7 @@ Dep. Variable:                  ERCOT   R-squared:                       0.829
 Model:                            OLS   Adj. R-squared:                  0.829
 Method:                 Least Squares   F-statistic:                     1496.
 Date:                Sat, 07 Nov 2026   Prob (F-statistic):               0.00
-Time:                        14:51:46   Log-Likelihood:            -4.2789e+05
+Time:                        16:27:49   Log-Likelihood:            -4.2789e+05
 No. Observations:               43426   AIC:                         8.559e+05
 Df Residuals:                   43387   BIC:                         8.562e+05
 Df Model:                          38                                         
