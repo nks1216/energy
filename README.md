@@ -55,6 +55,27 @@ HDD values were rounded to the nearest integer for visualization, and only obser
 
 Figure 5 shows that both ERCOT electricity demand and median real-time prices increase with heating degree days (HDD). Average ERCOT load rises from approximately 41 GW at low HDD levels to more than 63 GW at high HDD levels, reflecting higher electricity demand during colder weather. Median RT prices also increase from about $20/MWh to nearly $80/MWh as HDD rises. These results suggest that cold-weather conditions place upward pressure on both electricity demand and wholesale electricity prices in ERCOT.
 
+
+
+
+
+### Table 1. Determinants of ERCOT Electricity Demand
+
+| Variable   | Coefficient | Std. Error | p-value |
+| ---------- | ----------- | ---------- | ------- |
+| CDD        | 1696.57     | 27.85      | <0.001  |
+| HDD        | 946.58      | 39.58      | <0.001  |
+| Humidity   | 25.54       | 6.01       | <0.001  |
+| Wind Speed | 225.14      | 45.17      | <0.001  |
+| Hour FE    | Yes         |            |         |
+| Month FE   | Yes         |            |         |
+| R²        | 0.829       |            |         |
+| N          | 43,426      |            |         |
+
+Table 1 reports the regression results. Both CDD and HDD have positive and statistically significant effects on electricity demand. The coefficient on CDD (1,696.6) is larger than that on HDD (946.6), suggesting that demand is more sensitive to hot weather than cold weather.
+
+
+
 #### Policy Implications or Discussion (1/2)
 
 While median prices increase gradually with both CDD and HDD, average prices rise much more sharply during extreme weather conditions, indicating the presence of occasional but substantial price spikes. This finding highlights the importance of adequate reserve capacity, demand response programs, and grid resilience measures to mitigate the risk of extreme market outcomes
@@ -167,3 +188,8 @@ The hourly real-time electricity price is calculated as the arithmetic average o
 ![1794021885560](image/README/1794021885560.png)![1794021899552](image/README/1794021899552.png)
 
 Appendix Figures A1 and A2 show that mean prices increase substantially more than median prices at high HDD and CDD values, indicating the presence of extreme price spikes during severe weather events.
+
+As a robustness check, the regression was re-estimated after excluding the Winter Storm Uri period (February 13-20, 2021). While the HDD coefficient increased modestly, the overall results remained largely unchanged. This suggests that the main findings are not driven by the extreme conditions associated with Winter Storm Uri.
+
+
+OLS results
