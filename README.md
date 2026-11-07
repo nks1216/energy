@@ -28,7 +28,25 @@ Figure 1 shows the relationship between temperature and ERCOT electricity demand
 
 Figure 2 confirms the U-shaped relationship observed in Figure 1. Average electricity demand is lowest around 15-17°C and rises as temperatures move away from this range. The increase in demand is larger during very hot weather than during very cold weather, suggesting that air-conditioning demand plays an important role in ERCOT electricity consumption.
 
-![1794007648261](image/README/1794007648261.png)Figure 3. Median ERCOT real-time electricity price by temperature. Temperature bins with fewer than 50 observations were excluded. Prices are based on ERCOT RTMLZHBSPP settlement point prices for 2021-2025
+![1794007648261](image/README/1794007648261.png)
+
+Figure 3. Median ERCOT real-time electricity price by temperature. Temperature bins with fewer than 50 observations were excluded. Prices are based on ERCOT RTMLZHBSPP settlement point prices for 2021-2025
+
+Heating and cooling degree variables are constructed using a base temperature of 18°C.  
+
+* CDD = Cooling Degree Days
+* HDD = Heating Degree Days
+
+![1794015167697](image/README/1794015167697.png)
+
+![1794015185007](image/README/1794015185007.png)
+
+
+To improve the reliability of the averages, bins with fewer than 50 observations were excluded. In addition, only observations with positive Cooling Degree Days (CDD > 0) were retained. Because CDD values were rounded to the nearest integer for visualization, the CDD = 0 bin represents observations with small but positive CDD values rather than observations with zero cooling demand.
+
+Bins with fewer than 50 observations were excluded, and only observations with positive Heating Degree Days (HDD > 0) were retained. Since HDD values were rounded to the nearest integer for plotting, the HDD = 0 bin corresponds to observations with small positive HDD values rather than observations with zero heating demand.
+
+Average ERCOT load increases monotonically with both cooling and heating degree days. However, the relationship is considerably steeper for CDD than for HDD, suggesting that electricity demand in Texas is more sensitive to cooling needs than to heating needs. The pattern is consistent with the state's heavy reliance on air conditioning during hot weather.
 
 
 Policy Implications or Discussion (1/2)
