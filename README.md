@@ -1,8 +1,8 @@
-# How does weather affect ERCOT electricity demand and prices?
+# How does weather affect Texas electricity demand and prices?
 
 ### 1. Introduction (3/4)
 
-2021년~2025년 
+2021년~2025년
 
 ### 2. Background and Literature Review (3/4)
 
@@ -10,14 +10,11 @@
 
 ### 4. Data and Methodology (3/4)
 
-
-
 **Data.** We use hourly data from January 1, 2021 to December 31, 2025. Electricity demand is ERCOT system-wide hourly load (MW). Prices are ERCOT real-time settlement point prices at the hub-average settlement point (HB_HUBAVG), reported in $/MWh at 15-minute intervals; we aggregate them to hourly values by taking the arithmetic mean of the four intervals within each hour.
 
 Weather data come from NOAA hourly airport observations of temperature (°C), relative humidity (%), and wind speed (m/s) at four major Texas cities: Dallas–Fort Worth, Houston, San Antonio, and Austin. We aggregate them into a statewide measure using population weights of 0.3891, 0.3621, 0.1296, and 0.1192, respectively, based on the 2021–2025 average metropolitan-area population (U.S. Census Bureau, via FRED). We match weather observations to ERCOT hours using UTC timestamps, so that daylight saving transitions create neither gaps nor duplicates.
 
 We exclude the final hour of the sample (hour ending 24:00 on December 31, 2025), 395 hours (0.9%) with missing weather data at any of the four airports, which we do not impute, and three hours with physically impossible relative humidity values (outside 0–100%). The load regression therefore uses 43,425 hourly observations. Because the logarithm is undefined for non-positive values, the price regression additionally excludes 924 hours (2.1%) with zero or negative prices, leaving 42,505 observations; its estimates therefore describe hours with positive prices. Table 1 reports summary statistics for these samples.
-
 
 **Table 1. Summary statistics, hourly observations, 2021–2025**
 
@@ -34,7 +31,6 @@ We exclude the final hour of the sample (hour ending 24:00 on December 31, 2025)
 
 *Notes:* The sample is the load regression sample (N = 43,425 hours (observations)). The second price row is the sample for the price regression (hours with positive prices). Weather variables are population-weighted averages of four airport stations. CDD and HDD are degree-hours relative to 18°C. Sources: ERCOT, NOAA, U.S. Census Bureau (via FRED).
 
-
 **Empirical strategy.** Heating and cooling degree variables are defined relative to a base temperature of 18°C, close to the 65°F (≈18.3°C) base used in NOAA’s degree-day products, and within the range where load is lowest in our data **(Figure 1)**:
 
 CDD_t = max(T_t − 18, 0), HDD_t = max(18 − T_t, 0).
@@ -45,7 +41,6 @@ ln(Y_t) = β₀ + β₁CDD_t + β₂HDD_t + β₃Humidity_t + β₄WindSpeed_t +
 
 where Y_t is either ERCOT load or the real-time price, and α_h, γ_m, and δ_y are hour-of-day, month-of-year, and year fixed effects. Hour and month effects absorb intraday and seasonal patterns, and year effects absorb trends in demand and market conditions over 2021–2025. Standard errors are heteroskedasticity- and autocorrelation-consistent (HAC) with 24 lags. Coefficients are interpreted approximately as the percentage change in Y associated with one additional degree-hour. We test whether β₁ = β₂ to compare sensitivity to heat and cold.
 
-
 ### 5. Results and Analysis (1 1/4)
 
 ![1794114251178](image/README/1794114251178.png)
@@ -54,38 +49,18 @@ where Y_t is either ERCOT load or the real-time price, and α_h, γ_m, and δ_y 
 
 Figure 1 shows that both load and price are lowest at mild temperatures (about 14–19°C) and rise when the weather gets hotter or colder. The rise in load is bigger on the hot side. Load is about 81,000 MW at 39°C but only about 63,000 MW at −4°C, even though −4°C is slightly farther from the 18°C base (22°C versus 21°C). Prices also rise at both extremes, reaching about $97/MWh at 39°C and $79/MWh at −4°C, and the gap between hot and cold is smaller than for load. The hottest and coldest bins have few observations (94 at 39°C and 82 at −4°C), so we read them with caution. These patterns motivate using separate heating and cooling terms in the regressions below.
 
+Because real-time prices are highly right-skewed (Table 1: standard deviation of $451/MWh versus a mean of $64/MWh, about seven times larger), the figures show medians rather than means.
 
+![1794161336850](image/README/1794161336850.png)
 
-Heating and cooling degree variables are constructed using a base temperature of 18°C.
+**Figure 2.** Average ERCOT load (a) and median real-time price (b) by degree-hours above (CDD, hot weather) or below (HDD, cold weather) the 18°C base temperature. Degree-hours are rounded to the nearest integer, so bin k corresponds to a temperature of 18+k°C (CDD) or 18−k°C (HDD), as in Figure 1. Hours with fewer than 0.5 degree-hours and bins with fewer than 50 observations are not shown. Sources: ERCOT, NOAA; authors’ calculations.
 
-* CDD = Cooling Degree Days
-* HDD = Heating Degree Days
-
-Bins with fewer than 50 observations were excluded, and only observations with positive Heating Degree Days (HDD > 0) were retained. Since HDD values were rounded to the nearest integer for plotting, the HDD = 0 bin corresponds to observations with small positive HDD values rather than observations with zero heating demand.
-
-Average ERCOT load increases monotonically with both cooling and heating degree days. However, the relationship is considerably steeper for CDD than for HDD, suggesting that electricity demand in Texas is more sensitive to cooling needs than to heating needs. The pattern is consistent with the state's heavy reliance on air conditioning during hot weather.
-
-ERCOT Load and Electricity Prices by Cooling Degree Days (CDD)
-
-![1794017587019](image/README/1794017587019.png)
-
-Bins with fewer than 50 observations were excluded. CDD values were rounded to the nearest integer for visualization, and only observations with positive CDD values were retained. As a result of the rounding procedure, the bin labeled CDD = 0 represents observations with small but positive CDD values (i.e., 0<CDD<0.50), rather than observations with zero cooling degree days.
-
-Figure 4 shows a strong positive relationship between cooling degree days (CDD), electricity demand, and real-time electricity prices. Average ERCOT load increases steadily with CDD, indicating higher electricity demand during hotter weather. Both average and median RT prices also rise with CDD. However, average RT prices increase much more sharply than median RT prices at high CDD levels, suggesting that extreme heat is associated with occasional scarcity-pricing events and price spikes in the ERCOT market.
-
-ERCOT Load and Electricity Prices by Heating Degree Days (HDD)
-
-![1794021768921](image/README/1794021768921.png)
-
-HDD values were rounded to the nearest integer for visualization, and only observations with positive HDD values were retained. Consequently, the bin labeled HDD = 0 represents observations with small but positive HDD values (0<HDD<0.50) generated by the rounding procedure.
-
-Figure 5 shows that both ERCOT electricity demand and median real-time prices increase with heating degree days (HDD). Average ERCOT load rises from approximately 41 GW at low HDD levels to more than 63 GW at high HDD levels, reflecting higher electricity demand during colder weather. Median RT prices also increase from about $20/MWh to nearly $80/MWh as HDD rises. These results suggest that cold-weather conditions place upward pressure on both electricity demand and wholesale electricity prices in ERCOT.
+Figure 2 plots the same variables against degree-hours above (hot) or below (cold) the 18°C base. At the same number of degree-hours, load is higher on the hot side. For example, at 15 degree-hours, average load is about 69,500 MW for CDD but about 51,900 MW for HDD, and the gap widens as degree-hours increase. Median prices are similar at low degree-hours (about $26 and $25 at 10 degree-hours) but diverge at higher levels, with about $38 for CDD and $29 for HDD at 15 degree-hours. The highest bins contain relatively few observations, so we do not rely on them (94 observations for CDD at 21 and 82 for HDD at 22). The load pattern is consistent with the regression results below.
 
 
 ```math
 \ln(\text{Load}_t) = \beta_0 + \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \beta_3 \text{Humidity}_t + \beta_4 \text{Wind Speed}_t + \text{Hour/Month/Year FE} + \varepsilon_t
 ```
-
 
 **Table 2. Determinants of ERCOT Electricity Demand (Dependent variable: ln(Load))**
 
@@ -113,7 +88,6 @@ Table 3. Implied Change in ERCOT Load Relative to an 18°C Hour
 | 28°C (10°C above base) | exp(10 × 0.0281) − 1 | ≈ 32%                |
 | 33°C (15°C above base) | exp(15 × 0.0281) − 1 | ≈ 52%                |
 | 8°C (10°C below base)  | exp(10 × 0.0188) − 1 | ≈ 21%                |
-
 
 ```math
 \ln(\text{Price}_t) = \beta_0 + \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \beta_3 \text{Humidity}_t + \beta_4 \text{Wind Speed}_t + \text{Hour/Month/Year FE} + \varepsilon_t
@@ -144,8 +118,6 @@ While this study focuses on ERCOT, future research could compare these relations
 ### 7. Conclusion (1/3)
 
 ### 8. References (Seperate)
-
-
 
 > 같은 여름철에도 매우 더운 날은 비교적 덜 더운 날보다 전력수요가 10% 높았고, 도매가격은 MWh당 20달러 높았다.
 
@@ -211,7 +183,6 @@ Price
 
 The hourly real-time electricity price is calculated as the arithmetic average of four 15-minute settlement prices at the HB_HUBAVG settlement point.
 
-
 한계점: 극단 기온에서 효과가 가속되는지는 CDD/HDD 선형 모델이 보여 주지 못함. 이 회귀는 기온과 부하·가격의 연관을 보여 주고, 풍력이나 태양광 같은 원인을 식별하지는 않음.
 
 ### 9. Appendix
@@ -225,8 +196,6 @@ As a robustness check, the regression was re-estimated after excluding the Winte
 OLS results
 
 NOAA’s degree-day products (NOAA NCEI, LCDv2 documentation)
-
-
 
 ![1794004824051](image/README/1794004824051.png)
 
