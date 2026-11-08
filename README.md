@@ -1,4 +1,4 @@
-# How does weather affect ERCOT electricity demand and wholesale electricity prices?
+# How does weather (temperature) affect ERCOT electricity demand and wholesale electricity prices?
 
 #### Introduction (3/4)
 
@@ -58,7 +58,10 @@ HDD values were rounded to the nearest integer for visualization, and only obser
 Figure 5 shows that both ERCOT electricity demand and median real-time prices increase with heating degree days (HDD). Average ERCOT load rises from approximately 41 GW at low HDD levels to more than 63 GW at high HDD levels, reflecting higher electricity demand during colder weather. Median RT prices also increase from about $20/MWh to nearly $80/MWh as HDD rises. These results suggest that cold-weather conditions place upward pressure on both electricity demand and wholesale electricity prices in ERCOT.
 
 
-ln(Load_t) = β0 + β1·CDD_t + β2·HDD_t + β3·Humidity_t + β4·Wind_t + HourFE_h + MonthFE_m + YearFE_y + ε_t
+```math
+\ln(\text{Load}_t) = \beta_0 + \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \beta_3 \text{Humidity}_t + \beta_4 \text{Wind Speed}_t + \text{Hour/Month/Year FE} + \varepsilon_t
+```
+
 
 **Table 2. Determinants of ERCOT Electricity Demand (Dependent variable: ln(Load))**
 
@@ -88,9 +91,9 @@ Table 3. Implied Change in ERCOT Load Relative to an 18°C Hour
 | 8°C (10°C below base)  | exp(10 × 0.0188) − 1 | ≈ 21%                |
 
 
-Pricet=β0+β1CDDt****+β2HDDt****+β3Humidityt****+β4Windt****+HourFE**+MonthFE+εt
-
-
+```math
+\ln(\text{Price}_t) = \beta_0 + \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \beta_3 \text{Humidity}_t + \beta_4 \text{Wind Speed}_t + \text{Hour/Month/Year FE} + \varepsilon_t
+```
 
 **Table 4. Determinants of ERCOT Real-Time Prices (Dependent variable: ln(price))**
 
@@ -118,19 +121,7 @@ While this study focuses on ERCOT, future research could compare these relations
 
 #### References (Seperate)
 
-**더운 날의 전력수요와 도매가격: ERCOT의 2021–2025년 자료 분석
 
-질문								사용할 자료
-
-더운 날에는 전기를 얼마나 더 쓰는가? / 일평균 기온 + 일평균 전력수요
-
-더운 날에는 전력가격이 얼마나 더 높은가? / 일평균 기온 + 일평균 도매가격
-
-**여름철 자료만 사용해서** , 비교적 덜 더운 날과 매우 더운 날을 비교
-
-기온 구간은 자료 분포를 확인한 뒤 정하고, 이후 간단한 회귀분석으로 연도·월·요일 차이를 고려
-
-예시:
 
 > 같은 여름철에도 매우 더운 날은 비교적 덜 더운 날보다 전력수요가 10% 높았고, 도매가격은 MWh당 20달러 높았다.
 
@@ -139,25 +130,6 @@ While this study focuses on ERCOT, future research could compare these relations
 정책 논의는 결과에 맞추어 연결
 
 > 매우 더운 날에 수요와 가격이 모두 높게 나타난다면, 이러한 날에 전력 사용을 줄이도록 유도하는 정책을 검토할 근거가 된다. 다만 정책의 실제 효과와 비용은 별도 평가가 필요하다.
-
-**여름철의 기온·일평균 수요·일평균 가격 세 변수에 집중**
-
- 겨울 한파, 최고 가격, 습도·이슬점까지 한꺼번에 다루지 않기
-
- 이슬점은 기본 분석이 끝난 뒤 결과가 유지되는지 확인하는 추가 변수로 두기
-
-**Evaluating Temperature Sensitivity and Structural Growth in ERCOT Electricity Demand (2021–2025)**
-
-$$
-\ln(\text{Load}_t) = \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \gamma \cdot \text{Trend}_t + \text{Month/Day/Hour FE} + \varepsilon_t
-$$
-
-**Extreme Temperatures, Electricity Demand, and Wholesale Prices in ERCOT, 2021–2025
-**
-
-```math
-\ln(\text{P}_t) = \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \gamma \cdot \text{Trend}_t + \text{Month/Day/Hour FE} + \varepsilon_t
-```
 
 **< Raw Data >**
 
@@ -216,7 +188,7 @@ Price
 The hourly real-time electricity price is calculated as the arithmetic average of four 15-minute settlement prices at the HB_HUBAVG settlement point.
 
 
-한계점: 극단 기온에서 효과가 가속되는지는 CDD/HDD 선형 모델이 보여 주지 못함. 이 회귀는 기온과 부하·가격의 **연관**을 보여 주고, 풍력이나 태양광 같은 원인을 식별하지는 않음.
+한계점: 극단 기온에서 효과가 가속되는지는 CDD/HDD 선형 모델이 보여 주지 못함. 이 회귀는 기온과 부하·가격의 연관을 보여 주고, 풍력이나 태양광 같은 원인을 식별하지는 않음.
 
 ##### Appendix
 
