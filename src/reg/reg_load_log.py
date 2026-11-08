@@ -10,6 +10,7 @@ import numpy as np
 df = pd.read_csv("data/final/final_data_cdd_hdd.csv")
 
 print(df.shape)
+df["log_load"] = np.log(df["ERCOT"])
 
 # --------------------------------------------------
 # Date variables
@@ -17,6 +18,8 @@ print(df.shape)
 
 df["date"] = pd.to_datetime(df["date"])
 df["month"] = df["date"].dt.month
+df["year"] = df["date"].dt.year
+df = df[df["date"] < "2026-01-01"]
 
 print("\nHour values:")
 print(sorted(df["hour"].unique()))
@@ -24,34 +27,31 @@ print(sorted(df["hour"].unique()))
 print("\nMonth values:")
 print(sorted(df["month"].unique()))
 
-shift = abs(df["price_rt_hubavg"].min()) + 1
-
-df["log_price"] = np.log(
-    df["price_rt_hubavg"] + shift
-)
-
 # --------------------------------------------------
 # Regression sample
 # --------------------------------------------------
 
 cols = [
-    "price_rt_hubavg",
-    "log_price",
+    "log_load",
+    "ERCOT",
     "CDD",
     "HDD",
     "HourlyRelativeHumidity",
     "HourlyWindSpeed",
     "hour",
-    "month",
+    "month", 
+    "year", 
+    "date"
 ]
-
-print(f"\nRegression sample size: {len(df):,}")
 
 print("Before dropna:", len(df))
 
+df = df.sort_values(["date", "hour"]).reset_index(drop=True)
 df = df[cols].dropna()
 
 print("After dropna:", len(df))
+
+print(f"\nRegression sample size: {len(df):,}")
 
 # --------------------------------------------------
 # Model 4
@@ -65,13 +65,14 @@ df = df[
 ]
 
 formula = """
-log_price ~
+log_load ~
 CDD +
 HDD +
 HourlyRelativeHumidity +
 HourlyWindSpeed +
 C(hour) +
-C(month)
+C(month) +
+C(year)
 """
 
 model = smf.ols(
@@ -90,7 +91,7 @@ output_dir = Path("report/table")
 output_dir.mkdir(parents=True, exist_ok=True)
 
 # Full regression output
-with open(output_dir / "reg_price_log_summary.txt", "w") as f:
+with open(output_dir / "reg_load_log_summary.txt", "w") as f:
     f.write(model.summary().as_text())
 
 # Coefficients
@@ -102,11 +103,11 @@ coef_table = pd.DataFrame({
 })
 
 coef_table.to_csv(
-    output_dir / "reg_price_log_coef.csv"
+    output_dir / "reg_load_log_coef.csv"
 )
 
 # Model fit stats
-with open(output_dir / "reg_price_log_stats.txt", "w") as f:
+with open(output_dir / "reg_load_log_stats.txt", "w") as f:
     f.write(f"N = {int(model.nobs)}\n")
     f.write(f"R2 = {model.rsquared:.4f}\n")
     f.write(f"Adj R2 = {model.rsquared_adj:.4f}\n")
@@ -114,10 +115,16 @@ with open(output_dir / "reg_price_log_stats.txt", "w") as f:
 print(model.summary())
 
 print("\nSaved:")
-print("report/table/reg_price_log_summary.txt")
-print("report/table/reg_price_log_coef.csv")
-print("report/table/reg_price_log_stats.txt")
+print("report/table/reg_load_log_summary.txt")
+print("report/table/reg_load_log_coef.csv")
+print("report/table/reg_load_log_stats.txt")
 
-print(df["price_rt_hubavg"].describe())
-print(f"Shift used: {shift:.3f}")
-print(df["log_price"].describe())
+print("\nERCOT Load Summary:")
+print(df["ERCOT"].describe())
+
+ttest = model.t_test("CDD - HDD = 0")
+print("\nCDD - HDD = 0 test:")
+print(ttest)
+
+with open(output_dir / "reg_load_log_ttest.txt", "w") as f:
+    f.write(str(ttest))
