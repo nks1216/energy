@@ -66,6 +66,3 @@ fig.savefig(output_file, dpi=300, bbox_inches="tight")
 plt.close(fig)
 
 print(f"\nSaved figure to: {output_file}")
-
-print(stats.loc[stats["temp_bin"].isin([-4, 1, 17, 35, 39]),
-                ["temp_bin", "avg_load", "med_price", "count"]])
