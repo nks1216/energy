@@ -8,8 +8,6 @@
 
 #### Data and Methodology (3/4)
 
-	
-
 | Variable         | Mean     | Std      | Min      | Max      | N     |
 | ---------------- | -------- | -------- | -------- | -------- | ----- |
 | ERCOT Load (MW)  | 50585.51 | 11118.26 | 27800.15 | 85464.12 | 43824 |
@@ -60,44 +58,55 @@ HDD values were rounded to the nearest integer for visualization, and only obser
 Figure 5 shows that both ERCOT electricity demand and median real-time prices increase with heating degree days (HDD). Average ERCOT load rises from approximately 41 GW at low HDD levels to more than 63 GW at high HDD levels, reflecting higher electricity demand during colder weather. Median RT prices also increase from about $20/MWh to nearly $80/MWh as HDD rises. These results suggest that cold-weather conditions place upward pressure on both electricity demand and wholesale electricity prices in ERCOT.
 
 
+ln(Load_t) = β0 + β1·CDD_t + β2·HDD_t + β3·Humidity_t + β4·Wind_t + HourFE_h + MonthFE_m + YearFE_y + ε_t
 
-Loadt=β0+β1CDDt****+β2HDDt****+β3Humidityt****+β4Windt****+HourFE+MonthFE+εt
+**Table 2. Determinants of ERCOT Electricity Demand (Dependent variable: ln(Load))**
 
+| Variable               | Coefficient | Std. Error | p-value |
+| ---------------------- | ----------- | ---------- | ------- |
+| CDD                    | 0.0281      | 0.0003     | <0.001  |
+| HDD                    | 0.0188      | 0.0005     | <0.001  |
+| Humidity               | 0.0008      | 0.00007    | <0.001  |
+| Wind Speed             | 0.0059      | 0.0005     | <0.001  |
+| Hour / Month / Year FE | Yes         |            |         |
+| R²                    | 0.922       |            |         |
+| N                      | 43,425      |            |         |
+|                        |             |            |         |
 
-Table 2. Determinants of ERCOT Electricity Demand
+Notes: HAC standard errors (24 lags) in parentheses. Sample: hourly observations, 2021–2025.
 
-| Variable   | Coefficient | Std. Error | p-value |
-| ---------- | ----------- | ---------- | ------- |
-| CDD        | 1696.57     | 27.85      | <0.001  |
-| HDD        | 946.58      | 39.58      | <0.001  |
-| Humidity   | 25.54       | 6.01       | <0.001  |
-| Wind Speed | 225.14      | 45.17      | <0.001  |
-| Hour FE    | Yes         |            |         |
-| Month FE   | Yes         |            |         |
-| R²        | 0.829       |            |         |
-| N          | 43,426      |            |         |
+(표준오차 추가하기)
 
-Table reports the regression results. Both CDD and HDD have positive and statistically significant effects on electricity demand. The coefficient on CDD (1,696.6) is larger than that on HDD (946.6), suggesting that demand is more sensitive to hot weather than cold weather.
+Table 2 reports the results. Both CDD and HDD have positive and statistically significant effects on electricity demand. Holding hour, month, and year fixed, a one-unit increase in CDD raises load by approximately 2.8%, compared with approximately 1.9% for HDD. The difference between the two coefficients is statistically significant (p < 0.001), suggesting that demand is more sensitive to hot weather than to cold weather. Year fixed effects rise monotonically, with 2025 load about 23% higher than 2021 after controlling for weather, consistent with structural demand growth.
+
+Table 3. Implied Change in ERCOT Load Relative to an 18°C Hour
+
+| Scenario                 | Calculation            | Implied load increase |
+| ------------------------ | ---------------------- | --------------------- |
+| 28°C (10°C above base) | exp(10 × 0.0281) − 1 | ≈ 32%                |
+| 33°C (15°C above base) | exp(15 × 0.0281) − 1 | ≈ 52%                |
+| 8°C (10°C below base)  | exp(10 × 0.0188) − 1 | ≈ 21%                |
 
 
 Pricet=β0+β1CDDt****+β2HDDt****+β3Humidityt****+β4Windt****+HourFE**+MonthFE+εt
 
-Table 3. Determinants of Real-time Log Electricity Prices
 
-| Variable     | Coefficient | Std. Error |
-| ------------ | ----------- | ---------- |
-| CDD          | 0.0359***   | 0.0024     |
-| HDD          | 0.0500***   | 0.0074     |
-| Humidity     | 0.0023***   | 0.0007     |
-| Wind Speed   | -0.0203***  | 0.0044     |
-| Hour FE      | Yes         |            |
-| Month FE     | Yes         |            |
-| HAC SE       | Yes         |            |
-| Observations | 43,426      |            |
-| R²          | 0.245       |            |
 
-The regression results indicate that both cooling and heating demand significantly increase ERCOT real-time electricity prices. While higher temperatures raise prices through increased air-conditioning demand, cold-weather conditions exert an even stronger impact on prices, with the HDD coefficient exceeding that of CDD. Electricity prices also display pronounced evening peaks and decline with higher wind speeds, highlighting the importance of renewable energy availability in the Texas electricity market.
+**Table 4. Determinants of ERCOT Real-Time Prices (Dependent variable: ln(price))**
 
+| Variable               | Coefficient | Std. Error | p-value |
+| ---------------------- | ----------- | ---------- | ------- |
+| CDD                    | 0.0771      | 0.0038     | <0.001  |
+| HDD                    | 0.0809      | 0.0089     | <0.001  |
+| Humidity               | 0.0080      | 0.0009     | <0.001  |
+| Wind Speed             | −0.0633    | 0.0066     | <0.001  |
+| Hour / Month / Year FE | Yes         |            |         |
+| R²                    | 0.341       |            |         |
+| N                      | 42,505      |            |         |
+
+Notes: HAC standard errors (24 lags); hours with non-positive prices (924, 2.1%) excluded
+
+Table 4 shows that both CDD and HDD are positively and significantly associated with real-time prices: a one-unit increase in either is associated with roughly 8% higher prices. Unlike the load regression, the difference between the two coefficients is not statistically significant (p = 0.67), so we cannot conclude that prices respond more strongly to heat than to cold. Prices follow a pronounced intraday pattern, with hour 20 about 100% higher than hour 0.
 
 #### Policy Implications or Discussion (1/2)
 
@@ -206,6 +215,9 @@ Price
 
 The hourly real-time electricity price is calculated as the arithmetic average of four 15-minute settlement prices at the HB_HUBAVG settlement point.
 
+
+한계점: 극단 기온에서 효과가 가속되는지는 CDD/HDD 선형 모델이 보여 주지 못함. 이 회귀는 기온과 부하·가격의 **연관**을 보여 주고, 풍력이나 태양광 같은 원인을 식별하지는 않음.
+
 ##### Appendix
 
 ![1794021885560](image/README/1794021885560.png)![1794021899552](image/README/1794021899552.png)
@@ -213,6 +225,5 @@ The hourly real-time electricity price is calculated as the arithmetic average o
 Appendix Figures A1 and A2 show that mean prices increase substantially more than median prices at high HDD and CDD values, indicating the presence of extreme price spikes during severe weather events.
 
 As a robustness check, the regression was re-estimated after excluding the Winter Storm Uri period (February 13-20, 2021). While the HDD coefficient increased modestly, the overall results remained largely unchanged. This suggests that the main findings are not driven by the extreme conditions associated with Winter Storm Uri.
-
 
 OLS results
