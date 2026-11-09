@@ -15,30 +15,22 @@ def main():
     # 2. Parse ERCOT local hour-ending timestamps
     ercot["Hour Ending"] = pd.to_datetime(ercot["Hour Ending"])
 
-    # 3. Localize ERCOT hour-ending timestamps to Texas time.
-    #    DST-marked repeated hours are the first occurrence (CDT).
-    #    Non-DST-marked repeated hours are the second occurrence (CST).
-    ercot["utc_hour_ending"] = (
-        ercot["Hour Ending"]
-        .dt.tz_localize(
-            "America/Chicago",
-            ambiguous=ercot["has_dst_marker"].astype(bool).to_numpy(),
-            nonexistent="NaT",
-        )
-        .dt.tz_convert("UTC")
-    )
-
     # 3. Convert hour-ending timestamps to local hour-beginning timestamps.
     ercot["hour_start_local"] = (
         ercot["Hour Ending"] - pd.Timedelta(hours=1)
     )
 
     # 4. Localize hour-beginning timestamps to Texas time.
+    #    ERCOT's Repeated Hour Flag = Y marks the repeated (second) occurrence
+    #    of the hour after the fall-back transition, i.e. CST.
+    #    pandas: ambiguous=True means DST (first occurrence, CDT),
+    #    so the flag must be inverted.
+    is_repeated = ercot["has_dst_marker"].astype(bool)
     ercot["utc_timestamp"] = (
         ercot["hour_start_local"]
         .dt.tz_localize(
             "America/Chicago",
-            ambiguous=ercot["has_dst_marker"].astype(bool).to_numpy(),
+            ambiguous=(~is_repeated).to_numpy(),
             nonexistent="shift_forward",
         )
         .dt.tz_convert("UTC")
@@ -84,15 +76,23 @@ def main():
         .sort_index()
     )
 
-    print("\nDST repeated-hour check:")
+    # Repeated-hour check: show BOTH rows of each pair
+    pairs = merged[merged["Hour Ending"].duplicated(keep=False)]
+    print("\nDST repeated-hour check (both rows of each pair):")
     print(
-        merged.loc[
-            merged["has_dst_marker"].astype(bool),
-            ["Hour Ending", "hour_ending_raw",
-             "utc_timestamp", "ERCOT",
-             "price_rt_hubavg", "HourlyDryBulbTemperature"]
+        pairs.sort_values("utc_timestamp")[
+            ["Hour Ending", "has_dst_marker", "utc_timestamp",
+             "ERCOT", "price_rt_hubavg", "HourlyDryBulbTemperature"]
         ].to_string(index=False)
     )
+
+    # The flagged (repeated) row must be one hour LATER in UTC than the unflagged row
+    for he, g in pairs.groupby("Hour Ending"):
+        flagged = g["has_dst_marker"].astype(bool)
+        t_flagged = g.loc[flagged, "utc_timestamp"].iloc[0]
+        t_normal = g.loc[~flagged, "utc_timestamp"].iloc[0]
+        if t_flagged <= t_normal:
+            raise ValueError(f"Repeated-hour order is wrong at {he}")
 
     # 9. Save
     merged = merged.drop(columns="_merge")
