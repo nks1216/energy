@@ -85,7 +85,7 @@ Table 2 reports the regression results. Both CDD and HDD are positively and sign
 
 Prices respond more strongly to weather than load does: one additional degree-hour of either cooling or heating is associated with about 8% higher prices. In the full sample, the CDD and HDD coefficients are statistically indistinguishable (p = 0.67), so we do not conclude that prices respond more to heat than to cold. Prices also follow a strong daily pattern: the 7–8 pm hour is about 100% more expensive than the 11 pm–midnight hour. Here ‘hour’ is the ERCOT hour-ending clock hour, so hour 20 covers 19:00–20:00 and hour 0 covers 23:00–24:00 of the previous day.
 
-**Table 3. Implied Change in ERCOT Load Relative to an 18°C Hour** 
+**Table 3. Implied Change in ERCOT Load Relative to an 18°C Hour**
 
 | Scenario                 | Calculation            | Implied load increase |
 | ------------------------ | ---------------------- | --------------------- |
@@ -172,7 +172,6 @@ The hourly real-time electricity price is calculated as the arithmetic average o
 한계점: 극단 기온에서 효과가 가속되는지는 CDD/HDD 선형 모델이 보여 주지 못함. 이 회귀는 기온과 부하·가격의 연관을 보여 주고, 풍력이나 태양광 같은 원인을 식별하지는 않음.
 
 ### 9. Appendix
-
 
 Appendix Figures A1 and A2 show that mean prices increase substantially more than median prices at high HDD and CDD values, indicating the presence of extreme price spikes during severe weather events.
 
