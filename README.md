@@ -29,21 +29,21 @@ We exclude the final hour of the sample (hour ending 24:00 on December 31, 2025)
 | Relative humidity (%)         | 65.74  | 18.24  | 9.85   | 100.00  | 43,425 |
 | Wind speed (m/s)              | 3.96   | 1.90   | 0.00   | 13.11   | 43,425 |
 
-*Notes:* The sample is the load regression sample (N = 43,425 hours (observations)). The second price row is the sample for the price regression (hours with positive prices). Weather variables are population-weighted averages of four airport stations. CDD and HDD are degree-hours relative to 18°C. Sources: ERCOT, NOAA, U.S. Census Bureau (via FRED).
+*Notes:* The sample is the load regression sample (N = 43,425 hourly observations). The second price row is the sample for the price regression (hours with positive prices). Weather variables are population-weighted averages of four airport stations. CDD and HDD are degree-hours relative to 18°C. Sources: ERCOT, NOAA, U.S. Census Bureau (via FRED).
 
 **Empirical strategy.** Heating and cooling degree variables are defined relative to a base temperature of 18°C, close to the 65°F (≈18.3°C) base used in NOAA’s degree-day products, and within the range where load is lowest in our data **(Figure 1)**:
 
-CDD_t = max(T_t − 18, 0), HDD_t = max(18 − T_t, 0).
+```math
+\text{CDD}_t = \max{(T_t-18, 0}), \text{HDD}_t = \max{(18-T_t, 0}).
+```
 
 Because the data are hourly, these are degree-hours rather than degree-days. We estimate
-
-ln(Y_t) = β₀ + β₁CDD_t + β₂HDD_t + β₃Humidity_t + β₄WindSpeed_t + α_h + γ_m + δ_y + ε_t,
 
 ```math
 \ln(\text{Y}_t) = \beta_0 + \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \beta_3 \text{Humidity}_t + \beta_4 \text{Wind Speed}_t + \text{Hour/Month/Year FE} + \varepsilon_t
 ```
 
-where Y_t is either ERCOT load or the real-time price, and α_h, γ_m, and δ_y are hour-of-day, month-of-year, and year fixed effects. Hour and month effects absorb intraday and seasonal patterns, and year effects absorb trends in demand and market conditions over 2021–2025. Standard errors are heteroskedasticity- and autocorrelation-consistent (HAC) with 24 lags. Coefficients are interpreted approximately as the percentage change in Y associated with one additional degree-hour. We test whether β₁ = β₂ to compare sensitivity to heat and cold.
+where t indexes hours, Y_t is either ERCOT load or the real-time price, and Hour/Month/Year FE denote sets of dummy variables for the hour of day, the month of the year, and the year. Hour and month effects absorb intraday and seasonal patterns, and year effects absorb trends in demand and market conditions over 2021–2025. Standard errors are heteroskedasticity- and autocorrelation-consistent (HAC) with 24 lags. Coefficients are interpreted approximately as the percentage change in Y associated with one additional degree-hour. We test whether β₁ = β₂ to compare sensitivity to heat and cold.
 
 ### 5. Results and Analysis (1 1/4)
 
@@ -61,7 +61,7 @@ Because real-time prices are highly right-skewed (Table 1: standard deviation of
 
 Figure 2 plots the same variables against degree-hours above (hot) or below (cold) the 18°C base. At the same number of degree-hours, load is higher on the hot side. For example, at 15 degree-hours, average load is about 69,500 MW for CDD but about 51,900 MW for HDD, and the gap widens as degree-hours increase. Median prices are similar at low degree-hours (about $26 and $25 at 10 degree-hours) but diverge at higher levels, with about $38 for CDD and $29 for HDD at 15 degree-hours. The highest bins contain relatively few observations, so we do not rely on them (94 observations for CDD at 21 and 82 for HDD at 22). The load pattern is consistent with the regression results below.
 
-**Table 2. Weather and ERCOT load and prices**
+**Table 2. Weather and ERCOT load and prices (표준오차 확인해서 다시 넣기)**
 
 |                      | (1) ln(Load) | (2) ln(Price) |
 | -------------------- | ------------ | ------------- |
@@ -81,11 +81,11 @@ Figure 2 plots the same variables against degree-hours above (hot) or below (col
 
 *Notes:* HAC standard errors (24 lags) in parentheses. *** p < 0.001. The price regression excludes 924 hours (2.1%) with non-positive prices. CDD and HDD are degree-hours relative to 18°C.
 
-Table 2 reports the regression results. Both CDD and HDD are positively and significantly associated with load. Holding hour, month, year, humidity, and wind speed fixed, one additional degree-hour of cooling is associated with about 2.8% higher load, compared with about 1.9% for heating, and the difference is statistically significant (p < 0.001). Demand is therefore more sensitive to heat than to cold. For illustration, a 33°C hour (15°C above the 18°C base) is associated with about 52% higher load than an 18°C hour, and an 8°C hour (10°C below the base) with about 21% higher load, assuming that log load is linear in degree-hours. Year effects rise steadily, with 2025 load about 23% above 2021 after controlling for weather.
+Table 2 reports the regression results. Both CDD and HDD are positively and significantly associated with load. Holding hour, month, year, humidity, and wind speed fixed, one additional degree-hour of cooling is associated with about 2.8% higher load, compared with about 1.9% for heating, and the difference is statistically significant (p < 0.001). Demand is therefore more sensitive to heat than to cold. Year effects rise steadily, with 2025 load about 23% above 2021 after controlling for weather.
 
-Prices respond more strongly to weather than load does: one additional degree-hour of either cooling or heating is associated with about 8% higher prices. In the full sample, the CDD and HDD coefficients are statistically indistinguishable (p = 0.67), so we do not conclude that prices respond more to heat than to cold. Prices also follow a strong daily pattern: the 7–8 pm hour is about 100% more expensive than the 11 pm–midnight hour.
+Prices respond more strongly to weather than load does: one additional degree-hour of either cooling or heating is associated with about 8% higher prices. In the full sample, the CDD and HDD coefficients are statistically indistinguishable (p = 0.67), so we do not conclude that prices respond more to heat than to cold. Prices also follow a strong daily pattern: the 7–8 pm hour is about 100% more expensive than the 11 pm–midnight hour. Here ‘hour’ is the ERCOT hour-ending clock hour, so hour 20 covers 19:00–20:00 and hour 0 covers 23:00–24:00 of the previous day.
 
-**Table 3. Implied Change in ERCOT Load Relative to an 18°C Observation**
+**Table 3. Implied Change in ERCOT Load Relative to an 18°C Hour** 
 
 | Scenario                 | Calculation            | Implied load increase |
 | ------------------------ | ---------------------- | --------------------- |
@@ -93,6 +93,7 @@ Prices respond more strongly to weather than load does: one additional degree-ho
 | 33°C (15°C above base) | exp(15 × 0.0281) − 1 | ≈ 52%                |
 | 8°C (10°C below base)  | exp(10 × 0.0188) − 1 | ≈ 21%                |
 
+Note: we assume that log load is linear in degree-hours.
 
 ### 6. Policy Implications or Discussion (1/2)
 
@@ -172,7 +173,6 @@ The hourly real-time electricity price is calculated as the arithmetic average o
 
 ### 9. Appendix
 
-![1794021885560](image/README/1794021885560.png)![1794021899552](image/README/1794021899552.png)
 
 Appendix Figures A1 and A2 show that mean prices increase substantially more than median prices at high HDD and CDD values, indicating the presence of extreme price spikes during severe weather events.
 
