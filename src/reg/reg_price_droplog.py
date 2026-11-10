@@ -15,14 +15,11 @@ print(df.shape)
 # --------------------------------------------------
 
 df["date"] = pd.to_datetime(df["date"])
-df["month"] = df["date"].dt.month
-df["year"] = df["date"].dt.year
-df = df[df["date"] < "2026-01-01"]          
-
-print("\nHour values:")
-print(sorted(df["hour"].unique()))
-print("\nMonth values:")
-print(sorted(df["month"].unique()))
+end = df["date"] + pd.to_timedelta(df["hour"], unit="h")   # hour-ending time
+start = end - pd.Timedelta(hours=1)                         # hour-beginning time
+df["month"] = start.dt.month
+df["year"] = start.dt.year
+print(df["year"].value_counts().sort_index())               # check: 2021-2025 only
 
 # --------------------------------------------------
 # Price transformation: drop non-positive prices, then log
@@ -138,3 +135,6 @@ print("\nSaved: report/table/reg_price_droplog_*.{txt,csv}")
 print("\nPrice summary (regression sample):")
 print(df["price_rt_hubavg"].describe())
 print(df["log_price"].describe())
+
+print("diff:", float(np.squeeze(ttest.effect)), "se:", float(np.squeeze(ttest.sd)),
+      "p:", float(np.squeeze(ttest.pvalue)))

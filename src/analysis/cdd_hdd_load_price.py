@@ -14,12 +14,11 @@ plt.rcParams.update({
 # --------------------------------------------------
 df = pd.read_csv("data/final/final_data_cdd_hdd.csv")
 df["date"] = pd.to_datetime(df["date"])
-df = df[df["date"] < "2026-01-01"]
 df = df.dropna(subset=["ERCOT", "price_rt_hubavg", "CDD", "HDD",
                        "HourlyRelativeHumidity", "HourlyWindSpeed"])
 df = df[(df["HourlyRelativeHumidity"] >= 0)
         & (df["HourlyRelativeHumidity"] <= 100)]
-print("Sample size:", len(df))                      # 43,425
+print("Sample size:", len(df))                      
 
 
 def bin_stats(d, col):
