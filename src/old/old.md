@@ -74,7 +74,6 @@ Notes: HAC standard errors (24 lags); hours with non-positive prices (924, 2.1%)
 
 Table 4 shows that both CDD and HDD are positively and significantly associated with real-time prices: a one-unit increase in either is associated with roughly 8% higher prices. Unlike the load regression, the difference between the two coefficients is not statistically significant (p = 0.67), so we cannot conclude that prices respond more strongly to heat than to cold. Prices follow a pronounced intraday pattern, with hour 20 about 100% higher than hour 0.
 
-
 전력 수요: 텍사스 시간별 전력 수요(2021-01-01~2025-12-31, ERCOT)
 
 전력 가격: 텍사스 15분 단위 허브평균 전력 real-time 도매가격(Settlement Point Name: HB_HUBAVG)을 시간 단위로 평균 (2021-01-01~2025-12-31, ERCOT)
@@ -87,7 +86,12 @@ Table 4 shows that both CDD and HDD are positively and significantly associated 
 
 ERCOT 수요, 가격 자료는 DST가 있는 자료 모두 포함, NOAA 데이터를 UTC로 변환한 후 ERCOT 데이터와 병합하였고, 시각화 및 회귀 분석은 실제 상황에 맞게 해석하고자 ERCOT 시간 기준(local time)을 사용
 
-**정제** : 2026-01-01 행 제거, 결측 제거, 습도 범위 밖 3개 제거 → 부하 N = 43,425. 가격은 비양수 924개(2.1%) 추가 제거 → N = 42,505.
+Limitation
 
-* **변수 정의** : CDD = max(T − 18, 0), HDD = max(18 − T, 0). 시간별이라 degree-hours에 가까움
-* **모형** : ln(부하) 또는 ln(가격) = CDD + HDD + 습도 + 풍속 + 시간·월·연도 FE, HAC SE(24 lags).
+While median prices increase gradually with both CDD and HDD, average prices rise much more sharply during extreme weather conditions, indicating the presence of occasional but substantial price spikes. This finding highlights the importance of adequate reserve capacity, demand response programs, and grid resilience measures to mitigate the risk of extreme market outcomes
+
+While this study focuses on ERCOT, future research could compare these relationships with electricity markets in other countries such as South Korea, where market design, fuel mix, and weather patterns differ substantially.
+
+The price is a statewide hub average that includes the West hub, whereas our weather index covers four large metropolitan areas and excludes West Texas, so the estimated temperature responses may understate sensitivity at the system level.
+
+한계점: 극단 기온에서 효과가 가속되는지는 CDD/HDD 선형 모델이 보여 주지 못함. 이 회귀는 기온과 부하·가격의 연관을 보여 주고, 풍력이나 태양광 같은 원인을 식별하지는 않음.
