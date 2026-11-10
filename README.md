@@ -34,7 +34,7 @@ We exclude 395 hours (0.9%) with missing weather data at any of the four airport
 **Empirical strategy.** Heating and cooling degree variables are defined relative to a base temperature of 18°C, close to the 65°F (≈18.3°C) base used in NOAA’s degree-day products (NOAA NCEI, LCDv2 documentation), and within the range where load is lowest in our data (Figure 1):
 
 ```math
-\text{CDD}_t = \max{(T_t-18, 0)}, \text{HDD}_t = \max{(18-T_t, 0}).
+\text{CDD}_t = \max{(T_t-18, 0)}, \text{HDD}_t = \max{(18-T_t, 0)}.
 ```
 
 Because the data are hourly, these are degree-hours rather than degree-days. We estimate
@@ -43,7 +43,7 @@ Because the data are hourly, these are degree-hours rather than degree-days. We 
 \ln(\text{Y}_t) = \beta_0 + \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \beta_3 \text{Humidity}_t + \beta_4 \text{Wind speed}_t + \text{Hour/Month/Year FE} + \varepsilon_t
 ```
 
-where t indexes hours, Y_t is either ERCOT load or the real-time price, and Hour/Month/Year FE denote sets of dummy variables for the hour of day, the month of the year, and the year. Hour and month effects absorb intraday and seasonal patterns, and year effects absorb trends in demand and market conditions over 2021–2025. Here “hour” is the ERCOT hour-ending clock hour, so hour 20 covers 19:00–20:00 and hour 0 covers 23:00–24:00 of the previous day; month and year refer to the start of the hour. Standard errors are heteroskedasticity- and autocorrelation-consistent (HAC) with 24 lags. Coefficients are interpreted approximately as the percentage change in Y associated with one additional degree-hour. We test whether β₁ = β₂ to compare sensitivity to heat and cold.
+where t indexes hours, Y_t is either ERCOT load or the real-time price, and Hour/Month/Year FE denote sets of dummy variables for the hour of day, the month of the year, and the year. Hour and month effects absorb intraday and seasonal patterns, and year effects absorb trends in demand and market conditions over 2021–2025. Here “hour” is the ERCOT hour-ending clock hour, so hour 20 covers 19:00–20:00 and hour 0 covers 23:00–24:00 of the previous day; month and year refer to the start of the hour. Standard errors are heteroskedasticity- and autocorrelation-consistent (HAC) with 24 lags. The CDD and HDD coefficients, multiplied by 100, approximate the percentage change in Y associated with one additional degree-hour, holding the other included variables fixed. We test whether β₁ = β₂ to compare sensitivity to heat and cold.
 
 ### 5. Results and Analysis (1 1/4)
 
@@ -86,7 +86,7 @@ Prices respond more strongly to weather than load does: one additional degree-ho
 
 Note: Computed as exp(β × degree-hours) − 1 from Table 2, assuming that log load is linear in degree-hours.
 
-### 6. Policy Implications or Discussion (1/2)
+### 6. Policy, Technical Implications and Discussion (1/2)
 
 The findings suggest several implications for electricity supply planning and price risk management in ERCOT.
 
@@ -94,7 +94,7 @@ First, load rises more with heat than with cold (about 2.8% versus 1.9% per degr
 
 Second, prices are more sensitive to temperature than load, and median prices at the temperature extremes are four to five times their minimum (Figure 1). Sudden price spikes can greatly increase costs for electricity retailers and large consumers that pay real-time prices. These businesses may reduce their exposure by locking in prices in advance or reducing electricity use during high-price hours.
 
-Third, prices peak in the evening: the 7–8 pm hour is about 100% more expensive than the 11 pm–midnight hour. These higher evening prices suggest that using stored electricity or shifting electricity use to lower-price hours may help electricity retailers and large customers on wholesale-indexed contracts manage their electricity costs.
+Third, after controlling for weather and other included factors, prices in the 7–8 pm hour are about twice those in the 11 pm–midnight hour. This price difference suggests a potential role for battery energy storage systems (BESS), which charge during lower-price hours and discharge during higher-price hours. This strategy is already used in ERCOT: at the end of 2024, half of its 8.1 GW of battery capacity was primarily used for price arbitrage (U.S. Energy Information Administration, 2025). However, whether storage is economically worthwhile depends on the price difference, energy losses, and equipment costs. The evening price pattern therefore motivates further evaluation of storage.
 
 Finally, winter planning should consider rare but severe storms. Excluding the February 2021 storm window (0.7% of the price sample) lowers the HDD coefficient by about one-third. Although this analysis does not identify the causes of the storm-related price increases, the result suggests that typical winter conditions alone provide an incomplete basis for assessing winter market risk. Preparing generation facilities and fuel supplies for severe cold may help address this risk.
 
@@ -164,6 +164,8 @@ Population weights are derived from the U.S. Census Bureau Annual Metropolitan A
 
 [www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states-ferc-nerc-and](https://www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states-ferc-nerc-and)
 
+U.S. Energy Information Administration. (2025, September 22).  *Utility-scale batteries are more commonly used for price arbitrage* . [https://www.eia.gov/todayinenergy/detail.php?id=66164](https://www.eia.gov/todayinenergy/detail.php?id=66164&utm_source=chatgpt.com)
+
 ### 9. Appendix
 
 시간별 load, price 그래프
@@ -171,7 +173,6 @@ Population weights are derived from the U.S. Census Bureau Annual Metropolitan A
 Regression 결과
 
 table 3
-
 
 **Table A1. Sensitivity to Winter Storm Uri (February 8–20, 2021)**
 
@@ -196,15 +197,6 @@ NOAA’s degree-day products (NOAA NCEI, LCDv2 documentation)
 
 DST 데이터가 있어서, 일단 DST 가 변하는 지점의 데이터 두 개 모두 살림
 
-Limitation
-
-While median prices increase gradually with both CDD and HDD, average prices rise much more sharply during extreme weather conditions, indicating the presence of occasional but substantial price spikes. This finding highlights the importance of adequate reserve capacity, demand response programs, and grid resilience measures to mitigate the risk of extreme market outcomes
-
-While this study focuses on ERCOT, future research could compare these relationships with electricity markets in other countries such as South Korea, where market design, fuel mix, and weather patterns differ substantially.
-
-The price is a statewide hub average that includes the West hub, whereas our weather index covers four large metropolitan areas and excludes West Texas, so the estimated temperature responses may understate sensitivity at the system level.
-
-한계점: 극단 기온에서 효과가 가속되는지는 CDD/HDD 선형 모델이 보여 주지 못함. 이 회귀는 기온과 부하·가격의 연관을 보여 주고, 풍력이나 태양광 같은 원인을 식별하지는 않음.
 
 ![1794004824051](image/README/1794004824051.png)
 
