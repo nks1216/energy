@@ -108,7 +108,7 @@ Future research could include weather data from more parts of Texas and data on 
 
 ### 8. References (Seperate)
 
-You can access raw data, merged data, and reproduce them with python code. (www.github.com/nks1216)
+You can access raw data, merged data, and reproduce them with python code. (http://github.com/nks1216/energy)
 
 **< Raw Data >**
 
@@ -166,6 +166,13 @@ Population weights are derived from the U.S. Census Bureau Annual Metropolitan A
 
 ### 9. Appendix
 
+시간별 load, price 그래프
+
+Regression 결과
+
+table 3
+
+
 **Table A1. Sensitivity to Winter Storm Uri (February 8–20, 2021)**
 
 |            | Load, full | Load, excl. Uri | Price, full | Price, excl. Uri |
@@ -184,8 +191,6 @@ Population weights are derived from the U.S. Census Bureau Annual Metropolitan A
 Appendix Figures A1 and A2 show that mean prices increase substantially more than median prices at high HDD and CDD values, indicating the presence of extreme price spikes during severe weather events.
 
 As a robustness check, the regression was re-estimated after excluding the Winter Storm Uri period (February 13-20, 2021). While the HDD coefficient increased modestly, the overall results remained largely unchanged. This suggests that the main findings are not driven by the extreme conditions associated with Winter Storm Uri.
-
-OLS results
 
 NOAA’s degree-day products (NOAA NCEI, LCDv2 documentation)
 
