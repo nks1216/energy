@@ -2,17 +2,35 @@
 
 ### 1. Introduction (3/4)
 
-2021년~2025년
+Electricity systems must meet changing demand while maintaining reliable supply. In Texas, understanding the relationship between weather, electricity demand, and wholesale prices is important for supply planning and managing exposure to high prices. A key question is whether hot and cold weather are associated with similar changes in demand and prices.
+
+This study examines that question using hourly Electric Reliability Council of Texas (ERCOT) electricity and Texas weather data from 2021–2025. We estimate separate regressions for electricity load and real-time prices, comparing their sensitivity to heat and cold while controlling for weather and time patterns.
+
+The results show that load is more sensitive to heat than to cold, while prices are strongly associated with both. However, the cold-weather price estimate falls substantially when the February 2021 winter storm period is excluded. The findings inform discussions of supply planning, price risk management, and the potential value of battery storage.
 
 ### 2. Background and Literature Review (3/4)
 
+ERCOT operates a wholesale electricity market covering most of Texas. ERCOT’s scarcity-pricing mechanisms can raise real-time electricity prices when operating reserves are low, reflecting the increased risk of insufficient supply (ERCOT, 2025). Understanding how weather relates to electricity demand and prices is therefore relevant to supply planning and price risk management.
+
+Shaffer et al. (2022) studied approximately 20 years of hourly data across ERCOT’s eight weather zones and found that electricity demand had become more sensitive to cold temperatures. Their use of hourly data and time fixed effects informs this study’s approach. Building on this, we use separate cooling and heating degree-hour variables instead of temperature-bin indicators and examine both system-wide load and real-time prices over 2021–2025.
+
+Winter Storm Uri highlighted the vulnerability of electricity supply to extreme cold. The joint FERC–NERC–Regional Entity report (2021) documented widespread generation failures and recommended stronger winter preparation and better coordination between natural gas and electricity systems. Its February 8–20 event window provides the basis for this study’s storm-exclusion robustness check.
+
+Storage is also relevant to hourly price differences. The U.S. Energy Information Administration (2025) reports that half of ERCOT’s battery capacity at the end of 2024 was primarily used for price arbitrage—charging at lower prices and selling at higher prices. This provides context for discussing storage in relation to the evening price pattern found in this study.
+
 ### 3. Theoretical Framework (1/2)
+
+Weather can affect electricity demand through cooling and heating needs. Hot weather increases the need for air conditioning, while cold weather increases electricity use where heating relies on electricity. Demand may therefore be higher at both high and low temperatures than under mild conditions. This motivates using separate cooling degree-hour (CDD) and heating degree-hour (HDD) variables. The responses to heat and cold may differ because cooling and heating systems use different technologies and energy sources.
+
+Electricity prices are determined by both supply and demand. Higher demand may raise prices, particularly when additional electricity supply is limited. Weather can also affect supply directly, including wind and solar generation and the availability of other generation facilities. The relationship between weather and electricity prices may therefore reflect changes on both sides of the market.
+
+Based on these mechanisms, we estimate separate regressions of electricity load and prices on weather conditions. The CDD and HDD coefficients allow us to compare their associations with hot and cold weather. These regressions estimate how electricity demand and prices are associated with weather. However, they do not establish that higher demand causes higher prices or show how much of the weather-related price change comes from demand rather than supply.
 
 ### 4. Data and Methodology (3/4)
 
 **Data.** We use hourly data from January 1, 2021 to December 31, 2025 (43,824 hours). Electricity demand is ERCOT system-wide hourly load (MW). Prices are ERCOT real-time settlement point prices at the ERCOT Hub Average (HB_HUBAVG), the simple average of the North, South, Houston, and West hub prices, reported in $/MWh at 15-minute intervals; we aggregate them to hourly values by taking the arithmetic mean of the four intervals within each hour.
 
-Weather data come from NOAA hourly airport observations of temperature (°C), relative humidity (%), and wind speed (m/s) at four major Texas cities: Dallas–Fort Worth, Houston, San Antonio, and Austin. We aggregate them into a statewide measure using population weights of 0.3891, 0.3621, 0.1296, and 0.1192, respectively, based on the 2021–2025 average metropolitan-area population (U.S. Census Bureau, via FRED). We match weather observations to ERCOT hours using UTC timestamps, so that daylight saving transitions create neither gaps nor duplicates.
+Weather data come from the National Oceanic and Atmospheric Administration’s National Centers for Environmental Information (NOAA NCEI) hourly airport observations of temperature (°C), relative humidity (%), and wind speed (m/s) at four major Texas cities: Dallas–Fort Worth, Houston, San Antonio, and Austin. We aggregate them into a statewide measure using population weights of 0.3891, 0.3621, 0.1296, and 0.1192, respectively, based on the 2021–2025 average metropolitan-area population (U.S. Census Bureau, via Federal Reserve Economic Data (FRED)). We match weather observations to ERCOT hours using UTC timestamps, so that daylight saving transitions create neither gaps nor duplicates.
 
 We exclude 395 hours (0.9%) with missing weather data at any of the four airports, which we do not impute, and three hours with physically impossible relative humidity values (outside 0–100%). The load regression therefore uses 43,426 hourly observations. Because the logarithm is undefined for non-positive values, the price regression additionally excludes 920 hours (2.1%) with zero or negative prices, leaving 42,506 observations; its estimates therefore describe hours with positive prices. Table 1 reports summary statistics for these samples.
 
@@ -31,7 +49,7 @@ We exclude 395 hours (0.9%) with missing weather data at any of the four airport
 
 *Notes:* The sample is the load regression sample (N = 43,426 hourly observations). The second price row is the sample for the price regression (hours with positive prices). Weather variables are population-weighted averages of four airport stations. CDD and HDD are degree-hours relative to 18°C. Sources: ERCOT, NOAA, U.S. Census Bureau (via FRED).
 
-**Empirical strategy.** Heating and cooling degree variables are defined relative to a base temperature of 18°C, close to the 65°F (≈18.3°C) base used in NOAA’s degree-day products (NOAA NCEI, LCDv2 documentation), and within the range where load is lowest in our data (Figure 1):
+**Empirical strategy.** Heating and cooling degree variables are defined relative to a base temperature of 18°C, close to the 65°F (≈18.3°C) base used in NOAA’s degree-day products (NOAA NCEI), LCDv2 documentation), and within the range where load is lowest in our data (Figure 1):
 
 ```math
 \text{CDD}_t = \max{(T_t-18, 0)}, \text{HDD}_t = \max{(18-T_t, 0)}.
@@ -106,65 +124,34 @@ Several limitations should be acknowledged. The linear CDD/HDD specification doe
 
 Future research could include weather data from more parts of Texas and data on electricity generation, and use methods that allow for zero and negative prices. Comparing ERCOT with electricity markets in other U.S. states or other countries could help explain how market rules, energy sources, and weather conditions affect the results.
 
-### 8. References (Seperate)
+### 8. References 
 
-You can access raw data, merged data, and reproduce them with python code. (http://github.com/nks1216/energy)
+Electric Reliability Council of Texas. (2025, October).  *ERCOT energy-only wholesale market* . [https://www.ercot.com/files/docs/2025/10/16/ERCOT-Grid-Insights-Energy-Only-Wholesale-Market.pdf](https://www.ercot.com/files/docs/2025/10/16/ERCOT-Grid-Insights-Energy-Only-Wholesale-Market.pdf)
 
-**< Raw Data >**
+Federal Energy Regulatory Commission, North American Electric Reliability Corporation, & Regional Entities. (2021, November).  *The February 2021 cold weather outages in Texas and the South Central United States* . [https://www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states-ferc-nerc-and](https://www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states-ferc-nerc-and)
 
-**1. Electricity demand: ERCOT**
+Kantor, D., Casey, N. W., Menne, M. J., & Buddenberg, A. (2023). *Local climatological data (LCD), version 2* [Data set]. NOAA National Centers for Environmental Information
 
-Home > Grid Information > Load > Hourly Load Data Archives
+Shaffer, B., Quintero, D., & Rhodes, J. (2022). Changing sensitivity to cold weather in Texas power demand.  *iScience, 25* (4), 104173. [https://doi.org/10.1016/j.isci.2022.104173](https://doi.org/10.1016/j.isci.2022.104173)
 
-[www.ercot.com/gridinfo/load/load_hist](https://www.ercot.com/gridinfo/load/load_hist)
+U.S. Energy Information Administration. (2025, September 22).  *Utility-scale batteries are more commonly used for price arbitrage* . [https://www.eia.gov/todayinenergy/detail.php?id=66164](https://www.eia.gov/todayinenergy/detail.php?id=66164)
 
-[2021 ERCOT Hourly Load Data](https://www.ercot.com/files/docs/2021/11/12/Native_Load_2021.zip "2021 ERCOT Hourly Load Data") ~ [2025 ERCOT Hourly Load Data](https://www.ercot.com/files/docs/2025/02/11/Native_Load_2025.zip "2025 ERCOT Hourly Load Data")
+**Data and Code**
 
-**2. Electricity price: ERCOT**
+`[GitHub repository](https://github.com/nks1216/energy)`
 
-Home > Market Participants > EMIL > Data Product Details
 
-[www.ercot.com/mp/data-products/data-product-details?id=NP6-785-ER](https://www.ercot.com/mp/data-products/data-product-details?id=NP6-785-ER)
+**Table A2. Data sources**
 
-RTMLZHBSPP_2021 ~ RTMLZHBSPP_2025
+| Resource                                              | Source                                                                                                       | Dataset or identifier                                                                                                                                                                                                                 |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hourly electricity load                               | Electric Reliability Council of Texas (ERCOT)                                                                | [Hourly Load Data Archives](https://www.ercot.com/gridinfo/load/load_hist), 2021–2025                                                                                                                                                 |
+| Real-time electricity prices                          | ERCOT                                                                                                        | [Historical RTM Load Zone and Hub Prices](https://www.ercot.com/mp/data-products/data-product-details?id=NP6-785-ER); RTMLZHBSPP_2021–2025, HB_HUBAVG                                                                                 |
+| Hourly temperature, relative humidity, and wind speed | National Oceanic and Atmospheric Administration (NOAA) National Centers for Environmental Information (NCEI) | [Local Climatological Data, Version 2](https://www.ncei.noaa.gov/products/land-based-station/local-climatological-data), 2021-2025. Airport codes: AUS, DFW, IAH, SAT.                                                               |
+| Annual metropolitan population                        | U.S. Census Bureau, via Federal Reserve Economic Data (FRED)                                                | [DFWPOP](https://fred.stlouisfed.org/series/DFWPOP), [HTNPOP](https://fred.stlouisfed.org/series/HTNPOP), [SATPOP](https://fred.stlouisfed.org/series/SATPOP), [AUSPOP](https://fred.stlouisfed.org/series/AUSPOP), 2021-2025 (annual) |
 
-**3. Temperature: NOAA**
+*Note:* Weather station identifiers are AUS: USW00013904; DFW: USW00003927; IAH: USW00012960; and SAT: USW00012921.
 
-Local Climatological Data V2
-
-[www.ncei.noaa.gov](https://www.ncei.noaa.gov/)
-
-| city                  | airport | station name                           | GHCN ID               |
-| --------------------- | ------- | -------------------------------------- | --------------------- |
-| **Austin**      | AUS     | AUSTIN BERGSTROM INTERNATIONAL AIRPORT | **USW00013904** |
-| **Dallas**      | DFW     | DAL FTW WSCMO AIRPORT                  | **USW00003927** |
-| **Houston**     | IAH     | HOUSTON INTERCONTINENTAL AIRPORT       | **USW00012960** |
-| **San Antonio** | SAT     | SAN ANTONIO INTERNATIONAL AIRPORT      | **USW00012921** |
-
-**4. Population: FRED**
-
-FRED (Federal Reserve Economic Data)
-
-[fred.stlouisfed.org/series/AUSPOP](https://fred.stlouisfed.org/series/AUSPOP)
-
-[Home](https://fred.stlouisfed.org/)>[Categories](https://fred.stlouisfed.org/categories)>[U.S. Regional Data](https://fred.stlouisfed.org/categories/3008)>[States](https://fred.stlouisfed.org/categories/27281)>[Texas](https://fred.stlouisfed.org/categories/27326)>[MSAs](https://fred.stlouisfed.org/categories/30907)>[Austin-Round Rock-San Marcos, TX](https://fred.stlouisfed.org/categories/30910)
-
-* **Dallas-Fort Worth MSA** :`DFWPOP`
-* **Houston MSA** :`HTNPOP`
-* **San Antonio MSA** :`SATPOP`
-* **Austin MSA** :`AUSPOP`
-
-To capture the weather-driven component of the system-wide load, we construct a population-weighted temperature index based on the four major metropolitan statistical areas (MSAs)—Dallas, Houston, San Antonio, and Austin—which account for the vast majority of Texas's population and aggregated electricity consumption.
-
-Population weights are derived from the U.S. Census Bureau Annual Metropolitan Area Resident Population Estimates for Dallas-Fort Worth, Houston, San Antonio, and Austin MSAs, retrieved via FRED (Federal Reserve Economic Data). A fixed average share across the 2021–2025 sample period is applied to construct the population-weighted statewide weather indices.
-
-**FERC–NERC 공동 보고서 (2021년 11월)** : *The February 2021 Cold Weather Outages in Texas and the South Central United States*
-
-법률사무소 요약에 따르면 2021년 2월 8~20일 사건에서 1,045개 발전 설비가 4,124건의 정지나 출력 감소를 겪었고, 보고서에는 28개 권고가 있음.
-
-[www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states-ferc-nerc-and](https://www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states-ferc-nerc-and)
-
-U.S. Energy Information Administration. (2025, September 22).  *Utility-scale batteries are more commonly used for price arbitrage* . [https://www.eia.gov/todayinenergy/detail.php?id=66164](https://www.eia.gov/todayinenergy/detail.php?id=66164&utm_source=chatgpt.com)
 
 ### 9. Appendix
 
@@ -196,7 +183,6 @@ As a robustness check, the regression was re-estimated after excluding the Winte
 NOAA’s degree-day products (NOAA NCEI, LCDv2 documentation)
 
 DST 데이터가 있어서, 일단 DST 가 변하는 지점의 데이터 두 개 모두 살림
-
 
 ![1794004824051](image/README/1794004824051.png)
 

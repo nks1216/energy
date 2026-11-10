@@ -95,3 +95,53 @@ While this study focuses on ERCOT, future research could compare these relations
 The price is a statewide hub average that includes the West hub, whereas our weather index covers four large metropolitan areas and excludes West Texas, so the estimated temperature responses may understate sensitivity at the system level.
 
 한계점: 극단 기온에서 효과가 가속되는지는 CDD/HDD 선형 모델이 보여 주지 못함. 이 회귀는 기온과 부하·가격의 연관을 보여 주고, 풍력이나 태양광 같은 원인을 식별하지는 않음.
+
+
+
+**< Raw Data >**
+
+**1. Electricity demand: ERCOT**
+
+Home > Grid Information > Load > Hourly Load Data Archives
+
+[www.ercot.com/gridinfo/load/load_hist](https://www.ercot.com/gridinfo/load/load_hist)
+
+[2021 ERCOT Hourly Load Data](https://www.ercot.com/files/docs/2021/11/12/Native_Load_2021.zip "2021 ERCOT Hourly Load Data") ~ [2025 ERCOT Hourly Load Data](https://www.ercot.com/files/docs/2025/02/11/Native_Load_2025.zip "2025 ERCOT Hourly Load Data")
+
+**2. Electricity price: ERCOT**
+
+Home > Market Participants > EMIL > Data Product Details
+
+[www.ercot.com/mp/data-products/data-product-details?id=NP6-785-ER](https://www.ercot.com/mp/data-products/data-product-details?id=NP6-785-ER)
+
+RTMLZHBSPP_2021 ~ RTMLZHBSPP_2025
+
+**3. Temperature: NOAA**
+
+Local Climatological Data V2
+
+[www.ncei.noaa.gov](https://www.ncei.noaa.gov/)
+
+| city                  | airport | station name                           | GHCN ID               |
+| --------------------- | ------- | -------------------------------------- | --------------------- |
+| **Austin**      | AUS     | AUSTIN BERGSTROM INTERNATIONAL AIRPORT | **USW00013904** |
+| **Dallas**      | DFW     | DAL FTW WSCMO AIRPORT                  | **USW00003927** |
+| **Houston**     | IAH     | HOUSTON INTERCONTINENTAL AIRPORT       | **USW00012960** |
+| **San Antonio** | SAT     | SAN ANTONIO INTERNATIONAL AIRPORT      | **USW00012921** |
+
+**4. Population: FRED**
+
+FRED (Federal Reserve Economic Data)
+
+[fred.stlouisfed.org/series/AUSPOP](https://fred.stlouisfed.org/series/AUSPOP)
+
+[Home](https://fred.stlouisfed.org/)>[Categories](https://fred.stlouisfed.org/categories)>[U.S. Regional Data](https://fred.stlouisfed.org/categories/3008)>[States](https://fred.stlouisfed.org/categories/27281)>[Texas](https://fred.stlouisfed.org/categories/27326)>[MSAs](https://fred.stlouisfed.org/categories/30907)>[Austin-Round Rock-San Marcos, TX](https://fred.stlouisfed.org/categories/30910)
+
+* **Dallas-Fort Worth MSA** :`DFWPOP`
+* **Houston MSA** :`HTNPOP`
+* **San Antonio MSA** :`SATPOP`
+* **Austin MSA** :`AUSPOP`
+
+To capture the weather-driven component of the system-wide load, we construct a population-weighted temperature index based on the four major metropolitan statistical areas (MSAs)—Dallas, Houston, San Antonio, and Austin—which account for the vast majority of Texas's population and aggregated electricity consumption.
+
+Population weights are derived from the U.S. Census Bureau Annual Metropolitan Area Resident Population Estimates for Dallas-Fort Worth, Houston, San Antonio, and Austin MSAs, retrieved via FRED (Federal Reserve Economic Data). A fixed average share across the 2021–2025 sample period is applied to construct the population-weighted statewide weather indices.
