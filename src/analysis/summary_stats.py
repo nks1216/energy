@@ -6,7 +6,6 @@ import pandas as pd
 # --------------------------------------------------
 df = pd.read_csv("data/final/final_data_cdd_hdd.csv")
 df["date"] = pd.to_datetime(df["date"])
-df = df[df["date"] < "2026-01-01"]
 
 needed = ["ERCOT", "price_rt_hubavg", "HourlyDryBulbTemperature",
           "CDD", "HDD", "HourlyRelativeHumidity", "HourlyWindSpeed"]
@@ -16,8 +15,8 @@ df = df[(df["HourlyRelativeHumidity"] >= 0)
 
 pos = df[df["price_rt_hubavg"] > 0]
 
-print("Load regression sample:", len(df))        # 43,425
-print("Positive-price sample:", len(pos))        # 42,505
+print("Load regression sample:", len(df))        
+print("Positive-price sample:", len(pos))        
 print("Share of hours with CDD > 0: %.3f" % (df["CDD"] > 0).mean())
 print("Share of hours with HDD > 0: %.3f" % (df["HDD"] > 0).mean())
 

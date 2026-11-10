@@ -23,8 +23,6 @@ HDD values were rounded to the nearest integer for visualization, and only obser
 
 Figure 5 shows that both ERCOT electricity demand and median real-time prices increase with heating degree days (HDD). Average ERCOT load rises from approximately 41 GW at low HDD levels to more than 63 GW at high HDD levels, reflecting higher electricity demand during colder weather. Median RT prices also increase from about $20/MWh to nearly $80/MWh as HDD rises. These results suggest that cold-weather conditions place upward pressure on both electricity demand and wholesale electricity prices in ERCOT.
 
-
-
 ```math
 \ln(\text{Load}_t) = \beta_0 + \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \beta_3 \text{Humidity}_t + \beta_4 \text{Wind Speed}_t + \text{Hour/Month/Year FE} + \varepsilon_t
 ```
@@ -75,3 +73,21 @@ Table 3. Implied Change in ERCOT Load Relative to an 18°C Hour
 Notes: HAC standard errors (24 lags); hours with non-positive prices (924, 2.1%) excluded
 
 Table 4 shows that both CDD and HDD are positively and significantly associated with real-time prices: a one-unit increase in either is associated with roughly 8% higher prices. Unlike the load regression, the difference between the two coefficients is not statistically significant (p = 0.67), so we cannot conclude that prices respond more strongly to heat than to cold. Prices follow a pronounced intraday pattern, with hour 20 about 100% higher than hour 0.
+
+
+전력 수요: 텍사스 시간별 전력 수요(2021-01-01~2025-12-31, ERCOT)
+
+전력 가격: 텍사스 15분 단위 허브평균 전력 real-time 도매가격(Settlement Point Name: HB_HUBAVG)을 시간 단위로 평균 (2021-01-01~2025-12-31, ERCOT)
+
+(The hourly real-time electricity price is calculated as the arithmetic average of four 15-minute settlement prices at the HB_HUBAVG settlement point.)
+
+기상 관측치: 오스틴, 달라스-포트워스, 샌안토니오, 휴스턴 4개 도시 각 공항의 시간별 기온(섭씨), 상대습도(%), 풍속(2021-01-01~2025-12-31, NOAA)에 대해 인구 가중 평균하여 텍사스 전체 기상 관측치를 만듦
+
+인구 가중치: 최근 5개년 텍사스 4개 도시의 인구 수를 각각 평균한 후 가중치 구성(2021-01-01, 2022-01-01, 2023-01-01, 2024-01-01, 2025-01-01, the U.S. Census Bureau Annual Metropolitan Area Resident Population Estimates, via FRED / Dallas: 0.3891, Houston: 0.3621, Sanantonio: 0.1296, Austin: 0.1192)
+
+ERCOT 수요, 가격 자료는 DST가 있는 자료 모두 포함, NOAA 데이터를 UTC로 변환한 후 ERCOT 데이터와 병합하였고, 시각화 및 회귀 분석은 실제 상황에 맞게 해석하고자 ERCOT 시간 기준(local time)을 사용
+
+**정제** : 2026-01-01 행 제거, 결측 제거, 습도 범위 밖 3개 제거 → 부하 N = 43,425. 가격은 비양수 924개(2.1%) 추가 제거 → N = 42,505.
+
+* **변수 정의** : CDD = max(T − 18, 0), HDD = max(18 − T, 0). 시간별이라 degree-hours에 가까움
+* **모형** : ln(부하) 또는 ln(가격) = CDD + HDD + 습도 + 풍속 + 시간·월·연도 FE, HAC SE(24 lags).

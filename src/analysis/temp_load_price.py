@@ -12,8 +12,7 @@ plt.rcParams.update({
 # Load regression dataset and apply the same filters
 # --------------------------------------------------
 df = pd.read_csv("data/final/final_data_cdd_hdd.csv")
-df["date"] = pd.to_datetime(df["date"])
-df = df[df["date"] < "2026-01-01"]                       
+df["date"] = pd.to_datetime(df["date"])                
 
 df = df.dropna(subset=["ERCOT", "price_rt_hubavg", "HourlyDryBulbTemperature",
                        "HourlyRelativeHumidity", "HourlyWindSpeed"])
@@ -45,8 +44,8 @@ stats = stats[stats["count"] >= 50]
 fig, ax = plt.subplots(1, 2, figsize=(10, 4), sharex=True)
 
 ax[0].plot(stats["temp_bin"], stats["avg_load"], linewidth=2)
-ax[0].set_title("(a) Mean load")
-ax[0].set_ylabel("Mean ERCOT load (MW)")
+ax[0].set_title("(a) Average load")
+ax[0].set_ylabel("Average ERCOT load (MW)")
 
 ax[1].plot(stats["temp_bin"], stats["med_price"], linewidth=2)
 ax[1].set_title("(b) Median price")
@@ -66,3 +65,7 @@ fig.savefig(output_file, dpi=300, bbox_inches="tight")
 plt.close(fig)
 
 print(f"\nSaved figure to: {output_file}")
+
+print(stats.loc[stats["temp_bin"].isin([-4, 1, 17, 35, 39]),
+                ["temp_bin", "avg_load", "med_price", "count"]])
+print("omitted observations:", len(df) - int(stats["count"].sum()))
