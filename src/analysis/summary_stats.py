@@ -44,6 +44,7 @@ for name, s, d in rows:
     records.append({
         "Variable": name,
         "Mean": fmt(s.mean(), d),
+        "Median": fmt(s.median(), d),
         "Std":  fmt(s.std(), d),
         "Min":  min_str,
         "Max":  fmt(s.max(), d),

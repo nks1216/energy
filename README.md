@@ -18,16 +18,16 @@ We exclude 395 hours (0.9%) with missing weather data at any of the four airport
 
 **Table 1. Summary statistics, hourly observations, 2021–2025**
 
-| Variable                      | Mean   | Std    | Min    | Max     | N      |
-| ----------------------------- | ------ | ------ | ------ | ------- | ------ |
-| Load (MW)                     | 50,563 | 11,120 | 27,800 | 85,464  | 43,426 |
-| Price, all hours ($/MWh)      | 63.9   | 451.2  | -34.8  | 9,024.1 | 43,426 |
-| Price, positive hours ($/MWh) | 65.4   | 456.0  | 0.0025 | 9,024.1 | 42,506 |
-| Temperature (°C)             | 21.16  | 8.78   | -13.78 | 41.46   | 43,426 |
-| CDD (degree-hours)            | 5.51   | 5.50   | 0.00   | 23.46   | 43,426 |
-| HDD (degree-hours)            | 2.35   | 4.57   | 0.00   | 31.78   | 43,426 |
-| Relative humidity (%)         | 65.74  | 18.24  | 9.85   | 100.00  | 43,426 |
-| Wind speed (m/s)              | 3.96   | 1.90   | 0.00   | 13.11   | 43,426 |
+| Variable                      | Mean   | Median | Std    | Min    | Max     | N      |
+| ----------------------------- | ------ | ------ | ------ | ------ | ------- | ------ |
+| Load (MW)                     | 50,563 | 48,076 | 11,120 | 27,800 | 85,464  | 43,426 |
+| Price, all hours ($/MWh)      | 63.9   | 24.8   | 451.2  | -34.8  | 9,024.1 | 43,426 |
+| Price, positive hours ($/MWh) | 65.4   | 25.1   | 456.0  | 0.0025 | 9,024.1 | 42,506 |
+| Temperature (°C)             | 21.16  | 22.51  | 8.78   | -13.78 | 41.46   | 43,426 |
+| CDD (degree-hours)            | 5.51   | 4.51   | 5.50   | 0.00   | 23.46   | 43,426 |
+| HDD (degree-hours)            | 2.35   | 0.00   | 4.57   | 0.00   | 31.78   | 43,426 |
+| Relative humidity (%)         | 65.74  | 68.03  | 18.24  | 9.85   | 100.00  | 43,426 |
+| Wind speed (m/s)              | 3.96   | 3.74   | 1.90   | 0.00   | 13.11   | 43,426 |
 
 *Notes:* The sample is the load regression sample (N = 43,426 hourly observations). The second price row is the sample for the price regression (hours with positive prices). Weather variables are population-weighted averages of four airport stations. CDD and HDD are degree-hours relative to 18°C. Sources: ERCOT, NOAA, U.S. Census Bureau (via FRED).
 
@@ -88,28 +88,27 @@ Note: Computed as exp(β × degree-hours) − 1 from Table 2, assuming that log 
 
 ### 6. Policy Implications or Discussion (1/2)
 
-Three results bear on resource adequacy in ERCOT’s energy-only market. First, load rises more with heat than with cold (about 2.8% versus 1.9% per degree-hour) and trends upward (2025 load is about 23% above 2021 after controlling for weather), so reserve planning should reflect demand growth as well as weather.
+The findings suggest several implications for electricity supply planning and price risk management in ERCOT.
 
-Second, prices respond roughly three times as strongly as load, and median prices at the temperature extremes are four to five times their minimum (Figure 1). Because prices are also highly right-skewed (Table 1), much of the price risk sits in a small number of extreme-weather hours. These are the hours in which ERCOT’s operating reserve demand curve (ORDC) raises prices to reflect scarcity (ERCOT, 2022), the mechanism through which an energy-only market rewards capacity (Hogan, 2013). Rules that change how often or how high scarcity prices rise therefore shape investment incentives, while retailers and large consumers exposed to real-time prices bear tail risk that hedging and demand response can reduce.
+First, load rises more with heat than with cold (about 2.8% versus 1.9% per degree-hour), and 2025 load is about 23% above 2021 after controlling for weather and other included factors. Planning for sufficient electricity supply should therefore account for both weather conditions and demand growth.
 
-Third, prices peak in the evening (the 7–8 pm hour is about 100% above the 11 pm–midnight hour), which suggests that resources available at that time, such as storage and demand response, may be especially valuable.
+Second, prices are more sensitive to temperature than load, and median prices at the temperature extremes are four to five times their minimum (Figure 1). Sudden price spikes can greatly increase costs for electricity retailers and large consumers that pay real-time prices. These businesses may reduce their exposure by locking in prices in advance or reducing electricity use during high-price hours.
 
-The cold-weather results need caution. Heating-related price effects are concentrated in a few extreme hours: excluding the February 2021 storm window (0.7% of hours) lowers the HDD coefficient by about one-third (FERC et al., 2021).
+Third, prices peak in the evening: the 7–8 pm hour is about 100% more expensive than the 11 pm–midnight hour. These higher evening prices suggest that using stored electricity or shifting electricity use to lower-price hours may help electricity retailers and large customers on wholesale-indexed contracts manage their electricity costs.
 
+Finally, winter planning should consider rare but severe storms. Excluding the February 2021 storm window (0.7% of the price sample) lowers the HDD coefficient by about one-third. Although this analysis does not identify the causes of the storm-related price increases, the result suggests that typical winter conditions alone provide an incomplete basis for assessing winter market risk. Preparing generation facilities and fuel supplies for severe cold may help address this risk.
 
 ### 7. Conclusion (1/3)
 
+This study examines the relationship between weather, electricity demand, and real-time prices in ERCOT using hourly data from 2021–2025. Load is more sensitive to heat than to cold, while prices respond strongly to both. However, the estimated cold-weather price response falls substantially when the February 2021 winter storm period is excluded. Together with the highly skewed price distribution, this result highlights the importance of extreme events when assessing electricity price risk. These findings suggest a role for adequate reserves, demand response, and grid resilience in managing weather-related market stress.
 
+Several limitations should be acknowledged. The linear CDD/HDD specification does not capture whether temperature effects accelerate at more extreme temperatures. The load and price regressions separately estimate how each variable is associated with weather. They do not show that higher electricity demand causes higher prices. Since the analysis does not include electricity supply variables, it cannot tell whether price changes come from changes in demand or supply. There is also a geographic mismatch: prices reflect a four-hub average that includes West Texas, whereas the weather index covers four major metropolitan areas and excludes that region. Finally, taking logarithms excludes zero and negative prices, potentially creating sample selection concerns and limiting the price results to positive-price hours.
+
+Future research could include weather data from more parts of Texas and data on electricity generation, and use methods that allow for zero and negative prices. Comparing ERCOT with electricity markets in other U.S. states or other countries could help explain how market rules, energy sources, and weather conditions affect the results.
 
 ### 8. References (Seperate)
 
-> 같은 여름철에도 매우 더운 날은 비교적 덜 더운 날보다 전력수요가 10% 높았고, 도매가격은 MWh당 20달러 높았다.
-
-**전력 사용량의 증가와 가격 부담의 증가를 함께 보여주므로 경제 분석이 분명해짐 / ** 다만 두 결과만으로 수요 증가가 가격 상승을 일으켰다고 확정하지는 않습니다.
-
-정책 논의는 결과에 맞추어 연결
-
-> 매우 더운 날에 수요와 가격이 모두 높게 나타난다면, 이러한 날에 전력 사용을 줄이도록 유도하는 정책을 검토할 근거가 된다. 다만 정책의 실제 효과와 비용은 별도 평가가 필요하다.
+You can access raw data, merged data, and reproduce them with python code. (www.github.com/nks1216)
 
 **< Raw Data >**
 
@@ -165,8 +164,6 @@ Population weights are derived from the U.S. Census Bureau Annual Metropolitan A
 
 [www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states-ferc-nerc-and](https://www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states-ferc-nerc-and)
 
-
-
 ### 9. Appendix
 
 **Table A1. Sensitivity to Winter Storm Uri (February 8–20, 2021)**
@@ -184,8 +181,6 @@ Population weights are derived from the U.S. Census Bureau Annual Metropolitan A
 
 *Notes:* HAC standard errors (24 lags) in parentheses. *** p < 0.001. All regressions include hour, month, and year fixed effects and the same controls as Table 2. “Excl. Uri” drops February 8–20, 2021.
 
-
-
 Appendix Figures A1 and A2 show that mean prices increase substantially more than median prices at high HDD and CDD values, indicating the presence of extreme price spikes during severe weather events.
 
 As a robustness check, the regression was re-estimated after excluding the Winter Storm Uri period (February 13-20, 2021). While the HDD coefficient increased modestly, the overall results remained largely unchanged. This suggests that the main findings are not driven by the extreme conditions associated with Winter Storm Uri.
@@ -194,9 +189,7 @@ OLS results
 
 NOAA’s degree-day products (NOAA NCEI, LCDv2 documentation)
 
-
 DST 데이터가 있어서, 일단 DST 가 변하는 지점의 데이터 두 개 모두 살림
-
 
 Limitation
 
@@ -207,7 +200,6 @@ While this study focuses on ERCOT, future research could compare these relations
 The price is a statewide hub average that includes the West hub, whereas our weather index covers four large metropolitan areas and excludes West Texas, so the estimated temperature responses may understate sensitivity at the system level.
 
 한계점: 극단 기온에서 효과가 가속되는지는 CDD/HDD 선형 모델이 보여 주지 못함. 이 회귀는 기온과 부하·가격의 연관을 보여 주고, 풍력이나 태양광 같은 원인을 식별하지는 않음.
-
 
 ![1794004824051](image/README/1794004824051.png)
 
