@@ -68,19 +68,17 @@ where t indexes hours, Y_t is either ERCOT load or the real-time price, and Hour
 
 ### 5. Results and Analysis (1 1/4)
 
+Figure 1 shows that load and prices are lowest at mild temperatures (about 14–19°C) and rise at hotter and colder temperatures. Load is higher at the hot extreme than at the cold extreme, although these extreme bins contain relatively few observations and should be interpreted cautiously. Figures 1 and 2 report median prices to reduce the influence of occasional price spikes.
+
 ![1794274747436](image/README/1794274747436.png)
 
-**Figure 1.** Average ERCOT load (a) and median real-time price (b) by hourly temperature, 2021–2025. Temperatures are rounded to the nearest °C. Bins with fewer than 50 observations (below −4°C or above 39°C, 202 observations in total) are not shown. The dashed line marks the 18°C base temperature. Prices are hourly averages at the HB_HUBAVG hub-average settlement point. Sources: ERCOT, NOAA; authors’ calculations.
+**Figure 1.** Average ERCOT load (a) and median real-time price (b) by hourly temperature, 2021–2025. Temperatures are rounded to the nearest °C. Bins with fewer than 50 observations (below −4°C or above 39°C, 202 observations in total) are not shown. The dashed line marks 18°C. Prices are hourly HB_HUBAVG averages. Sources: ERCOT, NOAA; authors’ calculations.
 
-Figure 1 shows that both load and price are lowest at mild temperatures (about 14–19°C) and rise when the weather gets hotter or colder. The rise in load is bigger on the hot side. Load is about 81,000 MW at 39°C but only about 63,000 MW at −4°C, even though −4°C is slightly farther from the 18°C base (22°C versus 21°C). Prices also rise at both extremes, reaching about $97/MWh at 39°C and $79/MWh at −4°C, and the gap between hot and cold is smaller than for load. The hottest and coldest bins have few observations (94 at 39°C and 82 at −4°C), so we read them with caution. These patterns motivate using separate heating and cooling terms in the regressions below.
-
-Because real-time prices are highly right-skewed (Table 1: standard deviation of $451/MWh versus a mean of $64/MWh, about seven times larger), the figures show medians rather than means.
+Figure 2 compares hot and cold weather at equal distances from 18°C. At 15 degree-hours, average load is about 69,500 MW for CDD versus 51,900 MW for HDD, while median prices are approximately $38 versus $29/MWh. These descriptive comparisons do not control for other weather variables or time patterns.
 
 ![1794275075886](image/README/1794275075886.png)
 
-**Figure 2.** Average ERCOT load (a) and median real-time price (b) by degree-hours above (CDD, hot weather) or below (HDD, cold weather) the 18°C base temperature. Degree-hours are rounded to the nearest integer, so bin k corresponds to a temperature of 18+k°C (CDD) or 18−k°C (HDD), as in Figure 1. Hours with fewer than 0.5 degree-hours and bins with fewer than 50 observations are not shown. Sources: ERCOT, NOAA; authors’ calculations.
-
-Figure 2 plots the same variables against degree-hours above (hot) or below (cold) the 18°C base. At the same number of degree-hours, load is higher on the hot side. For example, at 15 degree-hours, average load is about 69,500 MW for CDD but about 51,900 MW for HDD, and the gap widens as degree-hours increase. Median prices are similar at low degree-hours (about $26 and $25 at 10 degree-hours) but diverge at higher levels, with about $38 for CDD and $29 for HDD at 15 degree-hours. The highest bins contain relatively few observations, so we do not rely on them (94 observations for CDD at 21 and 82 for HDD at 22).
+**Figure 2.** Average ERCOT load (a) and median real-time price (b) by CDD and HDD relative to 18°C. Degree-hours are rounded to integers. Hours with fewer than 0.5 degree-hours and bins with fewer than 50 observations are omitted. Sources: ERCOT, NOAA; authors’ calculations.
 
 **Table 2. Weather and ERCOT load and prices**
 
@@ -93,9 +91,7 @@ Figure 2 plots the same variables against degree-hours above (hot) or below (col
 
 *Notes:* HAC standard errors (24 lags) in parentheses. *** p < 0.001. All regressions include hour, month, and year fixed effects. The price regression excludes 920 hours (2.1%) with non-positive prices. CDD and HDD are degree-hours relative to 18°C.
 
-Table 2 reports the regression results. Both CDD and HDD are positively and significantly associated with load. Holding hour, month, year, humidity, and wind speed fixed, one additional degree-hour of cooling is associated with about 2.8% higher load, compared with about 1.9% for heating, and the difference is statistically significant (p < 0.001). Demand is therefore more sensitive to heat than to cold. Year effects rise steadily, with 2025 load about 23% above 2021 after controlling for weather. Table 3 converts these coefficients into implied load changes at illustrative temperatures.
-
-Prices respond more strongly to weather than load does: one additional degree-hour of either cooling or heating is associated with about 8% higher prices in the full sample. The CDD and HDD coefficients are statistically indistinguishable (p = 0.67), so we do not conclude that prices respond more to heat than to cold. This comparison is sensitive to Winter Storm Uri. Excluding February 8–20, 2021 (301 hours, 0.7% of the price sample) lowers the HDD coefficient from 0.0809 to 0.0543, and heat then has a clearly larger effect on prices than cold (p < 0.001). The load results barely change (Appendix Table A1). Prices also follow a strong daily pattern: the 7–8 pm hour is about 100% more expensive than the 11 pm–midnight hour.
+Table 2 shows that, holding other included variables fixed, one additional cooling degree-hour is associated with about 2.8% higher load, compared with 1.9% for heating. The difference is statistically significant (p < 0.001). The year coefficients imply approximately 23% higher load in 2025 than in 2021, conditional on the included controls (Appendix Table A1). Table 3 illustrates the implied load differences at selected temperatures.
 
 **Table 3. Implied Change in ERCOT Load Relative to an 18°C Hour**
 
@@ -106,6 +102,10 @@ Prices respond more strongly to weather than load does: one additional degree-ho
 | 8°C (10°C below base)  | exp(10 × 0.0188) − 1 | ≈ 21%                |
 
 Note: Computed as exp(β × degree-hours) − 1 from Table 2, assuming that log load is linear in degree-hours.
+
+Prices respond more strongly to weather than load does: one additional degree-hour of either cooling or heating is associated with about 8% higher prices in the full positive-price sample. The CDD and HDD coefficients are statistically indistinguishable (p = 0.67), so we do not conclude that prices respond more to heat than to cold (Appendix Table A4).
+
+This comparison is sensitive to Winter Storm Uri. Excluding February 8–20, 2021 (301 hours, 0.7% of the price sample) lowers the HDD coefficient from 0.0809 to 0.0543. Cooling degree-hours are then more strongly associated with prices than heating degree-hours, with a statistically significant coefficient difference (p < 0.001). The load results barely change (Appendix Table A5). Prices also follow a strong daily pattern: holding other included variables fixed, the 7–8 pm hour is about 100% more expensive than the 11 pm–midnight hour (Appendix Table A3).
 
 ### 6. Policy, Technical Implications and Discussion (1/2)
 
@@ -172,7 +172,7 @@ Figure A2. Daily series from Figure A1 with February 8–20, 2021 excluded from 
 **Table A1: Full regression results for log electricity load**
 
 ```text
-                            OLS Regression Results                      
+                            OLS Regression Results                    
 ==============================================================================
 Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
@@ -181,8 +181,8 @@ Date:                Mon, 09 Nov 2026   Prob (F-statistic):               0.00
 Time:                        21:25:41   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
-Df Model:                          42                                   
-Covariance Type:                  HAC                                   
+Df Model:                          42                                 
+Covariance Type:                  HAC                                 
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -247,7 +247,7 @@ strong multicollinearity or other numerical problems.
 **Table A2: Test of equal cooling and heating coefficients for log electricity load**
 
 ```
-                             Test for Constraints                       
+                             Test for Constraints                     
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
@@ -260,7 +260,7 @@ c0             0.0093      0.001     15.093      0.000       0.008       0.011
 **Table A3: Full regression results for log electricity price**
 
 ```
-                            OLS Regression Results                      
+                            OLS Regression Results                    
 ==============================================================================
 Dep. Variable:              log_price   R-squared:                       0.341
 Model:                            OLS   Adj. R-squared:                  0.341
@@ -269,8 +269,8 @@ Date:                Mon, 09 Nov 2026   Prob (F-statistic):               0.00
 Time:                        21:26:23   Log-Likelihood:                -47598.
 No. Observations:               42506   AIC:                         9.528e+04
 Df Residuals:                   42463   BIC:                         9.565e+04
-Df Model:                          42                                   
-Covariance Type:                  HAC                                   
+Df Model:                          42                                 
+Covariance Type:                  HAC                                 
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -335,7 +335,7 @@ strong multicollinearity or other numerical problems.
 **Table A4: Test of equal cooling and heating coefficients for log electricity price**
 
 ```
-                             Test for Constraints                       
+                             Test for Constraints                     
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
