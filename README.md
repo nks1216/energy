@@ -50,7 +50,7 @@ We exclude 395 hours (0.9%) with missing weather data at any of the four airport
 | Relative humidity (%)         | 65.74  | 68.03  | 18.24  | 9.85   | 100.00  | 43,426 |
 | Wind speed (m/s)              | 3.96   | 3.74   | 1.90   | 0.00   | 13.11   | 43,426 |
 
-*Notes:* The sample is the load regression sample (N = 43,426 hourly observations). The second price row is the sample for the price regression (hours with positive prices). Weather variables are population-weighted averages of four airport stations. CDD and HDD are degree-hours relative to 18°C. Sources: ERCOT, NOAA, U.S. Census Bureau (via FRED).
+*Notes:* The sample is the load regression sample (N = 43,426 hourly observations). The second price row is the sample for the price regression (hours with positive prices). Weather variables are population-weighted averages of four airport stations. CDD and HDD are degree-hours relative to 18°C. Their summary statistics include all sample hours, including those with zero values. Sources: ERCOT, NOAA, U.S. Census Bureau (via FRED).
 
 **Empirical strategy.** Heating and cooling degree variables are defined relative to a base temperature of 18°C, close to the 65°F (≈18.3°C) base used in NOAA’s degree-day products (NOAA NCEI), LCDv2 documentation), and within the range where load is lowest in our data (Figure 1):
 
@@ -172,7 +172,7 @@ Figure A2. Daily series from Figure A1 with February 8–20, 2021 excluded from 
 **Table A1: Full regression results for log electricity load**
 
 ```text
-                            OLS Regression Results                    
+                            OLS Regression Results                  
 ==============================================================================
 Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
@@ -181,8 +181,8 @@ Date:                Mon, 09 Nov 2026   Prob (F-statistic):               0.00
 Time:                        21:25:41   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
-Df Model:                          42                                 
-Covariance Type:                  HAC                                 
+Df Model:                          42                               
+Covariance Type:                  HAC                               
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -247,7 +247,7 @@ strong multicollinearity or other numerical problems.
 **Table A2: Test of equal cooling and heating coefficients for log electricity load**
 
 ```
-                             Test for Constraints                     
+                             Test for Constraints                   
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
@@ -260,7 +260,7 @@ c0             0.0093      0.001     15.093      0.000       0.008       0.011
 **Table A3: Full regression results for log electricity price**
 
 ```
-                            OLS Regression Results                    
+                            OLS Regression Results                  
 ==============================================================================
 Dep. Variable:              log_price   R-squared:                       0.341
 Model:                            OLS   Adj. R-squared:                  0.341
@@ -269,8 +269,8 @@ Date:                Mon, 09 Nov 2026   Prob (F-statistic):               0.00
 Time:                        21:26:23   Log-Likelihood:                -47598.
 No. Observations:               42506   AIC:                         9.528e+04
 Df Residuals:                   42463   BIC:                         9.565e+04
-Df Model:                          42                                 
-Covariance Type:                  HAC                                 
+Df Model:                          42                               
+Covariance Type:                  HAC                               
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -335,7 +335,7 @@ strong multicollinearity or other numerical problems.
 **Table A4: Test of equal cooling and heating coefficients for log electricity price**
 
 ```
-                             Test for Constraints                     
+                             Test for Constraints                   
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
