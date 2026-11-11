@@ -1,4 +1,7 @@
-# How does weather affect Texas electricity demand and prices?
+# **Weather, Electricity Demand, and Real-Time Prices in ERCOT**
+
+Kyungsu Noh
+MA Student in Economics, The University of Texas at Austin
 
 ### 1. Introduction (3/4)
 
@@ -124,7 +127,7 @@ Several limitations should be acknowledged. The linear CDD/HDD specification doe
 
 Future research could include weather data from more parts of Texas and data on electricity generation, and use methods that allow for zero and negative prices. Comparing ERCOT with electricity markets in other U.S. states or other countries could help explain how market rules, energy sources, and weather conditions affect the results.
 
-### 8. References 
+### 8. References
 
 Electric Reliability Council of Texas. (2025, October).  *ERCOT energy-only wholesale market* . [https://www.ercot.com/files/docs/2025/10/16/ERCOT-Grid-Insights-Energy-Only-Wholesale-Market.pdf](https://www.ercot.com/files/docs/2025/10/16/ERCOT-Grid-Insights-Energy-Only-Wholesale-Market.pdf)
 
@@ -136,7 +139,7 @@ Shaffer, B., Quintero, D., & Rhodes, J. (2022). Changing sensitivity to cold wea
 
 U.S. Energy Information Administration. (2025, September 22).  *Utility-scale batteries are more commonly used for price arbitrage* . [https://www.eia.gov/todayinenergy/detail.php?id=66164](https://www.eia.gov/todayinenergy/detail.php?id=66164)
 
-**Data sources**
+##### **Data sources**
 
 | Resource                                              | Source                                                                                                       | Dataset or identifier                                                                                                                                                                                                                 |
 | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -144,10 +147,11 @@ U.S. Energy Information Administration. (2025, September 22).  *Utility-scale ba
 | Real-time electricity prices                          | ERCOT                                                                                                        | [Historical RTM Load Zone and Hub Prices](https://www.ercot.com/mp/data-products/data-product-details?id=NP6-785-ER); RTMLZHBSPP_2021–2025, HB_HUBAVG                                                                                 |
 | Hourly temperature, relative humidity, and wind speed | National Oceanic and Atmospheric Administration (NOAA) National Centers for Environmental Information (NCEI) | [Local Climatological Data, Version 2](https://www.ncei.noaa.gov/products/land-based-station/local-climatological-data), 2021-2025. Airport codes: AUS, DFW, IAH, SAT.                                                               |
 | Annual metropolitan population                        | U.S. Census Bureau, via Federal Reserve Economic Data (FRED)                                                | [DFWPOP](https://fred.stlouisfed.org/series/DFWPOP), [HTNPOP](https://fred.stlouisfed.org/series/HTNPOP), [SATPOP](https://fred.stlouisfed.org/series/SATPOP), [AUSPOP](https://fred.stlouisfed.org/series/AUSPOP), 2021-2025 (annual) |
+| Software                                              | Python Software Foundation                                                                                   | [Python 3.12.3](https://www.python.org/downloads/); pandas, NumPy, openpyxl, Matplotlib, and statsmodels                                                                                                                               |
 
 *Note:* Weather station identifiers are AUS: USW00013904; DFW: USW00003927; IAH: USW00012960; and SAT: USW00012921.
 
-**Data and code availability**
+##### **Data and code availability**
 
 All data used in the analysis (electric load, electricity price, weather, and population) and all original code used in the analysis have been deposited at [http://github.com/nks1216/energy/](http://github.com/nks1216/energy/).
 
@@ -159,7 +163,6 @@ All data used in the analysis (electric load, electricity price, weather, and po
 
 Figure A1. Daily mean ERCOT load (a), real-time hub-average price (b), and population-weighted temperature (c), 2021–2025. Daily means use available hourly observations after excluding missing regression variables and relative humidity values outside 0–100%. Zero and negative prices are included, and no temperature bins are excluded. Shading marks February 8–20, 2021. Sources: ERCOT, NOAA NCEI; authors’ calculations.
 
-
 **Figure A2. Daily series with storm-period prices excluded**
 
 ![1794359765430](image/README/1794359765430.png)
@@ -169,7 +172,7 @@ Figure A2. Daily series from Figure A1 with February 8–20, 2021 excluded from 
 **Table A1: Full regression results for log electricity load**
 
 ```text
-                            OLS Regression Results                          
+                            OLS Regression Results                      
 ==============================================================================
 Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
@@ -178,8 +181,8 @@ Date:                Mon, 09 Nov 2026   Prob (F-statistic):               0.00
 Time:                        21:25:41   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
-Df Model:                          42                                       
-Covariance Type:                  HAC                                       
+Df Model:                          42                                   
+Covariance Type:                  HAC                                   
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -239,10 +242,12 @@ Notes:
 strong multicollinearity or other numerical problems.
 ```
 
+*Note*: The dependent variable is log electricity load. Reference categories are hour 0, January, and 2021.
+
 **Table A2: Test of equal cooling and heating coefficients for log electricity load**
 
 ```
-                             Test for Constraints                           
+                             Test for Constraints                       
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
@@ -250,12 +255,12 @@ c0             0.0093      0.001     15.093      0.000       0.008       0.011
 ==============================================================================
 ```
 
-**Note:* The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
+*Note:* The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
 
 **Table A3: Full regression results for log electricity price**
 
 ```
-                            OLS Regression Results                          
+                            OLS Regression Results                      
 ==============================================================================
 Dep. Variable:              log_price   R-squared:                       0.341
 Model:                            OLS   Adj. R-squared:                  0.341
@@ -264,8 +269,8 @@ Date:                Mon, 09 Nov 2026   Prob (F-statistic):               0.00
 Time:                        21:26:23   Log-Likelihood:                -47598.
 No. Observations:               42506   AIC:                         9.528e+04
 Df Residuals:                   42463   BIC:                         9.565e+04
-Df Model:                          42                                       
-Covariance Type:                  HAC                                       
+Df Model:                          42                                   
+Covariance Type:                  HAC                                   
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -325,12 +330,12 @@ Notes:
 strong multicollinearity or other numerical problems.
 ```
 
-
+*Note:* The dependent variable is log electricity price. Only positive-price hours are included. Reference categories are hour 0, January, and 2021.
 
 **Table A4: Test of equal cooling and heating coefficients for log electricity price**
 
 ```
-                             Test for Constraints                           
+                             Test for Constraints                       
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
@@ -338,9 +343,7 @@ c0            -0.0038      0.009     -0.430      0.667      -0.021       0.013
 ==============================================================================
 ```
 
-**Note:* The null hypothesis is **$H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
-**
-
+*Note:* The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
 
 **Table A5. Sensitivity to Winter Storm Uri (February 8–20, 2021)**
 
@@ -355,6 +358,6 @@ c0            -0.0038      0.009     -0.430      0.667      -0.021       0.013
 | N          | 43,426     | 43,114          | 42,506      | 42,205           |
 | R²        | 0.922      | 0.925           | 0.341       | 0.356            |
 
-*Notes:* HAC standard errors (24 lags) in parentheses. *** p < 0.001. All regressions include hour, month, and year fixed effects and the same controls as Table 2. “Excl. Uri” drops February 8–20, 2021.
+*Note*: HAC standard errors (24 lags) are in parentheses. *** p < 0.001. The dependent variables are log load and log price. All regressions control for relative humidity and wind speed and include hour, month, and year fixed effects. “Excl. Uri” excludes observations from February 8–20, 2021.
 
-As a robustness check, the regression was re-estimated after excluding the Winter Storm Uri period (February 13-20, 2021). While the HDD coefficient increased modestly, the overall results remained largely unchanged. This suggests that the main findings are not driven by the extreme conditions associated with Winter Storm Uri.
+Table A5. As a robustness check, we re-estimate the regressions after excluding February 8–20, 2021. The load coefficients remain nearly unchanged. However, the price coefficient on HDD falls from 0.0809 to 0.0543, while the CDD coefficient decreases only slightly. The difference between the CDD and HDD price coefficients becomes statistically significant (p < 0.001). Thus, the load findings are stable, but the comparison of hot- and cold-weather price sensitivity depends on whether the storm period is included.
