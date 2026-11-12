@@ -176,7 +176,7 @@ Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
 Method:                 Least Squares   F-statistic:                     2865.
 Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
-Time:                        11:17:06   Log-Likelihood:                 61288.
+Time:                        14:15:37   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
 Df Model:                          42                                       
@@ -247,9 +247,9 @@ strong multicollinearity or other numerical problems.
 ```
                              Test for Constraints                           
 ==============================================================================
-                 coef    std err          z      P>|z|      [0.025      0.975]
+                 coef    std err          z      P>|z|     [0.025     0.975]
 ------------------------------------------------------------------------------
-c0             0.0093      0.001     15.110      0.000       0.008       0.011
+c0             0.0093     0.0006     15.110      0.000     0.0081     0.0105
 ==============================================================================
 ```
 
@@ -264,7 +264,7 @@ Dep. Variable:              log_price   R-squared:                       0.341
 Model:                            OLS   Adj. R-squared:                  0.341
 Method:                 Least Squares   F-statistic:                     99.43
 Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
-Time:                        11:23:29   Log-Likelihood:                -47598.
+Time:                        14:22:30   Log-Likelihood:                -47598.
 No. Observations:               42506   AIC:                         9.528e+04
 Df Residuals:                   42463   BIC:                         9.565e+04
 Df Model:                          42                                       
@@ -335,9 +335,9 @@ strong multicollinearity or other numerical problems.
 ```
                              Test for Constraints                           
 ==============================================================================
-                 coef    std err          z      P>|z|      [0.025      0.975]
+                 coef    std err          z      P>|z|     [0.025     0.975]
 ------------------------------------------------------------------------------
-c0            -0.0038      0.009     -0.432      0.666      -0.021       0.013
+c0            -0.0038     0.0088     -0.432      0.666    -0.0209     0.0134
 ==============================================================================
 ```
 
