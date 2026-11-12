@@ -27,31 +27,31 @@ Electricity prices reflect both demand and supply. Higher demand may raise price
 
 ### 4. Data and Methodology (3/4)
 
-**Data.** We use hourly data from January 1, 2021 to December 31, 2025 (43,824 hours). Electricity demand is ERCOT system-wide hourly load (MW). Prices are ERCOT real-time settlement point prices at the ERCOT Hub Average (HB_HUBAVG), the simple average of the North, South, Houston, and West hub prices, reported in $/MWh at 15-minute intervals; we aggregate them to hourly values by taking the arithmetic mean of the four intervals within each hour.
+**Data.** We use hourly data from January 1, 2021 to December 31, 2025 (43,824 hours). Electricity demand is ERCOT system-wide hourly load (MW). Prices are ERCOT Hub Average real-time settlement point prices ($/MWh), calculated as the simple average of the North, South, Houston, and West hub prices. We aggregate the 15-minute prices to hourly values by averaging the four intervals within each hour.
 
-Weather data come from the National Oceanic and Atmospheric Administration’s National Centers for Environmental Information (NOAA NCEI) hourly airport observations of temperature (°C), relative humidity (%), and wind speed (m/s) at four major Texas cities: Dallas–Fort Worth, Houston, San Antonio, and Austin. We construct population-weighted weather indices using average metropolitan populations over 2021–2025 (U.S. Census Bureau, via Federal Reserve Economic Data (FRED)). We match weather observations to ERCOT hours using UTC timestamps to avoid ambiguity during daylight saving time transitions.
+Hourly temperature (°C), relative humidity (%), and wind speed (m/s) data come from airport observations provided by the National Oceanic and Atmospheric Administration’s National Centers for Environmental Information (NOAA NCEI). We use four major Texas locations: Dallas–Fort Worth, Houston, San Antonio, and Austin. We construct population-weighted weather indices using average metropolitan populations over 2021–2025 (U.S. Census Bureau, via Federal Reserve Economic Data [FRED]). We match weather observations to ERCOT hours using UTC timestamps to avoid ambiguity during daylight saving time transitions.
 
 We exclude 395 hours (0.9%) with missing weather data at any of the four airports, which we do not impute, and three hours with physically impossible relative humidity values (outside 0–100%). The load regression therefore uses 43,426 hourly observations. Because the logarithm is undefined for non-positive values, the price regression additionally excludes 920 hours (2.1%) with zero or negative prices, leaving 42,506 observations; its estimates therefore describe hours with positive prices. Table 1 reports summary statistics for these samples.
 
 **Table 1. Summary statistics, hourly observations, 2021–2025**
 
-| Variable                  | Mean   | Median | Std    | Min    | Max     | N      |
-| ------------------------- | ------ | ------ | ------ | ------ | ------- | ------ |
-| Load (MW)                 | 50,563 | 48,076 | 11,120 | 27,800 | 85,464  | 43,426 |
-| Price, all hours ($/MWh)  | 63.9   | 24.8   | 451.2  | -34.8  | 9,024.1 | 43,426 |
-| Price, positive  ($/MWh) | 65.4   | 25.1   | 456.0  | 0.0025 | 9,024.1 | 42,506 |
-| Temperature (°C)         | 21.16  | 22.51  | 8.78   | -13.78 | 41.46   | 43,426 |
-| CDD (degree-hours)        | 5.51   | 4.51   | 5.50   | 0.00   | 23.46   | 43,426 |
-| HDD (degree-hours)        | 2.35   | 0.00   | 4.57   | 0.00   | 31.78   | 43,426 |
-| Relative humidity (%)     | 65.74  | 68.03  | 18.24  | 9.85   | 100.00  | 43,426 |
-| Wind speed (m/s)          | 3.96   | 3.74   | 1.90   | 0.00   | 13.11   | 43,426 |
+| Variable              | Mean   | Median | Std    | Min    | Max     | N      |
+| --------------------- | ------ | ------ | ------ | ------ | ------- | ------ |
+| Load (MW)             | 50,563 | 48,076 | 11,120 | 27,800 | 85,464  | 43,426 |
+| Price, all ($/MWh)    | 63.9   | 24.8   | 451.2  | -34.8  | 9,024.1 | 43,426 |
+| Price > 0 ($/MWh)    | 65.4   | 25.1   | 456.0  | 0.0025 | 9,024.1 | 42,506 |
+| Temperature (°C)     | 21.16  | 22.51  | 8.78   | -13.78 | 41.46   | 43,426 |
+| CDD (degree-hours)    | 5.51   | 4.51   | 5.50   | 0.00   | 23.46   | 43,426 |
+| HDD (degree-hours)    | 2.35   | 0.00   | 4.57   | 0.00   | 31.78   | 43,426 |
+| Relative humidity (%) | 65.74  | 68.03  | 18.24  | 9.85   | 100.00  | 43,426 |
+| Wind speed (m/s)      | 3.96   | 3.74   | 1.90   | 0.00   | 13.11   | 43,426 |
 
-*Notes:* The sample is the load regression sample (N = 43,426 hourly observations). The second price row is the sample for the price regression (hours with positive prices). Weather variables are population-weighted averages of four airport stations. CDD and HDD are degree-hours relative to 18°C. Their summary statistics include all sample hours, including those with zero values. Sources: ERCOT, NOAA, U.S. Census Bureau via FRED.
+*Notes:* Statistics use the load regression sample (N = 43,426 hourly observations) unless otherwise indicated. The positive-price row uses the price regression sample. Weather variables are population-weighted averages of four airport stations. CDD and HDD use an 18°C base; their statistics include zero-value hours. Sources: ERCOT, NOAA, U.S. Census Bureau via FRED.
 
 **Empirical strategy.** We define cooling and heating degree-hours relative to 18°C, approximately 65°F, a common base temperature in NOAA’s degree-day products (NOAA NCEI, LCDv2 documentation):
 
 ```math
-\text{CDD}_t = \max{(T_t-18, 0)}, \text{HDD}_t = \max{(18-T_t, 0)}.
+\text{CDD}_t = \max{(T_t-18, 0)}, \text{HDD}_t = \max{(18-T_t, 0)}
 ```
 
 where \(T_t\) is the population-weighted hourly temperature in °C. Because observations are hourly, these measures are degree-hours rather than degree-days. We estimate separate regressions for electricity load and real-time prices:
@@ -60,7 +60,7 @@ where \(T_t\) is the population-weighted hourly temperature in °C. Because obse
 \ln(\text{Y}_t) = \beta_0 + \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \beta_3 \text{Humidity}_t + \beta_4 \text{Wind speed}_t + \text{Hour/Month/Year FE} + \varepsilon_t
 ```
 
-where t indexes hours, Y_t is either ERCOT load or the real-time price, and Hour/Month/Year FE denote sets of dummy variables for the hour of day, the month of the year, and the year. Hour and month effects control for recurring intraday and seasonal patterns, while year effects control for annual differences in demand and market conditions. Hour indicators use hour-ending labels, while month and year are determined by the start of each hour.
+Here, \(t\) indexes hours and \(Y_t\) is either ERCOT load or the real-time price. Hour, month, and year fixed effects control for recurring intraday and seasonal patterns and annual differences in demand and market conditions. Hour indicators use hour-ending labels; month and year are based on the start of each hour. 
 
 We use heteroskedasticity- and autocorrelation-consistent (HAC) standard errors with a maximum lag of 24 observations. The CDD and HDD coefficients, multiplied by 100, approximate the percentage change in Y_t associated with one additional degree-hour, holding the other included variables fixed. We test whether β₁ = β₂ to compare sensitivity to heat and cold.
 
