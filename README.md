@@ -3,13 +3,13 @@
 Kyungsu Noh
 MA Student in Economics, The University of Texas at Austin
 
-### 1. Introduction 
+### 1. Introduction
 
 Understanding how weather relates to electricity demand and wholesale prices is important for supply planning and price risk management in Texas. This study examines these relationships in the Electric Reliability Council of Texas (ERCOT) market during 2021–2025, using separate load and real-time price regressions with weather controls and time fixed effects.
 
 The results show that load is more sensitive to heat than to cold, while prices are strongly associated with both. The estimated association between cold weather and prices weakens substantially when the February 2021 winter storm period is excluded. The findings inform discussions of supply planning, price risk management, and the potential value of battery storage.
 
-### 2. Background and Literature Review 
+### 2. Background and Literature Review
 
 ERCOT operates a wholesale electricity market covering most of Texas. Its scarcity-pricing mechanisms can raise real-time electricity prices when operating reserves are low (ERCOT, 2025).
 
@@ -19,7 +19,7 @@ The joint report by the Federal Energy Regulatory Commission, the North American
 
 The U.S. Energy Information Administration (2025) reports that half of ERCOT’s battery capacity at the end of 2024 was primarily used for price arbitrage, providing context for this study’s discussion of storage and hourly price differences.
 
-### 3. Theoretical Framework 
+### 3. Theoretical Framework
 
 Hot and cold weather can increase electricity demand for cooling and electric heating. Demand may therefore be higher at both high and low temperatures than under mild conditions. In addition, the responses to heat and cold may differ because cooling and heating systems use different technologies and energy sources. This motivates using separate cooling degree-hour (CDD) and heating degree-hour (HDD) variables.
 
@@ -64,7 +64,7 @@ Here, t indexes hours and Y_t is either ERCOT load or the real-time price. Hour,
 
 We use heteroskedasticity- and autocorrelation-consistent (HAC) standard errors with a maximum lag of 24 observations. The CDD and HDD coefficients, multiplied by 100, approximate the percentage change in Y_t associated with one additional degree-hour, holding the other included variables fixed. We test whether β₁ = β₂ to compare sensitivity to heat and cold.
 
-### 5. Results and Analysis 
+### 5. Results and Analysis
 
 Figure 1 shows that load and prices are lowest at mild temperatures (about 14–19°C) and rise at hotter and colder temperatures. Load is higher at the hot extreme than at the cold extreme, although these extreme bins contain relatively few observations and should be interpreted cautiously. Figures 1 and 2 report median prices to reduce the influence of occasional price spikes.
 
@@ -87,7 +87,7 @@ Figure 2 compares hot and cold weather at equal distances from 18°C. At 15 degr
 | ln(Price)          | 0.0771*** | 0.0809*** | 0.0080*** | −0.0633*** | −0.0038   | 42,506 | 0.341 |
 |                    | (0.0038)  | (0.0089)  | (0.0009)  | (0.0066)    | (0.0088)   |        |       |
 
-*Notes:* HAC standard errors (24 lags) in parentheses. *** p < 0.001. All regressions include hour, month, and year fixed effects. The price regression excludes 920 hours (2.1%) with non-positive prices. CDD and HDD are degree-hours relative to 18°C.
+*Notes:* HAC standard errors, calculated using actual UTC time intervals with a maximum lag of 24 hours, are shown in parentheses. *** p < 0.001. All regressions include hour, month, and year fixed effects. The price regression excludes 920 hours (2.1%) with non-positive prices. CDD and HDD are degree-hours relative to 18°C.
 
 Table 2 shows that, holding other included variables fixed, one additional cooling degree-hour is associated with about 2.8% higher load, compared with 1.9% for heating. The difference is statistically significant (p < 0.001). The year coefficients imply approximately 23% higher load in 2025 than in 2021, conditional on the included controls (Appendix Table A1). Table 3 illustrates the implied load differences at selected temperatures.
 
@@ -105,7 +105,7 @@ Prices respond more strongly to weather than load does: one additional degree-ho
 
 This comparison is sensitive to Winter Storm Uri. Excluding February 8–20, 2021 (301 hours, 0.7% of the price sample) lowers the HDD coefficient from 0.0809 to 0.0543. Cooling degree-hours are then more strongly associated with prices than heating degree-hours, with a statistically significant coefficient difference (p < 0.001). The load results barely change (Appendix Table A5). Holding other included variables fixed, prices in the 7–8 pm hour are approximately twice those in the 11 pm–midnight hour (Appendix Table A3).
 
-### 6. Policy, Technical Implications and Discussion 
+### 6. Policy, Technical Implications and Discussion
 
 The findings suggest several implications for electricity supply planning and price risk management in ERCOT.
 
@@ -117,7 +117,7 @@ Third, after controlling for weather and other included factors, prices in the 7
 
 Finally, winter planning should consider rare but severe storms. Excluding the February 2021 storm window (0.7% of the price sample) lowers the HDD coefficient by about one-third. Although this analysis does not identify the causes of the storm-related price increases, the result suggests that typical winter conditions alone provide an incomplete basis for assessing winter market risk. Preparing generation facilities and fuel supplies for severe cold may help address this risk.
 
-### 7. Conclusion 
+### 7. Conclusion
 
 This study examines the relationship between weather, electricity demand, and real-time prices in ERCOT using hourly data from 2021–2025. Load is more sensitive to heat than to cold, while prices respond strongly to both. However, the estimated cold-weather price response falls substantially when the February 2021 winter storm period is excluded. Together with the highly skewed price distribution, this result highlights the importance of extreme events when assessing electricity price risk. These findings suggest a role for adequate reserves, demand response, and grid resilience in managing weather-related market stress.
 
@@ -170,63 +170,63 @@ Figure A2. Daily series from Figure A1 with February 8–20, 2021 excluded from 
 **Table A1: Full regression results for log electricity load**
 
 ```text
-                            OLS Regression Results            
+                            OLS Regression Results                          
 ==============================================================================
 Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
-Method:                 Least Squares   F-statistic:                     2854.
-Date:                Mon, 09 Nov 2026   Prob (F-statistic):               0.00
-Time:                        21:25:41   Log-Likelihood:                 61288.
+Method:                 Least Squares   F-statistic:                     2865.
+Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
+Time:                        11:17:06   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
-Df Model:                          42                         
-Covariance Type:                  HAC                         
+Df Model:                          42                                       
+Covariance Type:                  HAC                                       
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
-Intercept                 10.3840      0.009   1196.527      0.000      10.367      10.401
-C(hour)[T.1]              -0.0451      0.001    -75.491      0.000      -0.046      -0.044
-C(hour)[T.2]              -0.0779      0.001    -93.844      0.000      -0.080      -0.076
-C(hour)[T.3]              -0.1001      0.001    -95.825      0.000      -0.102      -0.098
-C(hour)[T.4]              -0.1109      0.001    -89.391      0.000      -0.113      -0.108
-C(hour)[T.5]              -0.1060      0.001    -74.765      0.000      -0.109      -0.103
-C(hour)[T.6]              -0.0788      0.002    -48.038      0.000      -0.082      -0.076
-C(hour)[T.7]              -0.0374      0.002    -18.482      0.000      -0.041      -0.033
-C(hour)[T.8]              -0.0204      0.002     -8.823      0.000      -0.025      -0.016
-C(hour)[T.9]              -0.0019      0.002     -0.791      0.429      -0.007       0.003
-C(hour)[T.10]              0.0174      0.003      6.948      0.000       0.013       0.022
-C(hour)[T.11]              0.0317      0.003     12.499      0.000       0.027       0.037
-C(hour)[T.12]              0.0417      0.003     16.610      0.000       0.037       0.047
-C(hour)[T.13]              0.0489      0.003     19.518      0.000       0.044       0.054
-C(hour)[T.14]              0.0570      0.003     22.521      0.000       0.052       0.062
-C(hour)[T.15]              0.0628      0.003     24.580      0.000       0.058       0.068
-C(hour)[T.16]              0.0706      0.003     27.839      0.000       0.066       0.076
-C(hour)[T.17]              0.0827      0.002     33.839      0.000       0.078       0.088
-C(hour)[T.18]              0.0974      0.002     43.141      0.000       0.093       0.102
-C(hour)[T.19]              0.1102      0.002     53.779      0.000       0.106       0.114
-C(hour)[T.20]              0.1138      0.002     67.407      0.000       0.111       0.117
-C(hour)[T.21]              0.1100      0.001     83.796      0.000       0.107       0.113
-C(hour)[T.22]              0.0908      0.001     94.950      0.000       0.089       0.093
-C(hour)[T.23]              0.0496      0.001     80.925      0.000       0.048       0.051
-C(month)[T.2]             -0.0176      0.007     -2.578      0.010      -0.031      -0.004
-C(month)[T.3]             -0.0454      0.006     -7.996      0.000      -0.056      -0.034
-C(month)[T.4]             -0.0240      0.006     -3.772      0.000      -0.036      -0.012
-C(month)[T.5]              0.0320      0.007      4.853      0.000       0.019       0.045
-C(month)[T.6]              0.0835      0.007     11.796      0.000       0.070       0.097
-C(month)[T.7]              0.0883      0.008     11.570      0.000       0.073       0.103
-C(month)[T.8]              0.1118      0.007     15.180      0.000       0.097       0.126
-C(month)[T.9]              0.0846      0.007     12.087      0.000       0.071       0.098
-C(month)[T.10]             0.0356      0.007      4.897      0.000       0.021       0.050
-C(month)[T.11]            -0.0018      0.006     -0.325      0.745      -0.013       0.009
-C(month)[T.12]             0.0192      0.005      3.810      0.000       0.009       0.029
-C(year)[T.2022]            0.0607      0.003     18.626      0.000       0.054       0.067
-C(year)[T.2023]            0.1014      0.003     32.399      0.000       0.095       0.108
-C(year)[T.2024]            0.1452      0.003     47.182      0.000       0.139       0.151
-C(year)[T.2025]            0.2043      0.003     66.063      0.000       0.198       0.210
-CDD                        0.0281      0.000     91.374      0.000       0.028       0.029
-HDD                        0.0188      0.001     35.321      0.000       0.018       0.020
-HourlyRelativeHumidity     0.0008   6.91e-05     11.499      0.000       0.001       0.001
-HourlyWindSpeed            0.0059      0.001     11.094      0.000       0.005       0.007
+Intercept                 10.3840      0.009   1198.303      0.000      10.367      10.401
+C(hour)[T.1]              -0.0451      0.001    -75.726      0.000      -0.046      -0.044
+C(hour)[T.2]              -0.0779      0.001    -94.519      0.000      -0.080      -0.076
+C(hour)[T.3]              -0.1001      0.001    -96.422      0.000      -0.102      -0.098
+C(hour)[T.4]              -0.1109      0.001    -89.898      0.000      -0.113      -0.108
+C(hour)[T.5]              -0.1060      0.001    -75.162      0.000      -0.109      -0.103
+C(hour)[T.6]              -0.0788      0.002    -48.250      0.000      -0.082      -0.076
+C(hour)[T.7]              -0.0374      0.002    -18.541      0.000      -0.041      -0.033
+C(hour)[T.8]              -0.0204      0.002     -8.849      0.000      -0.025      -0.016
+C(hour)[T.9]              -0.0019      0.002     -0.794      0.427      -0.007       0.003
+C(hour)[T.10]              0.0174      0.002      6.970      0.000       0.013       0.022
+C(hour)[T.11]              0.0317      0.003     12.534      0.000       0.027       0.037
+C(hour)[T.12]              0.0417      0.003     16.643      0.000       0.037       0.047
+C(hour)[T.13]              0.0489      0.002     19.555      0.000       0.044       0.054
+C(hour)[T.14]              0.0570      0.003     22.560      0.000       0.052       0.062
+C(hour)[T.15]              0.0628      0.003     24.616      0.000       0.058       0.068
+C(hour)[T.16]              0.0706      0.003     27.884      0.000       0.066       0.076
+C(hour)[T.17]              0.0827      0.002     33.892      0.000       0.078       0.088
+C(hour)[T.18]              0.0974      0.002     43.228      0.000       0.093       0.102
+C(hour)[T.19]              0.1102      0.002     53.909      0.000       0.106       0.114
+C(hour)[T.20]              0.1138      0.002     67.599      0.000       0.111       0.117
+C(hour)[T.21]              0.1100      0.001     84.087      0.000       0.107       0.113
+C(hour)[T.22]              0.0908      0.001     95.297      0.000       0.089       0.093
+C(hour)[T.23]              0.0496      0.001     80.990      0.000       0.048       0.051
+C(month)[T.2]             -0.0176      0.007     -2.581      0.010      -0.031      -0.004
+C(month)[T.3]             -0.0454      0.006     -8.015      0.000      -0.056      -0.034
+C(month)[T.4]             -0.0240      0.006     -3.777      0.000      -0.036      -0.012
+C(month)[T.5]              0.0320      0.007      4.861      0.000       0.019       0.045
+C(month)[T.6]              0.0835      0.007     11.816      0.000       0.070       0.097
+C(month)[T.7]              0.0883      0.008     11.589      0.000       0.073       0.103
+C(month)[T.8]              0.1118      0.007     15.206      0.000       0.097       0.126
+C(month)[T.9]              0.0846      0.007     12.109      0.000       0.071       0.098
+C(month)[T.10]             0.0356      0.007      4.909      0.000       0.021       0.050
+C(month)[T.11]            -0.0018      0.006     -0.326      0.744      -0.013       0.009
+C(month)[T.12]             0.0192      0.005      3.819      0.000       0.009       0.029
+C(year)[T.2022]            0.0607      0.003     18.645      0.000       0.054       0.067
+C(year)[T.2023]            0.1014      0.003     32.427      0.000       0.095       0.108
+C(year)[T.2024]            0.1452      0.003     47.263      0.000       0.139       0.151
+C(year)[T.2025]            0.2043      0.003     66.257      0.000       0.198       0.210
+CDD                        0.0281      0.000     91.516      0.000       0.028       0.029
+HDD                        0.0188      0.001     35.346      0.000       0.018       0.020
+HourlyRelativeHumidity     0.0008    6.9e-05     11.510      0.000       0.001       0.001
+HourlyWindSpeed            0.0059      0.001     11.102      0.000       0.005       0.007
 ==============================================================================
 Omnibus:                      954.137   Durbin-Watson:                   0.135
 Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1416.968
@@ -235,7 +235,7 @@ Kurtosis:                       3.742   Cond. No.                     1.71e+03
 ==============================================================================
 
 Notes:
-[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 24 lags and without small sample correction
+[1] HAC standard errors using actual UTC hourly intervals, Bartlett weights, maximum lag 24 hours, without small-sample correction
 [2] The condition number is large, 1.71e+03. This might indicate that there are
 strong multicollinearity or other numerical problems.
 ```
@@ -245,11 +245,11 @@ strong multicollinearity or other numerical problems.
 **Table A2: Test of equal cooling and heating coefficients for log electricity load**
 
 ```
-                             Test for Constraints             
+                             Test for Constraints                           
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-c0             0.0093      0.001     15.093      0.000       0.008       0.011
+c0             0.0093      0.001     15.110      0.000       0.008       0.011
 ==============================================================================
 ```
 
@@ -258,63 +258,63 @@ c0             0.0093      0.001     15.093      0.000       0.008       0.011
 **Table A3: Full regression results for log electricity price**
 
 ```
-                            OLS Regression Results            
+                            OLS Regression Results                          
 ==============================================================================
 Dep. Variable:              log_price   R-squared:                       0.341
 Model:                            OLS   Adj. R-squared:                  0.341
-Method:                 Least Squares   F-statistic:                     97.44
-Date:                Mon, 09 Nov 2026   Prob (F-statistic):               0.00
-Time:                        21:26:23   Log-Likelihood:                -47598.
+Method:                 Least Squares   F-statistic:                     99.43
+Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
+Time:                        11:23:29   Log-Likelihood:                -47598.
 No. Observations:               42506   AIC:                         9.528e+04
 Df Residuals:                   42463   BIC:                         9.565e+04
-Df Model:                          42                         
-Covariance Type:                  HAC                         
+Df Model:                          42                                       
+Covariance Type:                  HAC                                       
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
-Intercept                  2.0977      0.122     17.193      0.000       1.859       2.337
-C(hour)[T.1]              -0.0753      0.012     -6.537      0.000      -0.098      -0.053
-C(hour)[T.2]              -0.1701      0.014    -12.346      0.000      -0.197      -0.143
-C(hour)[T.3]              -0.2527      0.017    -15.186      0.000      -0.285      -0.220
-C(hour)[T.4]              -0.2533      0.018    -14.250      0.000      -0.288      -0.218
-C(hour)[T.5]              -0.2238      0.019    -11.835      0.000      -0.261      -0.187
-C(hour)[T.6]              -0.1030      0.019     -5.386      0.000      -0.140      -0.066
-C(hour)[T.7]               0.0714      0.021      3.369      0.001       0.030       0.113
-C(hour)[T.8]               0.0638      0.020      3.257      0.001       0.025       0.102
-C(hour)[T.9]              -0.0892      0.018     -4.875      0.000      -0.125      -0.053
-C(hour)[T.10]             -0.1457      0.022     -6.617      0.000      -0.189      -0.103
-C(hour)[T.11]             -0.1058      0.025     -4.302      0.000      -0.154      -0.058
-C(hour)[T.12]             -0.0598      0.028     -2.143      0.032      -0.114      -0.005
-C(hour)[T.13]              0.0010      0.032      0.032      0.975      -0.061       0.063
-C(hour)[T.14]              0.0584      0.033      1.755      0.079      -0.007       0.124
-C(hour)[T.15]              0.0931      0.034      2.711      0.007       0.026       0.160
-C(hour)[T.16]              0.1589      0.033      4.782      0.000       0.094       0.224
-C(hour)[T.17]              0.2902      0.033      8.707      0.000       0.225       0.356
-C(hour)[T.18]              0.4750      0.030     15.858      0.000       0.416       0.534
-C(hour)[T.19]              0.5922      0.025     23.391      0.000       0.543       0.642
-C(hour)[T.20]              0.6932      0.022     31.074      0.000       0.649       0.737
-C(hour)[T.21]              0.5848      0.018     31.917      0.000       0.549       0.621
-C(hour)[T.22]              0.3266      0.013     25.511      0.000       0.302       0.352
-C(hour)[T.23]              0.1577      0.010     15.230      0.000       0.137       0.178
-C(month)[T.2]              0.1310      0.106      1.235      0.217      -0.077       0.339
-C(month)[T.3]              0.2228      0.073      3.061      0.002       0.080       0.366
-C(month)[T.4]              0.3278      0.079      4.171      0.000       0.174       0.482
-C(month)[T.5]              0.3665      0.083      4.390      0.000       0.203       0.530
-C(month)[T.6]              0.1896      0.086      2.204      0.028       0.021       0.358
-C(month)[T.7]              0.1917      0.087      2.192      0.028       0.020       0.363
-C(month)[T.8]              0.3680      0.090      4.086      0.000       0.192       0.545
-C(month)[T.9]              0.3887      0.088      4.415      0.000       0.216       0.561
-C(month)[T.10]             0.5141      0.083      6.191      0.000       0.351       0.677
-C(month)[T.11]             0.4379      0.066      6.683      0.000       0.309       0.566
-C(month)[T.12]             0.2499      0.059      4.219      0.000       0.134       0.366
-C(year)[T.2022]            0.3594      0.045      7.948      0.000       0.271       0.448
-C(year)[T.2023]           -0.2406      0.040     -6.081      0.000      -0.318      -0.163
-C(year)[T.2024]           -0.4579      0.042    -10.933      0.000      -0.540      -0.376
-C(year)[T.2025]           -0.0978      0.040     -2.448      0.014      -0.176      -0.020
-CDD                        0.0771      0.004     20.465      0.000       0.070       0.085
-HDD                        0.0809      0.009      9.076      0.000       0.063       0.098
-HourlyRelativeHumidity     0.0080      0.001      8.788      0.000       0.006       0.010
-HourlyWindSpeed           -0.0633      0.007     -9.615      0.000      -0.076      -0.050
+Intercept                  2.0977      0.122     17.256      0.000       1.859       2.336
+C(hour)[T.1]              -0.0753      0.011     -6.565      0.000      -0.098      -0.053
+C(hour)[T.2]              -0.1701      0.014    -12.454      0.000      -0.197      -0.143
+C(hour)[T.3]              -0.2527      0.017    -15.264      0.000      -0.285      -0.220
+C(hour)[T.4]              -0.2533      0.018    -14.372      0.000      -0.288      -0.219
+C(hour)[T.5]              -0.2238      0.019    -11.913      0.000      -0.261      -0.187
+C(hour)[T.6]              -0.1030      0.019     -5.373      0.000      -0.141      -0.065
+C(hour)[T.7]               0.0714      0.021      3.384      0.001       0.030       0.113
+C(hour)[T.8]               0.0638      0.019      3.273      0.001       0.026       0.102
+C(hour)[T.9]              -0.0892      0.018     -4.868      0.000      -0.125      -0.053
+C(hour)[T.10]             -0.1457      0.022     -6.632      0.000      -0.189      -0.103
+C(hour)[T.11]             -0.1058      0.024     -4.326      0.000      -0.154      -0.058
+C(hour)[T.12]             -0.0598      0.028     -2.157      0.031      -0.114      -0.005
+C(hour)[T.13]              0.0010      0.031      0.032      0.974      -0.061       0.063
+C(hour)[T.14]              0.0584      0.033      1.762      0.078      -0.007       0.123
+C(hour)[T.15]              0.0931      0.034      2.728      0.006       0.026       0.160
+C(hour)[T.16]              0.1589      0.033      4.802      0.000       0.094       0.224
+C(hour)[T.17]              0.2902      0.033      8.745      0.000       0.225       0.355
+C(hour)[T.18]              0.4750      0.030     16.033      0.000       0.417       0.533
+C(hour)[T.19]              0.5922      0.025     23.604      0.000       0.543       0.641
+C(hour)[T.20]              0.6932      0.022     31.229      0.000       0.650       0.737
+C(hour)[T.21]              0.5848      0.018     32.042      0.000       0.549       0.621
+C(hour)[T.22]              0.3266      0.013     25.407      0.000       0.301       0.352
+C(hour)[T.23]              0.1577      0.010     15.027      0.000       0.137       0.178
+C(month)[T.2]              0.1310      0.105      1.246      0.213      -0.075       0.337
+C(month)[T.3]              0.2228      0.072      3.091      0.002       0.082       0.364
+C(month)[T.4]              0.3278      0.078      4.199      0.000       0.175       0.481
+C(month)[T.5]              0.3665      0.083      4.402      0.000       0.203       0.530
+C(month)[T.6]              0.1896      0.086      2.210      0.027       0.021       0.358
+C(month)[T.7]              0.1917      0.087      2.198      0.028       0.021       0.363
+C(month)[T.8]              0.3680      0.090      4.098      0.000       0.192       0.544
+C(month)[T.9]              0.3887      0.088      4.427      0.000       0.217       0.561
+C(month)[T.10]             0.5141      0.083      6.212      0.000       0.352       0.676
+C(month)[T.11]             0.4379      0.065      6.713      0.000       0.310       0.566
+C(month)[T.12]             0.2499      0.058      4.279      0.000       0.135       0.364
+C(year)[T.2022]            0.3594      0.045      8.026      0.000       0.272       0.447
+C(year)[T.2023]           -0.2406      0.039     -6.120      0.000      -0.318      -0.164
+C(year)[T.2024]           -0.4579      0.041    -11.039      0.000      -0.539      -0.377
+C(year)[T.2025]           -0.0978      0.040     -2.468      0.014      -0.176      -0.020
+CDD                        0.0771      0.004     20.560      0.000       0.070       0.084
+HDD                        0.0809      0.009      9.092      0.000       0.063       0.098
+HourlyRelativeHumidity     0.0080      0.001      8.866      0.000       0.006       0.010
+HourlyWindSpeed           -0.0633      0.007     -9.648      0.000      -0.076      -0.050
 ==============================================================================
 Omnibus:                    11840.447   Durbin-Watson:                   0.436
 Prob(Omnibus):                  0.000   Jarque-Bera (JB):           597566.806
@@ -323,7 +323,7 @@ Kurtosis:                      21.335   Cond. No.                     1.71e+03
 ==============================================================================
 
 Notes:
-[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 24 lags and without small sample correction
+[1] HAC standard errors using actual UTC hourly intervals, Bartlett weights, maximum lag 24 hours, without small-sample correction
 [2] The condition number is large, 1.71e+03. This might indicate that there are
 strong multicollinearity or other numerical problems.
 ```
@@ -333,11 +333,11 @@ strong multicollinearity or other numerical problems.
 **Table A4: Test of equal cooling and heating coefficients for log electricity price**
 
 ```
-                             Test for Constraints             
+                             Test for Constraints                           
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-c0            -0.0038      0.009     -0.430      0.667      -0.021       0.013
+c0            -0.0038      0.009     -0.432      0.666      -0.021       0.013
 ==============================================================================
 ```
 
@@ -348,14 +348,14 @@ c0            -0.0038      0.009     -0.430      0.667      -0.021       0.013
 |            | Load, full | Load, excl. Uri | Price, full | Price, excl. Uri |
 | ---------- | ---------- | --------------- | ----------- | ---------------- |
 | CDD        | 0.0281***  | 0.0281***       | 0.0771***   | 0.0742***        |
-|            | (0.0003)   | (0.0003)        | (0.0038)    | (0.0036)         |
+|            | (0.0003)   | (0.0003)        | (0.0038)    | (0.0035)         |
 | HDD        | 0.0188***  | 0.0189***       | 0.0809***   | 0.0543***        |
 |            | (0.0005)   | (0.0005)        | (0.0089)    | (0.0036)         |
 | CDD − HDD | 0.0093***  | 0.0092***       | −0.0038    | 0.0199***        |
-|            | (0.0006)   | (0.0006)        | (0.0088)    | (0.0049)         |
+|            | (0.0006)   | (0.0006)        | (0.0088)    | (0.0048)         |
 | N          | 43,426     | 43,114          | 42,506      | 42,205           |
 | R²        | 0.922      | 0.925           | 0.341       | 0.356            |
 
-*Note*: HAC standard errors (24 lags) are in parentheses. *** p < 0.001. The dependent variables are log load and log price. All regressions control for relative humidity and wind speed and include hour, month, and year fixed effects. “Excl. Uri” excludes observations from February 8–20, 2021.
+*Note*: HAC standard errors accounting for actual time gaps, with a maximum lag of 24 hours, are shown in parentheses. *** p < 0.001. All regressions include humidity, wind speed, and hour, month, and year fixed effects. “Excl. Uri” excludes February 8–20, 2021. Load and price are in logarithms; price regressions include only positive-price hours.
 
 Table A5. As a robustness check, we re-estimate the regressions after excluding February 8–20, 2021. The load coefficients remain nearly unchanged. However, the price coefficient on HDD falls from 0.0809 to 0.0543, while the CDD coefficient decreases only slightly. The difference between the CDD and HDD price coefficients becomes statistically significant (p < 0.001). Thus, the load findings are stable, but the comparison of hot- and cold-weather price sensitivity depends on whether the storm period is included.
