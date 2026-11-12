@@ -4,7 +4,7 @@ Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
 Method:                 Least Squares   F-statistic:                     2865.
 Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
-Time:                        11:17:06   Log-Likelihood:                 61288.
+Time:                        14:15:37   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
 Df Model:                          42                                         

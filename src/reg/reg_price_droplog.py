@@ -224,26 +224,44 @@ with open(
 
 print(summary_text)
 
-
 # --------------------------------------------------
-# Equality test using UTC-based HAC covariance
+# Equality test: original layout, four-decimal SE
 # --------------------------------------------------
 equality_test = model.t_test("CDD - HDD = 0")
 
+effect = float(np.squeeze(equality_test.effect))
+se = float(np.squeeze(equality_test.sd))
+z_value = float(np.squeeze(equality_test.statistic))
+p_value = float(np.squeeze(equality_test.pvalue))
+lower, upper = np.asarray(
+    equality_test.conf_int()
+).reshape(-1, 2)[0]
+
+test_text = "\n".join([
+    "Test for Constraints".center(78),
+    "=" * 78,
+    f'{"":10}{"coef":>11}{"std err":>11}{"z":>11}'
+    f'{"P>|z|":>11}{"[0.025":>11}{"0.975]":>11}',
+    "-" * 78,
+    f'{"c0":10}{effect:11.4f}{se:11.4f}{z_value:11.3f}'
+    f'{p_value:11.3f}{lower:11.4f}{upper:11.4f}',
+    "=" * 78,
+])
+
 print("\nCDD - HDD = 0 test (z test):")
-print(equality_test)
+print(test_text)
 
 with open(
     output_dir / "reg_price_droplog_ztest.txt",
     "w",
     encoding="utf-8",
 ) as f:
-    f.write(str(equality_test))
+    f.write(test_text + "\n")
 
 print(
-    "\ndiff:", float(np.squeeze(equality_test.effect)),
-    "se:", float(np.squeeze(equality_test.sd)),
-    "p:", float(np.squeeze(equality_test.pvalue)),
+    "\ndiff:", effect,
+    "se:", se,
+    "p:", p_value,
 )
 
 print("\nPrice summary (regression sample):")

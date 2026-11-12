@@ -205,24 +205,41 @@ print(df["ERCOT"].describe())
 
 
 # --------------------------------------------------
-# Equality test using the UTC-based HAC covariance
+# Equality test: original layout, four-decimal SE
 # --------------------------------------------------
-ttest = model.t_test("CDD - HDD = 0")
+ztest = model.t_test("CDD - HDD = 0")
 
-print("\nCDD - HDD = 0 test:")
-print(ttest)
+effect = float(np.squeeze(ztest.effect))
+se = float(np.squeeze(ztest.sd))
+z_value = float(np.squeeze(ztest.statistic))
+p_value = float(np.squeeze(ztest.pvalue))
+lower, upper = np.asarray(ztest.conf_int()).reshape(-1, 2)[0]
 
-with open(
-    output_dir / "reg_load_log_ztest.txt",
-    "w",
-    encoding="utf-8",
-) as f:
-    f.write(str(ttest))
+test_text = "\n".join([
+    "Test for Constraints".center(78),
+    "=" * 78,
+    f'{"":10}{"coef":>11}{"std err":>11}{"z":>11}'
+    f'{"P>|z|":>11}{"[0.025":>11}{"0.975]":>11}',
+    "-" * 78,
+    f'{"c0":10}{effect:11.4f}{se:11.4f}{z_value:11.3f}'
+    f'{p_value:11.3f}{lower:11.4f}{upper:11.4f}',
+    "=" * 78,
+])
+
+print("\nCDD - HDD = 0 test (z test):")
+print(test_text)
+
+filename = "reg_load_log_ztest.txt"
+
+with open(output_dir / filename, "w", encoding="utf-8") as f:
+    f.write(test_text + "\n")
+
+print(f"\nExact p-value: {p_value:.6g}")
 
 print(
-    "diff:", float(np.squeeze(ttest.effect)),
-    "se:", float(np.squeeze(ttest.sd)),
-    "p:", float(np.squeeze(ttest.pvalue)),
+    "diff:", float(np.squeeze(ztest.effect)),
+    "se:", float(np.squeeze(ztest.sd)),
+    "p:", float(np.squeeze(ztest.pvalue)),
 )
 
 print("\nSaved:")
