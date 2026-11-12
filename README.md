@@ -78,6 +78,8 @@ Figure 2 compares hot and cold weather at equal distances from 18°C. At 15 degr
 
 **Figure 2.** Average ERCOT load (a) and median real-time price (b) by CDD and HDD relative to 18°C. Degree-hours are rounded to integers. Hours with fewer than 0.5 degree-hours and bins with fewer than 50 observations are omitted. Sources: ERCOT, NOAA; authors’ calculations.
 
+Table 2 shows that, holding other included variables fixed, one additional cooling degree-hour is associated with about 2.8% higher load, compared with 1.9% for heating. The difference is statistically significant (p < 0.001). The year coefficients imply approximately 23% higher load in 2025 than in 2021, conditional on the included controls (Appendix Table A1). Table 3 illustrates the implied load differences at selected temperatures.
+
 **Table 2. Weather and ERCOT load and prices**
 
 | Dependent variable | CDD       | HDD       | Humidity  | Wind speed  | CDD − HDD | N      | R²   |
@@ -89,8 +91,6 @@ Figure 2 compares hot and cold weather at equal distances from 18°C. At 15 degr
 
 *Notes:* HAC standard errors, calculated using actual UTC time intervals with a maximum lag of 24 hours, are shown in parentheses. *** p < 0.001. All regressions include hour, month, and year fixed effects. The price regression excludes 920 hours (2.1%) with non-positive prices. CDD and HDD are degree-hours relative to 18°C.
 
-Table 2 shows that, holding other included variables fixed, one additional cooling degree-hour is associated with about 2.8% higher load, compared with 1.9% for heating. The difference is statistically significant (p < 0.001). The year coefficients imply approximately 23% higher load in 2025 than in 2021, conditional on the included controls (Appendix Table A1). Table 3 illustrates the implied load differences at selected temperatures.
-
 **Table 3. Implied Change in ERCOT Load Relative to an 18°C Hour**
 
 | Scenario                 | Calculation                 | Model-implied load increase |
@@ -101,15 +101,15 @@ Table 2 shows that, holding other included variables fixed, one additional cooli
 
 Note: Calculated as 100[exp(β × degree-hours) − 1] using Table 2 coefficients, holding other included variables fixed. The model assumes constant percentage responses to cooling and heating degree-hours.
 
-Prices respond more strongly to weather than load does: one additional degree-hour of either cooling or heating is associated with about 8% higher prices in the full positive-price sample. The CDD and HDD coefficients are statistically indistinguishable (p = 0.67), so we do not conclude that prices respond more to heat than to cold (Appendix Table A4).
+Prices respond more strongly to weather than load does: one additional degree-hour of either cooling or heating is associated with about 8% higher prices in the full positive-price sample (Table 2). We find no statistically significant difference between the CDD and HDD coefficients (p = 0.67; Appendix Table A4). Holding other included variables fixed, prices in the 7–8 pm hour are approximately twice those in the 11 pm–midnight hour (beta_hat_hour 20 = 0.6932; Appendix Table A3).
 
-This comparison is sensitive to Winter Storm Uri. Excluding February 8–20, 2021 (301 hours, 0.7% of the price sample) lowers the HDD coefficient from 0.0809 to 0.0543. Cooling degree-hours are then more strongly associated with prices than heating degree-hours, with a statistically significant coefficient difference (p < 0.001). The load results barely change (Appendix Table A5). Holding other included variables fixed, prices in the 7–8 pm hour are approximately twice those in the 11 pm–midnight hour (Appendix Table A3).
+This heat-cold price comparison is sensitive to Winter Storm Uri. Excluding February 8–20, 2021 (301 hours, 0.7% of the price sample) lowers the HDD coefficient from 0.0809 to 0.0543. Cooling degree-hours are then more strongly associated with prices than heating degree-hours, with a statistically significant coefficient difference (p < 0.001). The load results barely change (Appendix Table A5). 
 
 ### 6. Policy, Technical Implications and Discussion
 
 The findings suggest several implications for electricity supply planning and price risk management in ERCOT.
 
-First, load rises more with heat than with cold (about 2.8% versus 1.9% per degree-hour), and 2025 load is about 23% above 2021 after controlling for weather and other included factors. Planning for sufficient electricity supply should therefore account for both weather conditions and demand growth.
+First, load rises more with heat than with cold (about 2.8% versus 1.9% per degree-hour), and the estimated 2025 load is about 23% above 2021 after controlling for weather and other included factors. Planning for sufficient electricity supply should therefore account for both weather conditions and demand growth.
 
 Second, prices are more sensitive to temperature than load, and median prices at the temperature extremes are four to five times their minimum (Figure 1). Sudden price spikes can greatly increase costs for electricity retailers and large consumers that pay real-time prices. These businesses may reduce their exposure by locking in prices in advance or reducing electricity use during high-price hours.
 
@@ -119,9 +119,9 @@ Finally, winter planning should consider rare but severe storms. Excluding the F
 
 ### 7. Conclusion
 
-This study examines the relationship between weather, electricity demand, and real-time prices in ERCOT using hourly data from 2021–2025. Load is more sensitive to heat than to cold, while prices respond strongly to both. However, the estimated cold-weather price response falls substantially when the February 2021 winter storm period is excluded. Together with the highly skewed price distribution, this result highlights the importance of extreme events when assessing electricity price risk. These findings suggest a role for adequate reserves, demand response, and grid resilience in managing weather-related market stress.
+Using hourly ERCOT data from 2021–2025, this study finds that load is more sensitive to heat than to cold, while prices are strongly associated with both. The cold-weather price estimate falls substantially when the February 2021 storm period is excluded. Together with the highly skewed price distribution, this result highlights the importance of extreme events when assessing electricity price risk. These findings suggest a role for adequate reserves, demand response, and grid resilience in managing weather-related market stress.
 
-Several limitations should be acknowledged. The linear CDD/HDD specification does not capture whether temperature effects accelerate at more extreme temperatures. The load and price regressions separately estimate how each variable is associated with weather. They do not show that higher electricity demand causes higher prices. Since the analysis does not include electricity supply variables, it cannot tell whether price changes come from changes in demand or supply. There is also a geographic mismatch: prices reflect a four-hub average that includes West Texas, whereas the weather index covers four major metropolitan areas and excludes that region. Finally, taking logarithms excludes zero and negative prices, potentially creating sample selection concerns and limiting the price results to positive-price hours.
+Several limitations remain. The linear CDD/HDD specification does not capture whether temperature effects accelerate at more extreme temperatures. Although HAC standard errors account for serial correlation, the model does not explicitly capture demand and price dynamics over time. There is also a geographic mismatch: prices reflect a four-hub average that includes West Texas, whereas the weather index covers four major metropolitan areas and excludes that region. Finally, taking logarithms excludes zero and negative prices, potentially creating sample selection concerns and limiting the price results to positive-price hours.
 
 Future research could include weather data from more parts of Texas and data on electricity generation, and use methods that allow for zero and negative prices. Comparing ERCOT with electricity markets in other U.S. states or other countries could help explain how market rules, energy sources, and weather conditions affect the results.
 
@@ -170,7 +170,7 @@ Figure A2. Daily series from Figure A1 with February 8–20, 2021 excluded from 
 **Table A1: Full regression results for log electricity load**
 
 ```text
-                            OLS Regression Results                          
+                            OLS Regression Results                        
 ==============================================================================
 Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
@@ -179,8 +179,8 @@ Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
 Time:                        14:15:37   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
-Df Model:                          42                                       
-Covariance Type:                  HAC                                       
+Df Model:                          42                                     
+Covariance Type:                  HAC                                     
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -245,7 +245,7 @@ strong multicollinearity or other numerical problems.
 **Table A2: Test of equal cooling and heating coefficients for log electricity load**
 
 ```
-                             Test for Constraints                           
+                             Test for Constraints                         
 ==============================================================================
                  coef    std err          z      P>|z|     [0.025     0.975]
 ------------------------------------------------------------------------------
@@ -258,7 +258,7 @@ c0             0.0093     0.0006     15.110      0.000     0.0081     0.0105
 **Table A3: Full regression results for log electricity price**
 
 ```
-                            OLS Regression Results                          
+                            OLS Regression Results                        
 ==============================================================================
 Dep. Variable:              log_price   R-squared:                       0.341
 Model:                            OLS   Adj. R-squared:                  0.341
@@ -267,8 +267,8 @@ Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
 Time:                        14:22:30   Log-Likelihood:                -47598.
 No. Observations:               42506   AIC:                         9.528e+04
 Df Residuals:                   42463   BIC:                         9.565e+04
-Df Model:                          42                                       
-Covariance Type:                  HAC                                       
+Df Model:                          42                                     
+Covariance Type:                  HAC                                     
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -333,7 +333,7 @@ strong multicollinearity or other numerical problems.
 **Table A4: Test of equal cooling and heating coefficients for log electricity price**
 
 ```
-                             Test for Constraints                           
+                             Test for Constraints                         
 ==============================================================================
                  coef    std err          z      P>|z|     [0.025     0.975]
 ------------------------------------------------------------------------------
