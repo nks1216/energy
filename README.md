@@ -3,13 +3,13 @@
 Kyungsu Noh
 MA Student in Economics, The University of Texas at Austin
 
-### 1. Introduction (3/4)
+### 1. Introduction 
 
 Understanding how weather relates to electricity demand and wholesale prices is important for supply planning and price risk management in Texas. This study examines these relationships in the Electric Reliability Council of Texas (ERCOT) market during 2021–2025, using separate load and real-time price regressions with weather controls and time fixed effects.
 
 The results show that load is more sensitive to heat than to cold, while prices are strongly associated with both. The estimated association between cold weather and prices weakens substantially when the February 2021 winter storm period is excluded. The findings inform discussions of supply planning, price risk management, and the potential value of battery storage.
 
-### 2. Background and Literature Review (3/4)
+### 2. Background and Literature Review 
 
 ERCOT operates a wholesale electricity market covering most of Texas. Its scarcity-pricing mechanisms can raise real-time electricity prices when operating reserves are low (ERCOT, 2025).
 
@@ -19,7 +19,7 @@ The joint report by the Federal Energy Regulatory Commission, the North American
 
 The U.S. Energy Information Administration (2025) reports that half of ERCOT’s battery capacity at the end of 2024 was primarily used for price arbitrage, providing context for this study’s discussion of storage and hourly price differences.
 
-### 3. Theoretical Framework (1/2)
+### 3. Theoretical Framework 
 
 Hot and cold weather can increase electricity demand for cooling and electric heating. Demand may therefore be higher at both high and low temperatures than under mild conditions. In addition, the responses to heat and cold may differ because cooling and heating systems use different technologies and energy sources. This motivates using separate cooling degree-hour (CDD) and heating degree-hour (HDD) variables.
 
@@ -54,17 +54,17 @@ We exclude 395 hours (0.9%) with missing weather data at any of the four airport
 \text{CDD}_t = \max{(T_t-18, 0)}, \text{HDD}_t = \max{(18-T_t, 0)}
 ```
 
-where \(T_t\) is the population-weighted hourly temperature in °C. Because observations are hourly, these measures are degree-hours rather than degree-days. We estimate separate regressions for electricity load and real-time prices:
+where T_t is the population-weighted hourly temperature in °C. Because observations are hourly, these measures are degree-hours rather than degree-days. We estimate separate regressions for electricity load and real-time prices:
 
 ```math
 \ln(\text{Y}_t) = \beta_0 + \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \beta_3 \text{Humidity}_t + \beta_4 \text{Wind speed}_t + \text{Hour/Month/Year FE} + \varepsilon_t
 ```
 
-Here, \(t\) indexes hours and \(Y_t\) is either ERCOT load or the real-time price. Hour, month, and year fixed effects control for recurring intraday and seasonal patterns and annual differences in demand and market conditions. Hour indicators use hour-ending labels; month and year are based on the start of each hour. 
+Here, t indexes hours and Y_t is either ERCOT load or the real-time price. Hour, month, and year fixed effects control for recurring intraday and seasonal patterns and annual differences in demand and market conditions. Hour indicators use hour-ending labels; month and year are based on the start of each hour.
 
 We use heteroskedasticity- and autocorrelation-consistent (HAC) standard errors with a maximum lag of 24 observations. The CDD and HDD coefficients, multiplied by 100, approximate the percentage change in Y_t associated with one additional degree-hour, holding the other included variables fixed. We test whether β₁ = β₂ to compare sensitivity to heat and cold.
 
-### 5. Results and Analysis (1 1/4)
+### 5. Results and Analysis 
 
 Figure 1 shows that load and prices are lowest at mild temperatures (about 14–19°C) and rise at hotter and colder temperatures. Load is higher at the hot extreme than at the cold extreme, although these extreme bins contain relatively few observations and should be interpreted cautiously. Figures 1 and 2 report median prices to reduce the influence of occasional price spikes.
 
@@ -105,7 +105,7 @@ Prices respond more strongly to weather than load does: one additional degree-ho
 
 This comparison is sensitive to Winter Storm Uri. Excluding February 8–20, 2021 (301 hours, 0.7% of the price sample) lowers the HDD coefficient from 0.0809 to 0.0543. Cooling degree-hours are then more strongly associated with prices than heating degree-hours, with a statistically significant coefficient difference (p < 0.001). The load results barely change (Appendix Table A5). Holding other included variables fixed, prices in the 7–8 pm hour are approximately twice those in the 11 pm–midnight hour (Appendix Table A3).
 
-### 6. Policy, Technical Implications and Discussion (1/2)
+### 6. Policy, Technical Implications and Discussion 
 
 The findings suggest several implications for electricity supply planning and price risk management in ERCOT.
 
@@ -117,7 +117,7 @@ Third, after controlling for weather and other included factors, prices in the 7
 
 Finally, winter planning should consider rare but severe storms. Excluding the February 2021 storm window (0.7% of the price sample) lowers the HDD coefficient by about one-third. Although this analysis does not identify the causes of the storm-related price increases, the result suggests that typical winter conditions alone provide an incomplete basis for assessing winter market risk. Preparing generation facilities and fuel supplies for severe cold may help address this risk.
 
-### 7. Conclusion (1/3)
+### 7. Conclusion 
 
 This study examines the relationship between weather, electricity demand, and real-time prices in ERCOT using hourly data from 2021–2025. Load is more sensitive to heat than to cold, while prices respond strongly to both. However, the estimated cold-weather price response falls substantially when the February 2021 winter storm period is excluded. Together with the highly skewed price distribution, this result highlights the importance of extreme events when assessing electricity price risk. These findings suggest a role for adequate reserves, demand response, and grid resilience in managing weather-related market stress.
 
