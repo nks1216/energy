@@ -125,15 +125,15 @@ Future research could include weather data from more parts of Texas and data on 
 
 ### 8. References
 
-Electric Reliability Council of Texas. (2025, October).  *ERCOT energy-only wholesale market* . [https://www.ercot.com/files/docs/2025/10/16/ERCOT-Grid-Insights-Energy-Only-Wholesale-Market.pdf](https://www.ercot.com/files/docs/2025/10/16/ERCOT-Grid-Insights-Energy-Only-Wholesale-Market.pdf)
+Electric Reliability Council of Texas. (2025, October).  *ERCOT energy-only wholesale market*. [https://www.ercot.com/files/docs/2025/10/16/ERCOT-Grid-Insights-Energy-Only-Wholesale-Market.pdf](https://www.ercot.com/files/docs/2025/10/16/ERCOT-Grid-Insights-Energy-Only-Wholesale-Market.pdf)
 
-Federal Energy Regulatory Commission, North American Electric Reliability Corporation, & Regional Entities. (2021, November).  *The February 2021 cold weather outages in Texas and the South Central United States* . [https://www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states-ferc-nerc-and](https://www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states-ferc-nerc-and)
+Federal Energy Regulatory Commission, North American Electric Reliability Corporation, & Regional Entities. (2021, November). *The February 2021 cold weather outages in Texas and the South Central United States*. [https://www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states-ferc-nerc-and](https://www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states-ferc-nerc-and)
 
-Kantor, D., Casey, N. W., Menne, M. J., & Buddenberg, A. (2023). *Local climatological data (LCD), version 2* [Data set]. NOAA National Centers for Environmental Information
+Kantor, D., Casey, N. W., Menne, M. J., & Buddenberg, A. (2023). *Local climatological data (LCD), version 2* [Data set; hourly observations for AUS, DFW, IAH, and SAT, 2021–2025]. NOAA National Centers for Environmental Information. [https://www.ncei.noaa.gov/products/land-based-station/local-climatological-data](https://www.ncei.noaa.gov/products/land-based-station/local-climatological-data). Accessed October 2026.
 
-Shaffer, B., Quintero, D., & Rhodes, J. (2022). Changing sensitivity to cold weather in Texas power demand.  *iScience, 25* (4), 104173. [https://doi.org/10.1016/j.isci.2022.104173](https://doi.org/10.1016/j.isci.2022.104173)
+Shaffer, B., Quintero, D., & Rhodes, J. (2022). Changing sensitivity to cold weather in Texas power demand.  *iScience, 25*(4), 104173. [https://doi.org/10.1016/j.isci.2022.104173](https://doi.org/10.1016/j.isci.2022.104173)
 
-U.S. Energy Information Administration. (2025, September 22).  *Utility-scale batteries are more commonly used for price arbitrage* . [https://www.eia.gov/todayinenergy/detail.php?id=66164](https://www.eia.gov/todayinenergy/detail.php?id=66164)
+U.S. Energy Information Administration. (2025, September 22).  *Utility-scale batteries are more commonly used for price arbitrage*. [https://www.eia.gov/todayinenergy/detail.php?id=66164](https://www.eia.gov/todayinenergy/detail.php?id=66164)
 
 ##### **Data sources**
 
@@ -149,7 +149,7 @@ U.S. Energy Information Administration. (2025, September 22).  *Utility-scale ba
 
 ##### **Data and code availability**
 
-All data used in the analysis (electric load, electricity price, weather, and population) and all original code used in the analysis have been deposited at [http://github.com/nks1216/energy/](http://github.com/nks1216/energy/).
+All data used in the analysis (electricity load, electricity prices, weather, and population) and all original analysis code have been deposited in the GitHub repository at [http://github.com/nks1216/energy/](http://github.com/nks1216/energy/). The repository will be publicly available on November 20, 2026.
 
 ### 9. Appendix
 
