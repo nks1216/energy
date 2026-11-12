@@ -5,35 +5,31 @@ MA Student in Economics, The University of Texas at Austin
 
 ### 1. Introduction (3/4)
 
-Electricity systems must meet changing demand while maintaining reliable supply. In Texas, understanding the relationship between weather, electricity demand, and wholesale prices is important for supply planning and managing exposure to high prices. A key question is whether hot and cold weather are associated with similar changes in demand and prices.
-
-This study examines that question using hourly Electric Reliability Council of Texas (ERCOT) electricity and Texas weather data from 2021–2025. We estimate separate regressions for electricity load and real-time prices, comparing their sensitivity to heat and cold while controlling for weather and time patterns.
+Electricity systems must meet changing demand while maintaining reliable supply. In Texas, understanding the relationship between weather, electricity demand, and wholesale prices is important for supply planning and managing exposure to high prices. This study examines how hot and cold weather are associated with electricity demand and real-time prices in the Electric Reliability Council of Texas (ERCOT) market during 2021–2025. We estimate separate regressions for electricity load and real-time prices, comparing their sensitivity to heat and cold while controlling for weather and time patterns.
 
 The results show that load is more sensitive to heat than to cold, while prices are strongly associated with both. However, the cold-weather price estimate falls substantially when the February 2021 winter storm period is excluded. The findings inform discussions of supply planning, price risk management, and the potential value of battery storage.
 
 ### 2. Background and Literature Review (3/4)
 
-ERCOT operates a wholesale electricity market covering most of Texas. ERCOT’s scarcity-pricing mechanisms can raise real-time electricity prices when operating reserves are low, reflecting the increased risk of insufficient supply (ERCOT, 2025). Understanding how weather relates to electricity demand and prices is therefore relevant to supply planning and price risk management.
+ERCOT operates a wholesale electricity market covering most of Texas. Its scarcity-pricing mechanisms can raise real-time electricity prices when operating reserves are low, reflecting the increased risk of insufficient supply (ERCOT, 2025).
 
-Shaffer et al. (2022) studied approximately 20 years of hourly data across ERCOT’s eight weather zones and found that electricity demand had become more sensitive to cold temperatures. Their use of hourly data and time fixed effects informs this study’s approach. Building on this, we use separate cooling and heating degree-hour variables instead of temperature-bin indicators and examine both system-wide load and real-time prices over 2021–2025.
+Shaffer et al. (2022) studied approximately 20 years of hourly data across ERCOT’s eight weather zones and found that electricity demand had become more sensitive to cold temperatures. Their use of hourly data and time fixed effects informs this study’s approach. We use separate cooling and heating degree-hour variables and examine both system-wide load and real-time prices over 2021–2025.
 
-Winter Storm Uri highlighted the vulnerability of electricity supply to extreme cold. The joint FERC–NERC–Regional Entity report (2021) documented widespread generation failures and recommended stronger winter preparation and better coordination between natural gas and electricity systems. Its February 8–20 event window provides the basis for this study’s storm-exclusion robustness check.
+Winter Storm Uri highlighted the vulnerability of electricity supply to extreme cold. The joint report by the Federal Energy Regulatory Commission (FERC), the North American Electric Reliability Corporation (NERC), and Regional Entities (2021) documented widespread generation failures and recommended stronger winter preparation and better coordination between natural gas and electricity systems. Its February 8–20 event window provides the basis for this study’s storm-exclusion robustness check.
 
-Storage is also relevant to hourly price differences. The U.S. Energy Information Administration (2025) reports that half of ERCOT’s battery capacity at the end of 2024 was primarily used for price arbitrage—charging at lower prices and selling at higher prices. This provides context for discussing storage in relation to the evening price pattern found in this study.
+Storage is also relevant to hourly price differences. The U.S. Energy Information Administration (2025) reports that half of ERCOT’s battery capacity at the end of 2024 was primarily used for price arbitrage. This provides context for discussing storage in relation to the evening price pattern found in this study.
 
 ### 3. Theoretical Framework (1/2)
 
 Weather can affect electricity demand through cooling and heating needs. Hot weather increases the need for air conditioning, while cold weather increases electricity use where heating relies on electricity. Demand may therefore be higher at both high and low temperatures than under mild conditions. This motivates using separate cooling degree-hour (CDD) and heating degree-hour (HDD) variables. The responses to heat and cold may differ because cooling and heating systems use different technologies and energy sources.
 
-Electricity prices are determined by both supply and demand. Higher demand may raise prices, particularly when additional electricity supply is limited. Weather can also affect supply directly, including wind and solar generation and the availability of other generation facilities. The relationship between weather and electricity prices may therefore reflect changes on both sides of the market.
-
-Based on these mechanisms, we estimate separate regressions of electricity load and prices on weather conditions. The CDD and HDD coefficients allow us to compare their associations with hot and cold weather. These regressions estimate how electricity demand and prices are associated with weather. However, they do not establish that higher demand causes higher prices or show how much of the weather-related price change comes from demand rather than supply.
+Electricity prices are determined by both supply and demand. Higher demand may raise prices, particularly when additional electricity supply is limited. Weather can also affect supply directly, including wind and solar generation and the availability of other generation facilities. Weather-related price changes may therefore reflect changes in both demand and supply. We estimate separate regressions to examine how load and prices are associated with weather. However, these regressions do not establish that higher demand causes higher prices or determine how much of the weather-related price change comes from demand versus supply.
 
 ### 4. Data and Methodology (3/4)
 
 **Data.** We use hourly data from January 1, 2021 to December 31, 2025 (43,824 hours). Electricity demand is ERCOT system-wide hourly load (MW). Prices are ERCOT real-time settlement point prices at the ERCOT Hub Average (HB_HUBAVG), the simple average of the North, South, Houston, and West hub prices, reported in $/MWh at 15-minute intervals; we aggregate them to hourly values by taking the arithmetic mean of the four intervals within each hour.
 
-Weather data come from the National Oceanic and Atmospheric Administration’s National Centers for Environmental Information (NOAA NCEI) hourly airport observations of temperature (°C), relative humidity (%), and wind speed (m/s) at four major Texas cities: Dallas–Fort Worth, Houston, San Antonio, and Austin. We aggregate them into a statewide measure using population weights of 0.3891, 0.3621, 0.1296, and 0.1192, respectively, based on the 2021–2025 average metropolitan-area population (U.S. Census Bureau, via Federal Reserve Economic Data (FRED)). We match weather observations to ERCOT hours using UTC timestamps to avoid ambiguity during daylight saving time transitions.
+Weather data come from the National Oceanic and Atmospheric Administration’s National Centers for Environmental Information (NOAA NCEI) hourly airport observations of temperature (°C), relative humidity (%), and wind speed (m/s) at four major Texas cities: Dallas–Fort Worth, Houston, San Antonio, and Austin. We construct population-weighted weather indices using average metropolitan populations over 2021–2025 (U.S. Census Bureau, via Federal Reserve Economic Data (FRED)). We match weather observations to ERCOT hours using UTC timestamps to avoid ambiguity during daylight saving time transitions.
 
 We exclude 395 hours (0.9%) with missing weather data at any of the four airports, which we do not impute, and three hours with physically impossible relative humidity values (outside 0–100%). The load regression therefore uses 43,426 hourly observations. Because the logarithm is undefined for non-positive values, the price regression additionally excludes 920 hours (2.1%) with zero or negative prices, leaving 42,506 observations; its estimates therefore describe hours with positive prices. Table 1 reports summary statistics for these samples.
 
@@ -50,7 +46,7 @@ We exclude 395 hours (0.9%) with missing weather data at any of the four airport
 | Relative humidity (%)         | 65.74  | 68.03  | 18.24  | 9.85   | 100.00  | 43,426 |
 | Wind speed (m/s)              | 3.96   | 3.74   | 1.90   | 0.00   | 13.11   | 43,426 |
 
-*Notes:* The sample is the load regression sample (N = 43,426 hourly observations). The second price row is the sample for the price regression (hours with positive prices). Weather variables are population-weighted averages of four airport stations. CDD and HDD are degree-hours relative to 18°C. Their summary statistics include all sample hours, including those with zero values. Sources: ERCOT, NOAA, U.S. Census Bureau (via FRED).
+*Notes:* The sample is the load regression sample (N = 43,426 hourly observations). The second price row is the sample for the price regression (hours with positive prices). Weather variables are population-weighted averages of four airport stations. CDD and HDD are degree-hours relative to 18°C. Their summary statistics include all sample hours, including those with zero values. Sources: ERCOT, NOAA, U.S. Census Bureau via FRED.
 
 **Empirical strategy.** Heating and cooling degree variables are defined relative to a base temperature of 18°C, close to the 65°F (≈18.3°C) base used in NOAA’s degree-day products (NOAA NCEI), LCDv2 documentation), and within the range where load is lowest in our data (Figure 1):
 
@@ -149,7 +145,7 @@ U.S. Energy Information Administration. (2025, September 22).  *Utility-scale ba
 | Annual metropolitan population                        | U.S. Census Bureau, via Federal Reserve Economic Data (FRED)                                                | [DFWPOP](https://fred.stlouisfed.org/series/DFWPOP), [HTNPOP](https://fred.stlouisfed.org/series/HTNPOP), [SATPOP](https://fred.stlouisfed.org/series/SATPOP), [AUSPOP](https://fred.stlouisfed.org/series/AUSPOP), 2021-2025 (annual) |
 | Software                                              | Python Software Foundation                                                                                   | [Python 3.12.3](https://www.python.org/downloads/); pandas, NumPy, openpyxl, Matplotlib, and statsmodels                                                                                                                               |
 
-*Note:* Weather station identifiers are AUS: USW00013904; DFW: USW00003927; IAH: USW00012960; and SAT: USW00012921.
+*Note:* Weather station identifiers are AUS: USW00013904; DFW: USW00003927; IAH: USW00012960; and SAT: USW00012921. Weather observations are weighted using average metropolitan population shares over 2021–2025: Dallas–Fort Worth (0.3891), Houston (0.3621), San Antonio (0.1296), and Austin (0.1192). The same weights are applied to temperature, relative humidity, and wind speed.
 
 ##### **Data and code availability**
 
@@ -157,7 +153,7 @@ All data used in the analysis (electric load, electricity price, weather, and po
 
 ### 9. Appendix
 
-**Figure A1. Daily mean load, price, temparature**
+**Figure A1. Daily mean load, price, temperature**
 
 ![1794359054782](image/README/1794359054782.png)
 
@@ -172,7 +168,7 @@ Figure A2. Daily series from Figure A1 with February 8–20, 2021 excluded from 
 **Table A1: Full regression results for log electricity load**
 
 ```text
-                            OLS Regression Results                  
+                            OLS Regression Results              
 ==============================================================================
 Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
@@ -181,8 +177,8 @@ Date:                Mon, 09 Nov 2026   Prob (F-statistic):               0.00
 Time:                        21:25:41   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
-Df Model:                          42                               
-Covariance Type:                  HAC                               
+Df Model:                          42                           
+Covariance Type:                  HAC                           
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -247,7 +243,7 @@ strong multicollinearity or other numerical problems.
 **Table A2: Test of equal cooling and heating coefficients for log electricity load**
 
 ```
-                             Test for Constraints                   
+                             Test for Constraints               
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
@@ -260,7 +256,7 @@ c0             0.0093      0.001     15.093      0.000       0.008       0.011
 **Table A3: Full regression results for log electricity price**
 
 ```
-                            OLS Regression Results                  
+                            OLS Regression Results              
 ==============================================================================
 Dep. Variable:              log_price   R-squared:                       0.341
 Model:                            OLS   Adj. R-squared:                  0.341
@@ -269,8 +265,8 @@ Date:                Mon, 09 Nov 2026   Prob (F-statistic):               0.00
 Time:                        21:26:23   Log-Likelihood:                -47598.
 No. Observations:               42506   AIC:                         9.528e+04
 Df Residuals:                   42463   BIC:                         9.565e+04
-Df Model:                          42                               
-Covariance Type:                  HAC                               
+Df Model:                          42                           
+Covariance Type:                  HAC                           
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -335,7 +331,7 @@ strong multicollinearity or other numerical problems.
 **Table A4: Test of equal cooling and heating coefficients for log electricity price**
 
 ```
-                             Test for Constraints                   
+                             Test for Constraints               
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
