@@ -5,25 +5,25 @@ MA Student in Economics, The University of Texas at Austin
 
 ### 1. Introduction (3/4)
 
-Electricity systems must meet changing demand while maintaining reliable supply. In Texas, understanding the relationship between weather, electricity demand, and wholesale prices is important for supply planning and managing exposure to high prices. This study examines how hot and cold weather are associated with electricity demand and real-time prices in the Electric Reliability Council of Texas (ERCOT) market during 2021–2025. We estimate separate regressions for electricity load and real-time prices, comparing their sensitivity to heat and cold while controlling for weather and time patterns.
+Understanding how weather relates to electricity demand and wholesale prices is important for supply planning and price risk management in Texas. This study examines these relationships in the Electric Reliability Council of Texas (ERCOT) market during 2021–2025, using separate load and real-time price regressions with weather controls and time fixed effects.
 
-The results show that load is more sensitive to heat than to cold, while prices are strongly associated with both. However, the cold-weather price estimate falls substantially when the February 2021 winter storm period is excluded. The findings inform discussions of supply planning, price risk management, and the potential value of battery storage.
+The results show that load is more sensitive to heat than to cold, while prices are strongly associated with both. The estimated association between cold weather and prices weakens substantially when the February 2021 winter storm period is excluded. The findings inform discussions of supply planning, price risk management, and the potential value of battery storage.
 
 ### 2. Background and Literature Review (3/4)
 
-ERCOT operates a wholesale electricity market covering most of Texas. Its scarcity-pricing mechanisms can raise real-time electricity prices when operating reserves are low, reflecting the increased risk of insufficient supply (ERCOT, 2025).
+ERCOT operates a wholesale electricity market covering most of Texas. Its scarcity-pricing mechanisms can raise real-time electricity prices when operating reserves are low (ERCOT, 2025).
 
-Shaffer et al. (2022) studied approximately 20 years of hourly data across ERCOT’s eight weather zones and found that electricity demand had become more sensitive to cold temperatures. Their use of hourly data and time fixed effects informs this study’s approach. We use separate cooling and heating degree-hour variables and examine both system-wide load and real-time prices over 2021–2025.
+Shaffer et al. (2022) studied approximately 20 years of hourly data across ERCOT’s eight weather zones and found increasing demand sensitivity to cold temperatures. Their use of hourly data and time fixed effects informs this study, which examines both system-wide load and real-time prices over 2021–2025.
 
-Winter Storm Uri highlighted the vulnerability of electricity supply to extreme cold. The joint report by the Federal Energy Regulatory Commission (FERC), the North American Electric Reliability Corporation (NERC), and Regional Entities (2021) documented widespread generation failures and recommended stronger winter preparation and better coordination between natural gas and electricity systems. Its February 8–20 event window provides the basis for this study’s storm-exclusion robustness check.
+The joint report by the Federal Energy Regulatory Commission, the North American Electric Reliability Corporation, and Regional Entities (2021) documented widespread generation failures during Winter Storm Uri and recommended stronger winter preparation and coordination between natural gas and electricity systems. Its February 8–20 event window guides this study’s storm-exclusion robustness check.
 
-Storage is also relevant to hourly price differences. The U.S. Energy Information Administration (2025) reports that half of ERCOT’s battery capacity at the end of 2024 was primarily used for price arbitrage. This provides context for discussing storage in relation to the evening price pattern found in this study.
+The U.S. Energy Information Administration (2025) reports that half of ERCOT’s battery capacity at the end of 2024 was primarily used for price arbitrage, providing context for this study’s discussion of storage and hourly price differences.
 
 ### 3. Theoretical Framework (1/2)
 
-Weather can affect electricity demand through cooling and heating needs. Hot weather increases the need for air conditioning, while cold weather increases electricity use where heating relies on electricity. Demand may therefore be higher at both high and low temperatures than under mild conditions. This motivates using separate cooling degree-hour (CDD) and heating degree-hour (HDD) variables. The responses to heat and cold may differ because cooling and heating systems use different technologies and energy sources.
+Hot and cold weather can increase electricity demand for cooling and electric heating. Demand may therefore be higher at both high and low temperatures than under mild conditions. In addition, the responses to heat and cold may differ because cooling and heating systems use different technologies and energy sources. This motivates using separate cooling degree-hour (CDD) and heating degree-hour (HDD) variables.
 
-Electricity prices are determined by both supply and demand. Higher demand may raise prices, particularly when additional electricity supply is limited. Weather can also affect supply directly, including wind and solar generation and the availability of other generation facilities. Weather-related price changes may therefore reflect changes in both demand and supply. We estimate separate regressions to examine how load and prices are associated with weather. However, these regressions do not establish that higher demand causes higher prices or determine how much of the weather-related price change comes from demand versus supply.
+Electricity prices reflect both demand and supply. Higher demand may raise prices when additional supply is limited, while weather can also affect wind and solar generation and the availability of other generators. We estimate separate regressions to examine how load and prices are associated with weather. These regressions do not establish that higher demand causes higher prices or determine how much of the weather-related price change comes from demand versus supply.
 
 ### 4. Data and Methodology (3/4)
 
@@ -35,32 +35,34 @@ We exclude 395 hours (0.9%) with missing weather data at any of the four airport
 
 **Table 1. Summary statistics, hourly observations, 2021–2025**
 
-| Variable                      | Mean   | Median | Std    | Min    | Max     | N      |
-| ----------------------------- | ------ | ------ | ------ | ------ | ------- | ------ |
-| Load (MW)                     | 50,563 | 48,076 | 11,120 | 27,800 | 85,464  | 43,426 |
-| Price, all hours ($/MWh)      | 63.9   | 24.8   | 451.2  | -34.8  | 9,024.1 | 43,426 |
-| Price, positive hours ($/MWh) | 65.4   | 25.1   | 456.0  | 0.0025 | 9,024.1 | 42,506 |
-| Temperature (°C)             | 21.16  | 22.51  | 8.78   | -13.78 | 41.46   | 43,426 |
-| CDD (degree-hours)            | 5.51   | 4.51   | 5.50   | 0.00   | 23.46   | 43,426 |
-| HDD (degree-hours)            | 2.35   | 0.00   | 4.57   | 0.00   | 31.78   | 43,426 |
-| Relative humidity (%)         | 65.74  | 68.03  | 18.24  | 9.85   | 100.00  | 43,426 |
-| Wind speed (m/s)              | 3.96   | 3.74   | 1.90   | 0.00   | 13.11   | 43,426 |
+| Variable                  | Mean   | Median | Std    | Min    | Max     | N      |
+| ------------------------- | ------ | ------ | ------ | ------ | ------- | ------ |
+| Load (MW)                 | 50,563 | 48,076 | 11,120 | 27,800 | 85,464  | 43,426 |
+| Price, all hours ($/MWh)  | 63.9   | 24.8   | 451.2  | -34.8  | 9,024.1 | 43,426 |
+| Price, positive  ($/MWh) | 65.4   | 25.1   | 456.0  | 0.0025 | 9,024.1 | 42,506 |
+| Temperature (°C)         | 21.16  | 22.51  | 8.78   | -13.78 | 41.46   | 43,426 |
+| CDD (degree-hours)        | 5.51   | 4.51   | 5.50   | 0.00   | 23.46   | 43,426 |
+| HDD (degree-hours)        | 2.35   | 0.00   | 4.57   | 0.00   | 31.78   | 43,426 |
+| Relative humidity (%)     | 65.74  | 68.03  | 18.24  | 9.85   | 100.00  | 43,426 |
+| Wind speed (m/s)          | 3.96   | 3.74   | 1.90   | 0.00   | 13.11   | 43,426 |
 
 *Notes:* The sample is the load regression sample (N = 43,426 hourly observations). The second price row is the sample for the price regression (hours with positive prices). Weather variables are population-weighted averages of four airport stations. CDD and HDD are degree-hours relative to 18°C. Their summary statistics include all sample hours, including those with zero values. Sources: ERCOT, NOAA, U.S. Census Bureau via FRED.
 
-**Empirical strategy.** Heating and cooling degree variables are defined relative to a base temperature of 18°C, close to the 65°F (≈18.3°C) base used in NOAA’s degree-day products (NOAA NCEI), LCDv2 documentation), and within the range where load is lowest in our data (Figure 1):
+**Empirical strategy.** We define cooling and heating degree-hours relative to 18°C, approximately 65°F, a common base temperature in NOAA’s degree-day products (NOAA NCEI, LCDv2 documentation):
 
 ```math
 \text{CDD}_t = \max{(T_t-18, 0)}, \text{HDD}_t = \max{(18-T_t, 0)}.
 ```
 
-Because the data are hourly, these are degree-hours rather than degree-days. We estimate
+where \(T_t\) is the population-weighted hourly temperature in °C. Because observations are hourly, these measures are degree-hours rather than degree-days. We estimate separate regressions for electricity load and real-time prices:
 
 ```math
 \ln(\text{Y}_t) = \beta_0 + \beta_1 \text{CDD}_t + \beta_2 \text{HDD}_t + \beta_3 \text{Humidity}_t + \beta_4 \text{Wind speed}_t + \text{Hour/Month/Year FE} + \varepsilon_t
 ```
 
-where t indexes hours, Y_t is either ERCOT load or the real-time price, and Hour/Month/Year FE denote sets of dummy variables for the hour of day, the month of the year, and the year. Hour and month effects absorb intraday and seasonal patterns, and year effects absorb trends in demand and market conditions over 2021–2025. Here “hour” is the ERCOT hour-ending clock hour, so hour 20 covers 19:00–20:00 and hour 0 covers 23:00–24:00 of the previous day; month and year refer to the start of the hour. Standard errors are heteroskedasticity- and autocorrelation-consistent (HAC) with 24 lags. The CDD and HDD coefficients, multiplied by 100, approximate the percentage change in Y associated with one additional degree-hour, holding the other included variables fixed. We test whether β₁ = β₂ to compare sensitivity to heat and cold.
+where t indexes hours, Y_t is either ERCOT load or the real-time price, and Hour/Month/Year FE denote sets of dummy variables for the hour of day, the month of the year, and the year. Hour and month effects control for recurring intraday and seasonal patterns, while year effects control for annual differences in demand and market conditions. Hour indicators use hour-ending labels, while month and year are determined by the start of each hour.
+
+We use heteroskedasticity- and autocorrelation-consistent (HAC) standard errors with a maximum lag of 24 observations. The CDD and HDD coefficients, multiplied by 100, approximate the percentage change in Y_t associated with one additional degree-hour, holding the other included variables fixed. We test whether β₁ = β₂ to compare sensitivity to heat and cold.
 
 ### 5. Results and Analysis (1 1/4)
 
@@ -91,17 +93,17 @@ Table 2 shows that, holding other included variables fixed, one additional cooli
 
 **Table 3. Implied Change in ERCOT Load Relative to an 18°C Hour**
 
-| Scenario                 | Calculation            | Implied load increase |
-| ------------------------ | ---------------------- | --------------------- |
-| 28°C (10°C above base) | exp(10 × 0.0281) − 1 | ≈ 32%                |
-| 33°C (15°C above base) | exp(15 × 0.0281) − 1 | ≈ 52%                |
-| 8°C (10°C below base)  | exp(10 × 0.0188) − 1 | ≈ 21%                |
+| Scenario                 | Calculation                 | Model-implied load increase |
+| ------------------------ | --------------------------- | --------------------------- |
+| 28°C (10°C above base) | 100[exp(10 × 0.0281) − 1] | ≈ 32%                      |
+| 33°C (15°C above base) | 100[exp(15 × 0.0281) − 1] | ≈ 52%                      |
+| 8°C (10°C below base)  | 100[exp(10 × 0.0188) − 1] | ≈ 21%                      |
 
-Note: Computed as exp(β × degree-hours) − 1 from Table 2, assuming that log load is linear in degree-hours.
+Note: Calculated as 100[exp(β × degree-hours) − 1] using Table 2 coefficients, holding other included variables fixed. The model assumes constant percentage responses to cooling and heating degree-hours.
 
 Prices respond more strongly to weather than load does: one additional degree-hour of either cooling or heating is associated with about 8% higher prices in the full positive-price sample. The CDD and HDD coefficients are statistically indistinguishable (p = 0.67), so we do not conclude that prices respond more to heat than to cold (Appendix Table A4).
 
-This comparison is sensitive to Winter Storm Uri. Excluding February 8–20, 2021 (301 hours, 0.7% of the price sample) lowers the HDD coefficient from 0.0809 to 0.0543. Cooling degree-hours are then more strongly associated with prices than heating degree-hours, with a statistically significant coefficient difference (p < 0.001). The load results barely change (Appendix Table A5). Prices also follow a strong daily pattern: holding other included variables fixed, the 7–8 pm hour is about 100% more expensive than the 11 pm–midnight hour (Appendix Table A3).
+This comparison is sensitive to Winter Storm Uri. Excluding February 8–20, 2021 (301 hours, 0.7% of the price sample) lowers the HDD coefficient from 0.0809 to 0.0543. Cooling degree-hours are then more strongly associated with prices than heating degree-hours, with a statistically significant coefficient difference (p < 0.001). The load results barely change (Appendix Table A5). Holding other included variables fixed, prices in the 7–8 pm hour are approximately twice those in the 11 pm–midnight hour (Appendix Table A3).
 
 ### 6. Policy, Technical Implications and Discussion (1/2)
 
@@ -168,7 +170,7 @@ Figure A2. Daily series from Figure A1 with February 8–20, 2021 excluded from 
 **Table A1: Full regression results for log electricity load**
 
 ```text
-                            OLS Regression Results              
+                            OLS Regression Results            
 ==============================================================================
 Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
@@ -177,8 +179,8 @@ Date:                Mon, 09 Nov 2026   Prob (F-statistic):               0.00
 Time:                        21:25:41   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
-Df Model:                          42                           
-Covariance Type:                  HAC                           
+Df Model:                          42                         
+Covariance Type:                  HAC                         
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -238,12 +240,12 @@ Notes:
 strong multicollinearity or other numerical problems.
 ```
 
-*Note*: The dependent variable is log electricity load. Reference categories are hour 0, January, and 2021.
+*Note*: The dependent variable is log electricity load. Reference categories are hour 0 (23:00–24:00), January, and 2021. Hour indicators use hour-ending labels: hour 1 represents 00:00–01:00, and hour 20 represents 19:00–20:00. Month and year are determined by the start of each hour. For example, the hour ending at 00:00 on January 1, 2022 covers 23:00–24:00 on December 31, 2021 and is assigned to December 2021.
 
 **Table A2: Test of equal cooling and heating coefficients for log electricity load**
 
 ```
-                             Test for Constraints               
+                             Test for Constraints             
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
@@ -256,7 +258,7 @@ c0             0.0093      0.001     15.093      0.000       0.008       0.011
 **Table A3: Full regression results for log electricity price**
 
 ```
-                            OLS Regression Results              
+                            OLS Regression Results            
 ==============================================================================
 Dep. Variable:              log_price   R-squared:                       0.341
 Model:                            OLS   Adj. R-squared:                  0.341
@@ -265,8 +267,8 @@ Date:                Mon, 09 Nov 2026   Prob (F-statistic):               0.00
 Time:                        21:26:23   Log-Likelihood:                -47598.
 No. Observations:               42506   AIC:                         9.528e+04
 Df Residuals:                   42463   BIC:                         9.565e+04
-Df Model:                          42                           
-Covariance Type:                  HAC                           
+Df Model:                          42                         
+Covariance Type:                  HAC                         
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -326,12 +328,12 @@ Notes:
 strong multicollinearity or other numerical problems.
 ```
 
-*Note:* The dependent variable is log electricity price. Only positive-price hours are included. Reference categories are hour 0, January, and 2021.
+*Note:* The dependent variable is log electricity price. Only positive-price hours are included. Reference categories are hour 0 (23:00–24:00), January, and 2021. Hour indicators use hour-ending labels: hour 1 represents 00:00–01:00, and hour 20 represents 19:00–20:00. Month and year are determined by the start of each hour. For example, the hour ending at 00:00 on January 1, 2022 covers 23:00–24:00 on December 31, 2021 and is assigned to December 2021.
 
 **Table A4: Test of equal cooling and heating coefficients for log electricity price**
 
 ```
-                             Test for Constraints               
+                             Test for Constraints             
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
