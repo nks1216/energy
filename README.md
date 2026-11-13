@@ -95,9 +95,9 @@ Table 2 shows that, holding other included variables fixed, one additional cooli
 
 | Scenario                 | Calculation                 | Model-implied load increase |
 | ------------------------ | --------------------------- | --------------------------- |
+| 8°C (10°C below base)  | 100[exp(10 × 0.0188) − 1] | ≈ 21%                      |
 | 28°C (10°C above base) | 100[exp(10 × 0.0281) − 1] | ≈ 32%                      |
 | 33°C (15°C above base) | 100[exp(15 × 0.0281) − 1] | ≈ 52%                      |
-| 8°C (10°C below base)  | 100[exp(10 × 0.0188) − 1] | ≈ 21%                      |
 
 Note: Calculated as 100[exp(β × degree-hours) − 1] using Table 2 coefficients, holding other included variables fixed. The model assumes constant percentage responses to cooling and heating degree-hours.
 
@@ -111,7 +111,7 @@ First, load rises more with heat than with cold (about 2.8% versus 1.9% per degr
 
 Second, prices are more sensitive to temperature than load, and median prices at the temperature extremes are four to five times their minimum (Figure 1). Sudden price spikes can greatly increase costs for electricity retailers and large consumers that pay real-time prices. These businesses may reduce their exposure by locking in prices in advance or reducing electricity use during high-price hours.
 
-Third, after controlling for weather and other included factors, prices in the 7–8 pm hour are approximately 2.6 times those in the 3–4 am hour. This pattern suggests a potential role for battery energy storage systems (BESS), which charge during lower-price hours and discharge during higher-price hours. This strategy is already used in ERCOT: at the end of 2024, half of its 8.1 GW of battery capacity was primarily used for price arbitrage (U.S. Energy Information Administration, 2025). Thus, these price differences could encourage greater use of BESS if revenues are sufficient to cover charging and equipment costs.
+Third, after controlling for weather and other included factors, prices in the 7–8 pm hour are approximately 2.6 times those in the 3–4 am hour. This pattern suggests a potential role for battery energy storage systems (BESS), which charge during lower-price hours and discharge during higher-price hours. This strategy is already used in ERCOT: at the end of 2024, half of its 8.1 GW of battery capacity was primarily used for price arbitrage (EIA, 2025). Thus, these price differences could encourage greater use of BESS if revenues are sufficient to cover charging and equipment costs.
 
 Finally, winter planning should consider rare but severe storms. Excluding the February 2021 storm window (0.7% of the price sample) lowers the HDD coefficient by about one-third. Although this analysis does not identify the causes of the storm-related price increases, the result suggests that typical winter conditions alone provide an incomplete basis for assessing winter market risk. Preparing generation facilities and fuel supplies for severe cold may help address this risk.
 
@@ -121,7 +121,7 @@ Using hourly ERCOT data from 2021–2025, this study finds that load is more sen
 
 Several limitations remain. The linear CDD/HDD specification does not capture whether temperature effects accelerate at more extreme temperatures. Although HAC standard errors account for serial correlation, the model does not explicitly capture demand and price dynamics over time. There is also a geographic mismatch: prices reflect a four-hub average that includes West Texas, whereas the weather index covers four major metropolitan areas and excludes that region. Finally, taking logarithms excludes zero and negative prices, potentially creating sample selection concerns and limiting the price results to positive-price hours.
 
-Future research could include weather data from more parts of Texas and data on electricity generation, and use methods that allow for zero and negative prices. Comparisons with other electricity markets could clarify how market rules, energy sources, and weather conditions shape these relationships.
+Future research could include weather data from more parts of Texas and data on electricity generation, and use methods that allow for zero and negative prices. Comparing ERCOT with electricity markets in other U.S. states or other countries could clarify how market rules, energy sources, and weather conditions shape these relationships.
 
 ### 8. References
 
@@ -149,26 +149,27 @@ U.S. Energy Information Administration. (2025, September 22).  *Utility-scale ba
 
 ##### **Data and code availability**
 
-All data used in the analysis (electricity load, electricity prices, weather, and population) and all original analysis code have been deposited in the GitHub repository at [http://github.com/nks1216/energy/](http://github.com/nks1216/energy/). The repository will be publicly available on November 20, 2026.
+All data used in the analysis (electricity load, electricity prices, weather, and population) and all original analysis code have been deposited in the GitHub repository at [http://github.com/nks1216/energy/](http://github.com/nks1216/energy/). 
+The repository will be publicly available on November 20, 2026.
 
 ### 9. Appendix
 
-**Figure A1. Daily mean load, price, temperature**
+**Figure A1.** Daily mean load, price, temperature
 
 ![1794359054782](image/README/1794359054782.png)
 
 Daily mean ERCOT load (a), real-time hub-average price (b), and population-weighted temperature (c), 2021–2025. Daily means use available hourly observations after excluding missing regression variables and relative humidity values outside 0–100%. Zero and negative prices are included, and no temperature bins are excluded. Shading marks February 8–20, 2021. Sources: ERCOT, NOAA NCEI; authors’ calculations.
 
-**Figure A2. Daily series with storm-period prices excluded**
+**Figure A2.** Daily series with storm-period prices excluded
 
 ![1794359765430](image/README/1794359765430.png)
 
 Daily series from Figure A1 with February 8–20, 2021 excluded from the price panel only. The excluded prices are shown as a gap, and the price axis is rescaled to show variation outside this period. Load and temperature are unchanged. Sources: ERCOT, NOAA NCEI; authors’ calculations.
 
-**Table A1: Full regression results for log electricity load**
+**Table A1:** Full regression results for log electricity load
 
 ```text
-                            OLS Regression Results                      
+                            OLS Regression Results                    
 ==============================================================================
 Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
@@ -177,8 +178,8 @@ Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
 Time:                        14:15:37   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
-Df Model:                          42                                   
-Covariance Type:                  HAC                                   
+Df Model:                          42                                 
+Covariance Type:                  HAC                                 
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -232,10 +233,10 @@ Notes: HAC standard errors using actual UTC hourly intervals, Bartlett weights, 
 
 The dependent variable is log electricity load. Reference categories are hour 0 (23:00–24:00), January, and 2021. Hour indicators use hour-ending labels: hour 1 represents 00:00–01:00, and hour 20 represents 19:00–20:00. Month and year are determined by the start of each hour. For example, the hour ending at 00:00 on January 1, 2022 covers 23:00–24:00 on December 31, 2021 and is assigned to December 2021.
 
-**Table A2. Test of equal cooling and heating coefficients for log electricity load**
+**Table A2.** Test of equal cooling and heating coefficients for log electricity load
 
 ```
-                             Test for Constraints                       
+                             Test for Constraints                     
 ==============================================================================
                  coef    std err          z      P>|z|     [0.025     0.975]
 ------------------------------------------------------------------------------
@@ -245,10 +246,10 @@ c0             0.0093     0.0006     15.110      0.000     0.0081     0.0105
 
 The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
 
-**Table A3. Full regression results for log electricity price**
+**Table A3.** Full regression results for log electricity price
 
 ```
-                            OLS Regression Results                      
+                            OLS Regression Results                    
 ==============================================================================
 Dep. Variable:              log_price   R-squared:                       0.341
 Model:                            OLS   Adj. R-squared:                  0.341
@@ -257,8 +258,8 @@ Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
 Time:                        14:22:30   Log-Likelihood:                -47598.
 No. Observations:               42506   AIC:                         9.528e+04
 Df Residuals:                   42463   BIC:                         9.565e+04
-Df Model:                          42                                   
-Covariance Type:                  HAC                                   
+Df Model:                          42                                 
+Covariance Type:                  HAC                                 
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -312,10 +313,10 @@ Notes: HAC standard errors using actual UTC hourly intervals, Bartlett weights, 
 
 The dependent variable is log electricity price. Only positive-price hours are included. Reference categories are hour 0 (23:00–24:00), January, and 2021. Hour indicators use hour-ending labels: hour 1 represents 00:00–01:00, and hour 20 represents 19:00–20:00. Month and year are determined by the start of each hour. For example, the hour ending at 00:00 on January 1, 2022 covers 23:00–24:00 on December 31, 2021 and is assigned to December 2021.
 
-**Table A4. Test of equal cooling and heating coefficients for log electricity price**
+**Table A4.** Test of equal cooling and heating coefficients for log electricity price
 
 ```
-                             Test for Constraints                       
+                             Test for Constraints                     
 ==============================================================================
                  coef    std err          z      P>|z|     [0.025     0.975]
 ------------------------------------------------------------------------------
@@ -325,7 +326,7 @@ c0            -0.0038     0.0088     -0.432      0.666    -0.0209     0.0134
 
 The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
 
-**Table A5. Sensitivity to Winter Storm Uri (February 8–20, 2021)**
+**Table A5.** Sensitivity to Winter Storm Uri (February 8–20, 2021)
 
 |            | Load, full | Load, excl. Uri | Price, full | Price, excl. Uri |
 | ---------- | ---------- | --------------- | ----------- | ---------------- |
