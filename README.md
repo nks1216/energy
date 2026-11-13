@@ -157,13 +157,13 @@ All data used in the analysis (electricity load, electricity prices, weather, an
 
 ![1794359054782](image/README/1794359054782.png)
 
-Figure A1. Daily mean ERCOT load (a), real-time hub-average price (b), and population-weighted temperature (c), 2021–2025. Daily means use available hourly observations after excluding missing regression variables and relative humidity values outside 0–100%. Zero and negative prices are included, and no temperature bins are excluded. Shading marks February 8–20, 2021. Sources: ERCOT, NOAA NCEI; authors’ calculations.
+Daily mean ERCOT load (a), real-time hub-average price (b), and population-weighted temperature (c), 2021–2025. Daily means use available hourly observations after excluding missing regression variables and relative humidity values outside 0–100%. Zero and negative prices are included, and no temperature bins are excluded. Shading marks February 8–20, 2021. Sources: ERCOT, NOAA NCEI; authors’ calculations.
 
 **Figure A2. Daily series with storm-period prices excluded**
 
 ![1794359765430](image/README/1794359765430.png)
 
-Figure A2. Daily series from Figure A1 with February 8–20, 2021 excluded from the price panel only. The excluded prices are shown as a gap, and the price axis is rescaled to show variation outside this period. Load and temperature are unchanged. Sources: ERCOT, NOAA NCEI; authors’ calculations.
+Daily series from Figure A1 with February 8–20, 2021 excluded from the price panel only. The excluded prices are shown as a gap, and the price axis is rescaled to show variation outside this period. Load and temperature are unchanged. Sources: ERCOT, NOAA NCEI; authors’ calculations.
 
 **Table A1: Full regression results for log electricity load**
 
@@ -226,21 +226,13 @@ HDD                        0.0188      0.001     35.346      0.000       0.018  
 HourlyRelativeHumidity     0.0008    6.9e-05     11.510      0.000       0.001       0.001
 HourlyWindSpeed            0.0059      0.001     11.102      0.000       0.005       0.007
 ==============================================================================
-Omnibus:                      954.137   Durbin-Watson:                   0.135
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1416.968
-Skew:                          -0.241   Prob(JB):                    2.04e-308
-Kurtosis:                       3.742   Cond. No.                     1.71e+03
-==============================================================================
 
-Notes:
-[1] HAC standard errors using actual UTC hourly intervals, Bartlett weights, maximum lag 24 hours, without small-sample correction
-[2] The condition number is large, 1.71e+03. This might indicate that there are
-strong multicollinearity or other numerical problems.
+Notes: HAC standard errors using actual UTC hourly intervals, Bartlett weights, maximum lag 24 hours, without small-sample correction
 ```
 
-*Note*: The dependent variable is log electricity load. Reference categories are hour 0 (23:00–24:00), January, and 2021. Hour indicators use hour-ending labels: hour 1 represents 00:00–01:00, and hour 20 represents 19:00–20:00. Month and year are determined by the start of each hour. For example, the hour ending at 00:00 on January 1, 2022 covers 23:00–24:00 on December 31, 2021 and is assigned to December 2021.
+The dependent variable is log electricity load. Reference categories are hour 0 (23:00–24:00), January, and 2021. Hour indicators use hour-ending labels: hour 1 represents 00:00–01:00, and hour 20 represents 19:00–20:00. Month and year are determined by the start of each hour. For example, the hour ending at 00:00 on January 1, 2022 covers 23:00–24:00 on December 31, 2021 and is assigned to December 2021.
 
-**Table A2: Test of equal cooling and heating coefficients for log electricity load**
+**Table A2. Test of equal cooling and heating coefficients for log electricity load**
 
 ```
                              Test for Constraints                       
@@ -251,9 +243,9 @@ c0             0.0093     0.0006     15.110      0.000     0.0081     0.0105
 ==============================================================================
 ```
 
-*Note:* The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
+The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
 
-**Table A3: Full regression results for log electricity price**
+**Table A3. Full regression results for log electricity price**
 
 ```
                             OLS Regression Results                      
@@ -314,21 +306,13 @@ HDD                        0.0809      0.009      9.092      0.000       0.063  
 HourlyRelativeHumidity     0.0080      0.001      8.866      0.000       0.006       0.010
 HourlyWindSpeed           -0.0633      0.007     -9.648      0.000      -0.076      -0.050
 ==============================================================================
-Omnibus:                    11840.447   Durbin-Watson:                   0.436
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):           597566.806
-Skew:                          -0.550   Prob(JB):                         0.00
-Kurtosis:                      21.335   Cond. No.                     1.71e+03
-==============================================================================
 
-Notes:
-[1] HAC standard errors using actual UTC hourly intervals, Bartlett weights, maximum lag 24 hours, without small-sample correction
-[2] The condition number is large, 1.71e+03. This might indicate that there are
-strong multicollinearity or other numerical problems.
+Notes: HAC standard errors using actual UTC hourly intervals, Bartlett weights, maximum lag 24 hours, without small-sample correction
 ```
 
-*Note:* The dependent variable is log electricity price. Only positive-price hours are included. Reference categories are hour 0 (23:00–24:00), January, and 2021. Hour indicators use hour-ending labels: hour 1 represents 00:00–01:00, and hour 20 represents 19:00–20:00. Month and year are determined by the start of each hour. For example, the hour ending at 00:00 on January 1, 2022 covers 23:00–24:00 on December 31, 2021 and is assigned to December 2021.
+The dependent variable is log electricity price. Only positive-price hours are included. Reference categories are hour 0 (23:00–24:00), January, and 2021. Hour indicators use hour-ending labels: hour 1 represents 00:00–01:00, and hour 20 represents 19:00–20:00. Month and year are determined by the start of each hour. For example, the hour ending at 00:00 on January 1, 2022 covers 23:00–24:00 on December 31, 2021 and is assigned to December 2021.
 
-**Table A4: Test of equal cooling and heating coefficients for log electricity price**
+**Table A4. Test of equal cooling and heating coefficients for log electricity price**
 
 ```
                              Test for Constraints                       
@@ -339,7 +323,7 @@ c0            -0.0038     0.0088     -0.432      0.666    -0.0209     0.0134
 ==============================================================================
 ```
 
-*Note:* The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
+The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
 
 **Table A5. Sensitivity to Winter Storm Uri (February 8–20, 2021)**
 
@@ -354,6 +338,6 @@ c0            -0.0038     0.0088     -0.432      0.666    -0.0209     0.0134
 | N          | 43,426     | 43,114          | 42,506      | 42,205           |
 | R²        | 0.922      | 0.925           | 0.341       | 0.356            |
 
-*Note*: HAC standard errors accounting for actual time gaps, with a maximum lag of 24 hours, are shown in parentheses. *** p < 0.001. All regressions include humidity, wind speed, and hour, month, and year fixed effects. “Excl. Uri” excludes February 8–20, 2021. Load and price are in logarithms; price regressions include only positive-price hours.
+HAC standard errors accounting for actual time gaps, with a maximum lag of 24 hours, are shown in parentheses. *** p < 0.001. All regressions include humidity, wind speed, and hour, month, and year fixed effects. “Excl. Uri” excludes February 8–20, 2021. Load and price are in logarithms; price regressions include only positive-price hours.
 
-Table A5. As a robustness check, we re-estimate the regressions after excluding February 8–20, 2021. The load coefficients remain nearly unchanged. However, the price coefficient on HDD falls from 0.0809 to 0.0543, while the CDD coefficient decreases only slightly. The difference between the CDD and HDD price coefficients becomes statistically significant (p < 0.001). Thus, the load findings are stable, but the comparison of hot- and cold-weather price sensitivity depends on whether the storm period is included.
+As a robustness check, we re-estimate the regressions after excluding February 8–20, 2021. The load coefficients remain nearly unchanged. However, the price coefficient on HDD falls from 0.0809 to 0.0543, while the CDD coefficient decreases only slightly. The difference between the CDD and HDD price coefficients becomes statistically significant (p < 0.001). Thus, the load findings are stable, but the comparison of hot- and cold-weather price sensitivity depends on whether the storm period is included.
