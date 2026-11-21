@@ -25,7 +25,7 @@ Hot and cold weather can increase electricity demand for cooling and electric he
 
 Electricity prices reflect both demand and supply. Higher demand may raise prices when additional supply is limited, while weather can also affect wind and solar generation and the availability of other generators. We estimate separate regressions to examine how load and prices are associated with weather. These regressions do not establish that higher demand causes higher prices or determine how much of the weather-related price change comes from demand versus supply.
 
-### 4. Data and Methodology (3/4)
+### 4. Data and Methodology
 
 **Data.** We use hourly data from January 1, 2021 to December 31, 2025 (43,824 hours). Electricity demand is ERCOT system-wide hourly load (MW). Prices are ERCOT Hub Average real-time settlement point prices ($/MWh), calculated as the simple average of the North, South, Houston, and West hub prices. We aggregate the 15-minute prices to hourly values by averaging the four intervals within each hour.
 
