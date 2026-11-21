@@ -413,7 +413,7 @@ python3 src/analysis/daily_overview.py		# Figure A1, A2
 # Make regression
 python3 src/reg/reg_load_log.py				# Table A1, A2
 python3 src/reg/reg_price_droplog.py		# Table A3, A4
-python3 src/se_reg.py					
+python3 src/reg/se_reg.py					
 
 # Robustness check
 python3 src/robust/reg_uri_check.py			# Table A5
