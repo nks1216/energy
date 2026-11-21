@@ -347,10 +347,10 @@ As a robustness check, we re-estimate the regressions after excluding February 8
 
 The following generative AI tools were used in the preparation of this paper:
 
-**- ChatGPT:** Assistance with Python code development for merging annual raw datasets. ChatGPT was also used to identify relevant policy documents and technical reports.
+**ChatGPT:** Assistance with Python code development for merging annual raw datasets. ChatGPT was also used to identify relevant policy documents and technical reports.
 
-**- Claude:** Assistance with Python code development for data preprocessing and integration of datasets from multiple sources into a unified dataset, including the creation of CDD and HDD variables, the conversion of timestamps to UTC, resolving daylight saving time (DST) issues, and identifying data anomalies and potential errors. Claude was also used to assist with Python code development for regression analysis and data visualization.
+**Claude:** Assistance with Python code development for data preprocessing and integration of datasets from multiple sources into a unified dataset, including the creation of CDD and HDD variables, the conversion of timestamps to UTC, resolving daylight saving time (DST) issues, and identifying data anomalies and potential errors. Claude was also used to assist with Python code development for regression analysis and data visualization.
 
-**- Copilot:** Translation, language editing, proofreading, and improving the clarity and readability of the manuscript.
+**Copilot:** Translation, language editing, proofreading, and improving the clarity and readability of the manuscript.
 
 All final analyses, interpretations, and conclusions are the author's own. AI tools were used solely for coding assistance, literature search support, translation, proofreading, and language improvement. The research design, model specification, and interpretation of results were completed by the author.
