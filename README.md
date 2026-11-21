@@ -407,11 +407,11 @@ python3 src/clean/create_cdd_hdd.py		# Create data/final/final_data_cdd_hdd.csv
 # Make table and graphs
 python3 src/analysis/summary_stats.py		# Table 1
 python3 src/analysis/temp_load_price.py		# Figure 1
-python3 src/analysis/cdd_hdd_load_price.py		# Figure 2
+python3 src/analysis/cdd_hdd_load_price.py	# Figure 2
 python3 src/analysis/daily_overview.py		# Figure A1, A2
 
 # Make regression
-python3 src/reg/reg_load_log.py		# Table A1, A2
+python3 src/reg/reg_load_log.py				# Table A1, A2
 python3 src/reg/reg_price_droplog.py		# Table A3, A4
 python3 src/reg/se_reg.py					
 
