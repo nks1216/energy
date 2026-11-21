@@ -1,6 +1,7 @@
 # **Weather, Electricity Demand, and Real-Time Prices in ERCOT**
 
 Kyungsu Noh
+
 MA Student in Economics, The University of Texas at Austin
 
 ### 1. Introduction
@@ -169,7 +170,7 @@ Daily series from Figure A1 with February 8–20, 2021 excluded from the price p
 **Table A1:** Full regression results for log electricity load
 
 ```text
-                            OLS Regression Results                  
+                            OLS Regression Results              
 ==============================================================================
 Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
@@ -178,8 +179,8 @@ Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
 Time:                        14:15:37   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
-Df Model:                          42                               
-Covariance Type:                  HAC                               
+Df Model:                          42                           
+Covariance Type:                  HAC                           
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -228,7 +229,7 @@ HourlyRelativeHumidity     0.0008    6.9e-05     11.510      0.000       0.001  
 HourlyWindSpeed            0.0059      0.001     11.102      0.000       0.005       0.007
 ==============================================================================
 
-Notes: HAC standard errors using actual UTC hourly intervals, Bartlett weights, maximum lag 24 hours, without small-sample correction
+Notes: HAC standard errors using actual UTC hourly intervals, with a maximum lag of 24 hours.
 ```
 
 The dependent variable is log electricity load. Reference categories are hour 0 (23:00–24:00), January, and 2021. Hour indicators use hour-ending labels: hour 1 represents 00:00–01:00, and hour 20 represents 19:00–20:00. Month and year are determined by the start of each hour. For example, the hour ending at 00:00 on January 1, 2022 covers 23:00–24:00 on December 31, 2021 and is assigned to December 2021.
@@ -236,7 +237,7 @@ The dependent variable is log electricity load. Reference categories are hour 0 
 **Table A2.** Test of equal cooling and heating coefficients for log electricity load
 
 ```
-                             Test for Constraints                   
+                             Test for Constraints               
 ==============================================================================
                  coef    std err          z      P>|z|     [0.025     0.975]
 ------------------------------------------------------------------------------
@@ -249,7 +250,7 @@ The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
 **Table A3.** Full regression results for log electricity price
 
 ```
-                            OLS Regression Results                  
+                            OLS Regression Results              
 ==============================================================================
 Dep. Variable:              log_price   R-squared:                       0.341
 Model:                            OLS   Adj. R-squared:                  0.341
@@ -258,8 +259,8 @@ Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
 Time:                        14:22:30   Log-Likelihood:                -47598.
 No. Observations:               42506   AIC:                         9.528e+04
 Df Residuals:                   42463   BIC:                         9.565e+04
-Df Model:                          42                               
-Covariance Type:                  HAC                               
+Df Model:                          42                           
+Covariance Type:                  HAC                           
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -308,7 +309,7 @@ HourlyRelativeHumidity     0.0080      0.001      8.866      0.000       0.006  
 HourlyWindSpeed           -0.0633      0.007     -9.648      0.000      -0.076      -0.050
 ==============================================================================
 
-Notes: HAC standard errors using actual UTC hourly intervals, Bartlett weights, maximum lag 24 hours, without small-sample correction
+Notes: HAC standard errors using actual UTC hourly intervals, with a maximum lag of 24 hours.
 ```
 
 The dependent variable is log electricity price. Only positive-price hours are included. Reference categories are hour 0 (23:00–24:00), January, and 2021. Hour indicators use hour-ending labels: hour 1 represents 00:00–01:00, and hour 20 represents 19:00–20:00. Month and year are determined by the start of each hour. For example, the hour ending at 00:00 on January 1, 2022 covers 23:00–24:00 on December 31, 2021 and is assigned to December 2021.
@@ -316,7 +317,7 @@ The dependent variable is log electricity price. Only positive-price hours are i
 **Table A4.** Test of equal cooling and heating coefficients for log electricity price
 
 ```
-                             Test for Constraints                   
+                             Test for Constraints               
 ==============================================================================
                  coef    std err          z      P>|z|     [0.025     0.975]
 ------------------------------------------------------------------------------
@@ -354,3 +355,66 @@ The following generative AI tools were used in the preparation of this paper:
 **Copilot:** Translation, language editing, proofreading, and improving the clarity and readability of the manuscript.
 
 All final analyses, interpretations, and conclusions are the author's own. AI tools were used solely for coding assistance, literature search support, translation, proofreading, and language improvement. The research design, model specification, and interpretation of results were completed by the author.
+
+### 11. Reproducibility
+
+The scripts should be executed in the order shown below.
+
+(1) Clone the repository
+
+```
+git clone https://github.com/nks1216/energy.git
+cd energy
+```
+
+(2) Set up the virtual environment
+
+```
+python3 -m venv venv			 # Create a virtual environment
+source venv/bin/activate		 # Activate the virtual environment
+pip install -r requirements.txt  # Install all required packages
+```
+
+(3) Download the data
+
+Place the downloaded files in:
+
+```
+data/raw/ercot
+data/raw/noaa
+data/raw/population 
+data/raw/price
+```
+
+(4) Run the scripts
+
+```
+# Merge each annual data 
+python3 src/data/merge_ercot.py
+python3 src/data/merge_noaa_city.py
+python3 src/data/merge_noaa_texas.py		# Optional (not required for final results)
+python3 src/data/merge_pop.py
+python3 src/data/merge_price.py
+
+# Merge data from different sources
+python3 src/clean/utc_noaa.py
+python3 src/clean/merge_ercot_price.py
+python3 src/clean/merge_all.py
+
+# Create CDD and HDD variables
+python3 src/clean/create_cdd_hdd.py			# Create data/final/final_data_cdd_hdd.csv
+
+# Make table and graphs
+python3 src/analysis/summary_stats.py		# Table 1
+python3 src/analysis/temp_load_price.py		# Figure 1
+python3 src/analysis/cdd_hdd_load_price.py	# Figure 2
+python3 src/analysis/daily_overview.py		# Figure A1, A2
+
+# Make regression
+python3 src/reg/reg_load_log.py				# Table A1, A2
+python3 src/reg/reg_price_droplog.py		# Table A3, A4
+python3 src/se_reg.py					
+
+# Robustness check
+python3 src/robust/reg_uri_check.py			# Table A5
+```
