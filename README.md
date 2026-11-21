@@ -149,8 +149,8 @@ U.S. Energy Information Administration. (2025, September 22).  *Utility-scale ba
 
 ##### **Data and code availability**
 
-All data used in the analysis (electricity load, electricity prices, weather, and population) and all original analysis code have been deposited in the GitHub repository at [http://github.com/nks1216/energy/](http://github.com/nks1216/energy/). 
-The repository will be publicly available on November 20, 2026.
+All data used in the analysis (electricity load, electricity prices, weather, and population) and all original analysis code have been deposited in the GitHub repository at [http://github.com/nks1216/energy/](http://github.com/nks1216/energy/).
+The repository will be publicly available on November 21, 2026.
 
 ### 9. Appendix
 
@@ -169,7 +169,7 @@ Daily series from Figure A1 with February 8–20, 2021 excluded from the price p
 **Table A1:** Full regression results for log electricity load
 
 ```text
-                            OLS Regression Results                    
+                            OLS Regression Results                  
 ==============================================================================
 Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
@@ -178,8 +178,8 @@ Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
 Time:                        14:15:37   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
-Df Model:                          42                                 
-Covariance Type:                  HAC                                 
+Df Model:                          42                               
+Covariance Type:                  HAC                               
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -236,7 +236,7 @@ The dependent variable is log electricity load. Reference categories are hour 0 
 **Table A2.** Test of equal cooling and heating coefficients for log electricity load
 
 ```
-                             Test for Constraints                     
+                             Test for Constraints                   
 ==============================================================================
                  coef    std err          z      P>|z|     [0.025     0.975]
 ------------------------------------------------------------------------------
@@ -249,7 +249,7 @@ The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
 **Table A3.** Full regression results for log electricity price
 
 ```
-                            OLS Regression Results                    
+                            OLS Regression Results                  
 ==============================================================================
 Dep. Variable:              log_price   R-squared:                       0.341
 Model:                            OLS   Adj. R-squared:                  0.341
@@ -258,8 +258,8 @@ Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
 Time:                        14:22:30   Log-Likelihood:                -47598.
 No. Observations:               42506   AIC:                         9.528e+04
 Df Residuals:                   42463   BIC:                         9.565e+04
-Df Model:                          42                                 
-Covariance Type:                  HAC                                 
+Df Model:                          42                               
+Covariance Type:                  HAC                               
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -316,7 +316,7 @@ The dependent variable is log electricity price. Only positive-price hours are i
 **Table A4.** Test of equal cooling and heating coefficients for log electricity price
 
 ```
-                             Test for Constraints                     
+                             Test for Constraints                   
 ==============================================================================
                  coef    std err          z      P>|z|     [0.025     0.975]
 ------------------------------------------------------------------------------
@@ -342,3 +342,15 @@ The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
 HAC standard errors accounting for actual time gaps, with a maximum lag of 24 hours, are shown in parentheses. *** p < 0.001. All regressions include humidity, wind speed, and hour, month, and year fixed effects. “Excl. Uri” excludes February 8–20, 2021. Load and price are in logarithms; price regressions include only positive-price hours.
 
 As a robustness check, we re-estimate the regressions after excluding February 8–20, 2021. The load coefficients remain nearly unchanged. However, the price coefficient on HDD falls from 0.0809 to 0.0543, while the CDD coefficient decreases only slightly. The difference between the CDD and HDD price coefficients becomes statistically significant (p < 0.001). Thus, the load findings are stable, but the comparison of hot- and cold-weather price sensitivity depends on whether the storm period is included.
+
+### 10. AI Disclosure
+
+The following generative AI tools were used in the preparation of this paper:
+
+**- ChatGPT:** Assistance with Python code development for merging annual raw datasets. ChatGPT was also used to identify relevant policy documents and technical reports.
+
+**- Claude:** Assistance with Python code development for data preprocessing and integration of datasets from multiple sources into a unified dataset, including the creation of CDD and HDD variables, the conversion of timestamps to UTC, resolving daylight saving time (DST) issues, and identifying data anomalies and potential errors. Claude was also used to assist with Python code development for regression analysis and data visualization.
+
+**- Copilot:** Translation, language editing, proofreading, and improving the clarity and readability of the manuscript.
+
+All final analyses, interpretations, and conclusions are the author's own. AI tools were used solely for coding assistance, literature search support, translation, proofreading, and language improvement. The research design, model specification, and interpretation of results were completed by the author.
