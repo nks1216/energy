@@ -170,7 +170,7 @@ Daily series from Figure A1 with February 8–20, 2021 excluded from the price p
 **Table A1:** Full regression results for log electricity load
 
 ```text
-                            OLS Regression Results          
+                            OLS Regression Results        
 ==============================================================================
 Dep. Variable:               log_load   R-squared:                       0.922
 Model:                            OLS   Adj. R-squared:                  0.922
@@ -179,8 +179,8 @@ Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
 Time:                        14:15:37   Log-Likelihood:                 61288.
 No. Observations:               43426   AIC:                        -1.225e+05
 Df Residuals:                   43383   BIC:                        -1.221e+05
-Df Model:                          42                       
-Covariance Type:                  HAC                       
+Df Model:                          42                     
+Covariance Type:                  HAC                     
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -237,7 +237,7 @@ The dependent variable is log electricity load. Reference categories are hour 0 
 **Table A2.** Test of equal cooling and heating coefficients for log electricity load
 
 ```
-                             Test for Constraints           
+                             Test for Constraints         
 ==============================================================================
                  coef    std err          z      P>|z|     [0.025     0.975]
 ------------------------------------------------------------------------------
@@ -250,7 +250,7 @@ The null hypothesis is $H_0: \beta_{\mathrm{CDD}} - \beta_{\mathrm{HDD}} = 0$.
 **Table A3.** Full regression results for log electricity price
 
 ```
-                            OLS Regression Results          
+                            OLS Regression Results        
 ==============================================================================
 Dep. Variable:              log_price   R-squared:                       0.341
 Model:                            OLS   Adj. R-squared:                  0.341
@@ -259,8 +259,8 @@ Date:                Thu, 12 Nov 2026   Prob (F-statistic):               0.00
 Time:                        14:22:30   Log-Likelihood:                -47598.
 No. Observations:               42506   AIC:                         9.528e+04
 Df Residuals:                   42463   BIC:                         9.565e+04
-Df Model:                          42                       
-Covariance Type:                  HAC                       
+Df Model:                          42                     
+Covariance Type:                  HAC                     
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
@@ -317,7 +317,7 @@ The dependent variable is log electricity price. Only positive-price hours are i
 **Table A4.** Test of equal cooling and heating coefficients for log electricity price
 
 ```
-                             Test for Constraints           
+                             Test for Constraints         
 ==============================================================================
                  coef    std err          z      P>|z|     [0.025     0.975]
 ------------------------------------------------------------------------------
@@ -413,8 +413,15 @@ python3 src/analysis/daily_overview.py		# Figure A1, A2
 # Make regression
 python3 src/reg/reg_load_log.py			# Table A1, A2
 python3 src/reg/reg_price_droplog.py		# Table A3, A4
-python3 src/reg/se_reg.py			
+python3 src/reg/se_reg.py		
 
 # Robustness check
 python3 src/robust/reg_uri_check.py		# Table A5
 ```
+
+
+### Copyright
+
+© 2026 Kyungsu Noh. All rights reserved.
+
+This repository is provided for educational and research purposes. Reproduction, redistribution, or commercial use of any materials without permission is prohibited.
